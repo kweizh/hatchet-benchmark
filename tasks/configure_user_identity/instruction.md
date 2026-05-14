@@ -1,0 +1,33 @@
+# Configure jj User Identity
+
+## Background
+You are working with `jj` (Jujutsu), a Git-compatible version control system. A colocated `jj` repository has already been initialized at `/home/user/myrepo`, but the user identity (`user.name` and `user.email`) has NOT been configured yet. Without these values set, any commit you make with `jj` will be attributed to an empty or anonymous author.
+
+## Requirements
+Configure the global (user-level) `jj` identity so that:
+- `user.name` is `Alice Example`
+- `user.email` is `alice@example.com`
+
+These values must be persisted in the user-level `jj` configuration so that they are visible via `jj config list user` from inside the repository.
+
+## Implementation Guide
+1. Open a shell.
+2. Run the following commands to set the user identity at the user (global) scope:
+   ```bash
+   jj config set --user user.name "Alice Example"
+   jj config set --user user.email "alice@example.com"
+   ```
+3. Verify the configuration by running:
+   ```bash
+   jj config list user
+   ```
+   The output should include both `user.name = "Alice Example"` and `user.email = "alice@example.com"`.
+
+## Constraints
+- Project path: /home/user/myrepo
+- The repository at `/home/user/myrepo` is a pre-initialized colocated jj/Git repo — do NOT re-initialize it.
+- Use `jj config set --user` (the user/global scope), not `--repo`.
+- Do NOT manually hand-edit the TOML config file; use the `jj config set` CLI command.
+
+## Integrations
+None.

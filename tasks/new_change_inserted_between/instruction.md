@@ -1,0 +1,49 @@
+# Insert a New Change Between Two Existing Commits with `jj`
+
+## Background
+You are working on a project tracked by Jujutsu (`jj`). The repository at `/home/user/myrepo` is a colocated `jj`/Git repo (created with `jj git init --colocate`). The user identity (`user.name`, `user.email`) is pre-configured.
+
+The repository currently contains a linear stack of three commits:
+
+```
+@   (empty working copy)
+|
+Tests              (creates test_main.py)
+|
+Implementation     (creates main.py)
+|
+Setup              (creates setup.py)
+|
+<root>
+```
+
+You realized that you forgot to record the project's Python dependencies between "Setup" and "Implementation". You must INSERT a brand new change BETWEEN the "Setup" and "Implementation" commits without re-creating the existing commits manually. `jj`'s `new --insert-after` flag is designed for exactly this workflow: it splices a new change into the DAG and automatically rebases all descendants on top of it.
+
+## Requirements
+1. Create a new change whose description is exactly `Add dependencies`.
+2. The new change must be inserted directly after the commit whose description is `Setup`, so that its parent is `Setup` and its child is `Implementation`.
+3. The descendant commits `Implementation` and `Tests` must be automatically rebased on top of the newly inserted change (do not re-create them manually).
+4. The new change must contain a single file `requirements.txt` with the exact content `pytest==8.0.0` (and no trailing newline beyond what your tool naturally writes; the test only checks that the file's content starts with `pytest==8.0.0`).
+5. After the operation, the working-copy tip must still be the empty child of `Tests`, and the working-copy tree must contain all four files: `setup.py`, `requirements.txt`, `main.py`, `test_main.py`.
+6. The original commits `Setup`, `Implementation`, and `Tests` must still exist with their original descriptions.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Use a revset to address the `Setup` commit by description, e.g. `description(substring:"Setup")`.
+3. Run:
+   ```
+   jj new --insert-after 'description(substring:"Setup")' -m "Add dependencies"
+   ```
+   This places the new change between `Setup` and its child `Implementation`, and `jj` automatically rebases `Implementation` and `Tests` on top of the new change.
+4. The command leaves the working copy on the newly inserted change. Write `requirements.txt` with content `pytest==8.0.0` into the working copy. `jj` will snapshot it into the new change automatically on the next command, or you can run `jj status` to force a snapshot.
+5. Restore the original working-copy position by creating an empty change on top of `Tests`:
+   ```
+   jj new 'description(substring:"Tests")'
+   ```
+   so that `@` is once again an empty child of `Tests` and the working copy contains all four files.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` CLI for every operation; do not edit `.git`/`.jj` internals directly.
+- Do NOT abandon, rewrite, or rename the existing `Setup`, `Implementation`, or `Tests` descriptions.
+- The `Add dependencies` change must contain exactly one new file (`requirements.txt`) relative to its parent `Setup`.

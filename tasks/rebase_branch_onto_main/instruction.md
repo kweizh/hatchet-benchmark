@@ -1,0 +1,51 @@
+# Rebase a Feature Branch onto Main in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Bookmarks in `jj` are similar to Git branches — movable references to commits. The `jj rebase` command moves revisions to different parent(s) while preserving their changes. A common workflow is to rebase a stale feature branch on top of the latest tip of `main` so the feature commits sit linearly on top of the main commits.
+
+A Jujutsu repository is already initialized at `/home/user/myrepo`. The repo is colocated with Git (it has both a `.jj/` and a `.git/` directory) and user identity has been pre-configured. The initial history looks like this (newest at the top):
+
+```
+@   (empty working copy on top of Feat2)
+|
+* Feat2  <-- bookmark: feature   (adds feat2.txt)
+|
+* Feat1                          (adds feat1.txt)
+|  
+| * Main2  <-- bookmark: main    (adds main2.txt)
+| |
+| * Main1                        (adds main1.txt)
+|/
+* Base                           (adds base.txt)
+```
+
+The `main` bookmark and the `feature` bookmark share a common ancestor (`Base`) but have diverged. The two branches modify disjoint files (`main1.txt`/`main2.txt` vs. `feat1.txt`/`feat2.txt`), so no conflicts will be produced by rebasing.
+
+## Requirements
+- Rebase the entire `feature` branch (the commits `Feat1` and `Feat2`) onto the tip of the `main` bookmark (i.e., on top of the `Main2` commit).
+- After the rebase, the resulting linear history of `feature` must be: `Base -> Main1 -> Main2 -> Feat1' -> Feat2'`.
+- The `feature` bookmark must point to the rewritten `Feat2'` commit (a child of `Main2`).
+- The `main` bookmark must still point to the `Main2` commit and must not be moved.
+- All four data files (`base.txt`, `main1.txt`, `main2.txt`, `feat1.txt`, `feat2.txt`) must be present in the rewritten `feature` tip.
+- The commit descriptions of the rewritten feature commits must remain `Feat1` and `Feat2` respectively (in the same order).
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the current history with `jj log` to confirm the divergence.
+3. Use `jj rebase` with the `-b` (branch) and `-d` (destination) flags to move the whole `feature` branch onto `main`:
+   ```bash
+   jj rebase -b feature -d main
+   ```
+   The `-b feature` selects the feature branch revset (all commits reachable from `feature` that are not reachable from `main`), and `-d main` puts them onto the `main` bookmark's commit.
+4. Confirm the result with:
+   ```bash
+   jj log -r 'main..feature' --no-graph -T 'description.first_line() ++ "\n"'
+   ```
+   which should print exactly `Feat2` and `Feat1` (two lines, newest first).
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj`.
+- Do not move or modify the `main` bookmark.
+- Do not modify file contents of any commit; only their parentage should change.
+- Do not rename the `feature` bookmark.

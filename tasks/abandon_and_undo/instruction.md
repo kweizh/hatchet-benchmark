@@ -1,0 +1,60 @@
+# Abandon a Commit, then Undo the Abandon in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Two of its most distinctive workflows are:
+
+- `jj abandon <revset>` — removes the targeted commit(s) from the visible history and automatically rebases their descendants onto the abandoned commit's parent(s).
+- `jj undo` — reverts the most recent repository operation by restoring the previous state from the operation log (`jj op log`). It does **not** delete operations from the log; instead it records a new operation that re-establishes the prior view.
+
+A Jujutsu repository is already initialized at `/home/user/myrepo`. The repo is colocated with Git (both `.jj/` and `.git/` directories are present) and user identity has been pre-configured globally. The repository contains exactly three user-created commits forming a linear chain:
+
+1. `Commit A` introduces `a.txt` with content `content A`.
+2. `Commit B` introduces `b.txt` with content `content B` (child of `Commit A`).
+3. `Commit C` introduces `c.txt` with content `content C` (child of `Commit B`).
+
+The working copy `@` is a new empty commit on top of `Commit C`.
+
+## Requirements
+You must complete the following two operations **in this exact order**, using the real `jj` CLI in `/home/user/myrepo`:
+
+1. **Abandon `Commit B`**:
+   - Look up the change ID of the commit whose description is exactly `Commit B`.
+   - Run `jj abandon <change_id_of_B>` to abandon that commit. `jj` will automatically rebase the descendants (`Commit C` and the empty working copy) onto `Commit A`.
+2. **Undo the abandon**:
+   - Realize the abandon was a mistake and run `jj undo`. This will revert the previous abandon operation and restore `Commit B` (with its original change ID) and the original `A → B → C → @` chain.
+
+After both operations complete successfully:
+
+- All three commits with descriptions `Commit A`, `Commit B`, and `Commit C` must exist again in the repository, forming a linear chain `Commit A → Commit B → Commit C`.
+- The files `a.txt`, `b.txt`, and `c.txt` must all be present in the tip of the chain (the parent of `@`, i.e., `Commit C`).
+- The operation log (`jj op log`) must show both the `abandon` operation **and** the subsequent `undo` operation in its history.
+- A revset query for the description `Commit B` must return a single, non-empty change ID.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Find the change ID of the `Commit B` commit using the `description(substring:...)` revset:
+   ```bash
+   jj log -r 'description(substring:"Commit B")' --no-graph -T 'change_id ++ "\n"'
+   ```
+   (Note: in jj 0.38 the plain `description("Commit B")` form does an exact match including any trailing newline; use the `substring:` form to match the description text reliably.)
+3. Abandon that change ID:
+   ```bash
+   jj abandon <change_id_of_B>
+   ```
+   After this, `jj log -r 'description(substring:"Commit B")' --no-graph -T 'change_id'` should return an empty result, and `Commit C` should now be a direct child of `Commit A`.
+4. Undo the abandon:
+   ```bash
+   jj undo
+   ```
+   After this, all three commits should be back and the chain `Commit A → Commit B → Commit C` should be restored.
+5. (Optional) Inspect the operation log to confirm both operations are recorded:
+   ```bash
+   jj op log
+   ```
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do NOT mock or stub `jj`.
+- You must use `jj abandon` to remove `Commit B` (not `jj op restore`, `git`, or manual file edits).
+- You must use `jj undo` to revert the abandon (not `jj op restore` or any other recovery mechanism).
+- Do not modify the descriptions or file contents of `Commit A`, `Commit B`, or `Commit C` at any point.
