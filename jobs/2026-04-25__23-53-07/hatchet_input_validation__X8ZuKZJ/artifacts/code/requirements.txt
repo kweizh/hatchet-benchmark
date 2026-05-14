@@ -1,2 +1,0 @@
-hatchet-sdk
-pydantic[email]
