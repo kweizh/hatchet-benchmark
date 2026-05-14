@@ -1,0 +1,119 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753858.155495,
+            "stop": 1778753858.37515
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_exactly_one_feature_a_commit",
+                "status": "passed",
+                "duration": 0.02193996123969555,
+                "start": 1778753858.1755648,
+                "stop": 1778753858.1977785,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exactly_one_feature_b_commit",
+                "status": "passed",
+                "duration": 0.02148652169853449,
+                "start": 1778753858.1980252,
+                "stop": 1778753858.2197533,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_combined_changes_commit_remains",
+                "status": "passed",
+                "duration": 0.021052771247923374,
+                "start": 1778753858.2199903,
+                "stop": 1778753858.2412632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_a_description_exact",
+                "status": "passed",
+                "duration": 0.022022020537406206,
+                "start": 1778753858.2414987,
+                "stop": 1778753858.2637067,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_b_description_exact",
+                "status": "passed",
+                "duration": 0.021153484005481005,
+                "start": 1778753858.2639399,
+                "stop": 1778753858.285356,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_a_diff_contains_only_feature_a_py",
+                "status": "passed",
+                "duration": 0.02114534145221114,
+                "start": 1778753858.2855864,
+                "stop": 1778753858.3069515,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_b_diff_contains_only_feature_b_py",
+                "status": "passed",
+                "duration": 0.020865014288574457,
+                "start": 1778753858.307229,
+                "stop": 1778753858.3282819,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_a_is_parent_of_feature_b",
+                "status": "passed",
+                "duration": 0.02259256038814783,
+                "start": 1778753858.3285046,
+                "stop": 1778753858.3512876,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_a_py_content_unchanged",
+                "status": "passed",
+                "duration": 0.0005601877346634865,
+                "start": 1778753858.3515136,
+                "stop": 1778753858.3522072,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_b_py_content_unchanged",
+                "status": "passed",
+                "duration": 0.0004222877323627472,
+                "start": 1778753858.3524063,
+                "stop": 1778753858.3529546,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exactly_two_non_root_non_empty_commits",
+                "status": "passed",
+                "duration": 0.021662499755620956,
+                "start": 1778753858.3531241,
+                "stop": 1778753858.3749611,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

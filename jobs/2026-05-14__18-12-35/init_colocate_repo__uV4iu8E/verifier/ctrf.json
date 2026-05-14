@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753952.6753042,
+            "stop": 1778753952.7272544
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_jj_directory_exists",
+                "status": "passed",
+                "duration": 0.0005110432393848896,
+                "start": 1778753952.6855562,
+                "stop": 1778753952.686305,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_git_directory_exists",
+                "status": "passed",
+                "duration": 0.00040381308645009995,
+                "start": 1778753952.6865013,
+                "stop": 1778753952.6870422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jj_status_succeeds",
+                "status": "passed",
+                "duration": 0.023102627601474524,
+                "start": 1778753952.6872234,
+                "stop": 1778753952.7105205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jj_workspace_root_matches_project_dir",
+                "status": "passed",
+                "duration": 0.016082286834716797,
+                "start": 1778753952.7107534,
+                "stop": 1778753952.7270265,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

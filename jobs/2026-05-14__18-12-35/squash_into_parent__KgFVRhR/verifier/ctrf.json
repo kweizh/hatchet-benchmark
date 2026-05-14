@@ -1,0 +1,83 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753904.66238,
+            "stop": 1778753904.816088
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_parent_commit_description_is_initial_implementation",
+                "status": "passed",
+                "duration": 0.022251061629503965,
+                "start": 1778753904.6783726,
+                "stop": 1778753904.7009056,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exactly_one_non_root_non_empty_commit",
+                "status": "passed",
+                "duration": 0.02193732699379325,
+                "start": 1778753904.7011795,
+                "stop": 1778753904.7233255,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_is_empty_after_squash",
+                "status": "passed",
+                "duration": 0.02161528216674924,
+                "start": 1778753904.7235568,
+                "stop": 1778753904.7454367,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_description_is_empty_after_squash",
+                "status": "passed",
+                "duration": 0.02142279827967286,
+                "start": 1778753904.7456949,
+                "stop": 1778753904.7675188,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_py_final_content",
+                "status": "passed",
+                "duration": 0.0004741842858493328,
+                "start": 1778753904.767752,
+                "stop": 1778753904.7684023,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_commit_contains_final_app_py",
+                "status": "passed",
+                "duration": 0.02152428962290287,
+                "start": 1778753904.7685778,
+                "stop": 1778753904.7903364,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_commit_is_not_empty",
+                "status": "passed",
+                "duration": 0.024987264070659876,
+                "start": 1778753904.7905781,
+                "stop": 1778753904.815843,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

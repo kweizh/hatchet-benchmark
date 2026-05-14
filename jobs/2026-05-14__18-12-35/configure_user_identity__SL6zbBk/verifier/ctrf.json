@@ -1,0 +1,65 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753647.3854527,
+            "stop": 1778753647.4836278
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_user_name_set_via_get",
+                "status": "passed",
+                "duration": 0.015281952917575836,
+                "start": 1778753647.3998249,
+                "stop": 1778753647.4154289,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_email_set_via_get",
+                "status": "passed",
+                "duration": 0.015747548080980778,
+                "start": 1778753647.4156742,
+                "stop": 1778753647.4316258,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_name_appears_in_config_list",
+                "status": "passed",
+                "duration": 0.016352717764675617,
+                "start": 1778753647.4318576,
+                "stop": 1778753647.4484553,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_email_appears_in_config_list",
+                "status": "passed",
+                "duration": 0.01652098400518298,
+                "start": 1778753647.4486876,
+                "stop": 1778753647.4654531,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_config_scope_is_user",
+                "status": "passed",
+                "duration": 0.017504309304058552,
+                "start": 1778753647.4656906,
+                "stop": 1778753647.4834428,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

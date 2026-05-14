@@ -1,0 +1,74 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778754038.6567755,
+            "stop": 1778754038.731032
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_output_file_exists",
+                "status": "passed",
+                "duration": 0.0004712119698524475,
+                "start": 1778754038.6682544,
+                "stop": 1778754038.66893,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_output_file_not_empty",
+                "status": "passed",
+                "duration": 0.00040338514372706413,
+                "start": 1778754038.6691222,
+                "stop": 1778754038.669656,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_output_matches_jj_log_template",
+                "status": "passed",
+                "duration": 0.05799771146848798,
+                "start": 1778754038.6698217,
+                "stop": 1778754038.7280152,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_output_contains_all_expected_descriptions",
+                "status": "passed",
+                "duration": 0.0005463934503495693,
+                "start": 1778754038.7282856,
+                "stop": 1778754038.7289894,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_output_line_format",
+                "status": "passed",
+                "duration": 0.0006087534129619598,
+                "start": 1778754038.7292204,
+                "stop": 1778754038.729987,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_output_has_three_lines",
+                "status": "passed",
+                "duration": 0.0004860777407884598,
+                "start": 1778754038.730217,
+                "stop": 1778754038.7308486,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

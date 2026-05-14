@@ -1,0 +1,14 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command failed
+Trial describe_working_copy_message__4Xrs4MQ failed: Command failed (exit 127): set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+stdout: [1;32m  Installing[0m Pochi version cli@0.6.8
+[1;32m    Checking[0m for existing Pochi installation
+[1;32m    Fetching[0m archive for Linux, version cli@0.6.8
+curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 
+[1;31mError[0m: Could not download Pochi version 'cli@0.6.8'. See https://github.com/TabbyML/pochi/releases for a list of available releases
+
+bash: line 1: /root/.pochi/bin/pochi: No such file or directory
+
+stderr: None

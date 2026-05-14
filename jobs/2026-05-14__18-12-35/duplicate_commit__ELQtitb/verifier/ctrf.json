@@ -1,0 +1,47 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778754057.68832,
+            "stop": 1778754057.8087506
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_at_least_two_feature_a_commits",
+                "status": "passed",
+                "duration": 0.021500346716493368,
+                "start": 1778754057.7000098,
+                "stop": 1778754057.7217824,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_a_change_ids_are_distinct",
+                "status": "passed",
+                "duration": 0.02173473546281457,
+                "start": 1778754057.7220287,
+                "stop": 1778754057.744048,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_each_feature_a_commit_contains_correct_file",
+                "status": "passed",
+                "duration": 0.06403069291263819,
+                "start": 1778754057.74435,
+                "stop": 1778754057.8085685,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

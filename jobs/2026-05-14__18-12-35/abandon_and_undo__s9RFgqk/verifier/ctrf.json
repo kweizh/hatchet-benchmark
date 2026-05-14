@@ -1,0 +1,95 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753688.4273808,
+            "stop": 1778753688.679747
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_commit_b_restored_with_single_change_id",
+                "status": "passed",
+                "duration": 0.02216640394181013,
+                "start": 1778753688.4440236,
+                "stop": 1778753688.466586,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_a_still_exists",
+                "status": "passed",
+                "duration": 0.022193628828972578,
+                "start": 1778753688.4669063,
+                "stop": 1778753688.489326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_c_still_exists",
+                "status": "passed",
+                "duration": 0.023048778530210257,
+                "start": 1778753688.4895616,
+                "stop": 1778753688.5128033,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chain_b_parent_is_a",
+                "status": "passed",
+                "duration": 0.02472971100360155,
+                "start": 1778753688.5130696,
+                "stop": 1778753688.5379934,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chain_c_parent_is_b",
+                "status": "passed",
+                "duration": 0.024389892350882292,
+                "start": 1778753688.5382886,
+                "stop": 1778753688.5629015,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tip_contains_all_three_files",
+                "status": "passed",
+                "duration": 0.024205536115914583,
+                "start": 1778753688.5632014,
+                "stop": 1778753688.5877013,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::filename,expected::[('a.txt', 'content A'), ('b.txt', 'content B'), ('c.txt', 'content C')]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_op_log_contains_abandon_operation",
+                "status": "passed",
+                "duration": 0.02152712782844901,
+                "start": 1778753688.6355379,
+                "stop": 1778753688.65726,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_op_log_contains_undo_operation",
+                "status": "passed",
+                "duration": 0.02189492341130972,
+                "start": 1778753688.6574898,
+                "stop": 1778753688.6795702,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

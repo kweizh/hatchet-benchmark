@@ -1,0 +1,83 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778754044.03344,
+            "stop": 1778754044.1647575
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_config_json_restored_to_v1",
+                "status": "passed",
+                "duration": 0.0005311737768352032,
+                "start": 1778754044.0511167,
+                "stop": 1778754044.0518548,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_extra_txt_still_present_with_original_content",
+                "status": "passed",
+                "duration": 0.000433207955211401,
+                "start": 1778754044.0520487,
+                "stop": 1778754044.0526166,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_initial_config_commit_still_exists",
+                "status": "passed",
+                "duration": 0.022321697790175676,
+                "start": 1778754044.0527833,
+                "stop": 1778754044.0752957,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_update_config_commit_still_exists",
+                "status": "passed",
+                "duration": 0.022059075068682432,
+                "start": 1778754044.075531,
+                "stop": 1778754044.0978773,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_update_config_commit_unchanged",
+                "status": "passed",
+                "duration": 0.02192176878452301,
+                "start": 1778754044.098258,
+                "stop": 1778754044.1204212,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_diff_reverts_config_json",
+                "status": "passed",
+                "duration": 0.021091997157782316,
+                "start": 1778754044.1206567,
+                "stop": 1778754044.1419415,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_is_not_empty_after_restore",
+                "status": "passed",
+                "duration": 0.02200534800067544,
+                "start": 1778754044.1422608,
+                "stop": 1778754044.1645365,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

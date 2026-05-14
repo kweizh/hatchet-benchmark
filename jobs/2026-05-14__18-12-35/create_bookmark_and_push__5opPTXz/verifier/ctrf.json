@@ -1,0 +1,83 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753677.8214874,
+            "stop": 1778753677.9645655
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_local_bookmark_my_feature_exists",
+                "status": "passed",
+                "duration": 0.028547080233693123,
+                "start": 1778753677.8414567,
+                "stop": 1778753677.8702972,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_local_bookmark_points_to_second_commit",
+                "status": "passed",
+                "duration": 0.020540811587125063,
+                "start": 1778753677.8705437,
+                "stop": 1778753677.8912878,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_remote_has_my_feature_ref",
+                "status": "passed",
+                "duration": 0.0022689136676490307,
+                "start": 1778753677.891559,
+                "stop": 1778753677.8939743,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_remote_my_feature_matches_local_commit_id",
+                "status": "passed",
+                "duration": 0.022597330156713724,
+                "start": 1778753677.8941905,
+                "stop": 1778753677.9169745,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_remote_my_feature_has_second_description",
+                "status": "passed",
+                "duration": 0.0023984494619071484,
+                "start": 1778753677.917253,
+                "stop": 1778753677.9198055,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_first_commit_unmodified",
+                "status": "passed",
+                "duration": 0.02252138312906027,
+                "start": 1778753677.920002,
+                "stop": 1778753677.9427874,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_second_commit_unmodified",
+                "status": "passed",
+                "duration": 0.021132752299308777,
+                "start": 1778753677.9430165,
+                "stop": 1778753677.9643803,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

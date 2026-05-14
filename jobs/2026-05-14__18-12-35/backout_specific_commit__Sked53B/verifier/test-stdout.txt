@@ -1,0 +1,33 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 16ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_app_py_buggy_line_removed
+PASSED tests/test_final_state.py::test_readme_preserved
+PASSED tests/test_final_state.py::test_three_original_commits_still_present
+PASSED tests/test_final_state.py::test_bad_change_commit_still_exists_exactly_once
+PASSED tests/test_final_state.py::test_revert_commit_present_in_ancestry
+PASSED tests/test_final_state.py::test_revert_commit_inverts_bad_change
+PASSED tests/test_final_state.py::test_working_copy_app_py_via_jj_file_show
+PASSED tests/test_final_state.py::test_working_copy_readme_via_jj_file_show
+============================== 8 passed in 0.17s ===============================

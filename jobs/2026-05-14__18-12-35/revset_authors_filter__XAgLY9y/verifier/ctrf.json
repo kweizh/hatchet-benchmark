@@ -1,0 +1,74 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753969.0305007,
+            "stop": 1778753969.4266865
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0006790058687329292,
+                "start": 1778753969.0456457,
+                "stop": 1778753969.046628,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_matches_revset_query",
+                "status": "passed",
+                "duration": 0.29587755259126425,
+                "start": 1778753969.046911,
+                "stop": 1778753969.3430948,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_has_exactly_two_change_ids",
+                "status": "passed",
+                "duration": 0.0005028652958571911,
+                "start": 1778753969.3433554,
+                "stop": 1778753969.3440044,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repo_history_unchanged_alice_count",
+                "status": "passed",
+                "duration": 0.02937078010290861,
+                "start": 1778753969.3445265,
+                "stop": 1778753969.3741322,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repo_history_unchanged_bob_count",
+                "status": "passed",
+                "duration": 0.026024559047073126,
+                "start": 1778753969.3746772,
+                "stop": 1778753969.4009182,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repo_history_unchanged_charlie_count",
+                "status": "passed",
+                "duration": 0.025089364498853683,
+                "start": 1778753969.4011977,
+                "stop": 1778753969.4264865,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

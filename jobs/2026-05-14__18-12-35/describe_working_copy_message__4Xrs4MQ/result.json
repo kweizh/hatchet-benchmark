@@ -1,0 +1,91 @@
+{
+    "id": "e8a8a080-29e1-4e71-a1f7-fafaa01ba491",
+    "task_name": "describe_working_copy_message",
+    "trial_name": "describe_working_copy_message__4Xrs4MQ",
+    "trial_uri": "file:///home/kw/code/zealt/pochi-harbor/jobs/2026-05-14__18-12-35/describe_working_copy_message__4Xrs4MQ",
+    "task_id": {
+        "path": "/home/kw/code/zealt/hatchet-benchmark/tasks/describe_working_copy_message"
+    },
+    "source": "tasks",
+    "task_checksum": "ad22ce2a2ac7b44a27c362e65cbf90a8d9b39b1e7cd3a1d95d37f6baa62badb6",
+    "config": {
+        "task": {
+            "path": "/home/kw/code/zealt/hatchet-benchmark/tasks/describe_working_copy_message",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks"
+        },
+        "trial_name": "describe_working_copy_message__4Xrs4MQ",
+        "trials_dir": "jobs/2026-05-14__18-12-35",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3-flash",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "job_id": "998dac4e-5710-4409-bed4-117d0f498596"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "unknown",
+        "model_info": {
+            "name": "gemini-3-flash",
+            "provider": "google"
+        }
+    },
+    "agent_result": null,
+    "verifier_result": null,
+    "exception_info": {
+        "exception_type": "NonZeroAgentExitCodeError",
+        "exception_message": "Command failed (exit 127): set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version\nstdout: \u001b[1;32m  Installing\u001b[0m Pochi version cli@0.6.8\n\u001b[1;32m    Checking\u001b[0m for existing Pochi installation\n\u001b[1;32m    Fetching\u001b[0m archive for Linux, version cli@0.6.8\ncurl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 \n\u001b[1;31mError\u001b[0m: Could not download Pochi version 'cli@0.6.8'. See https://github.com/TabbyML/pochi/releases for a list of available releases\n\nbash: line 1: /root/.pochi/bin/pochi: No such file or directory\n\nstderr: None",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/home/kw/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbor/trial/trial.py\", line 533, in run\n    await self._setup_agent()\n  File \"/home/kw/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbor/trial/trial.py\", line 266, in _setup_agent\n    await asyncio.wait_for(\n  File \"/opt/miniconda3/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/home/kw/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 384, in setup\n    await self.install(environment)\n  File \"/home/kw/code/zealt/pochi-harbor/agents/pochi.py\", line 58, in install\n    await self.exec_as_agent(\n  File \"/home/kw/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 358, in exec_as_agent\n    return await self._exec(\n           ^^^^^^^^^^^^^^^^^\n  File \"/home/kw/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 321, in _exec\n    raise NonZeroAgentExitCodeError(\nharbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 127): set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version\nstdout: \u001b[1;32m  Installing\u001b[0m Pochi version cli@0.6.8\n\u001b[1;32m    Checking\u001b[0m for existing Pochi installation\n\u001b[1;32m    Fetching\u001b[0m archive for Linux, version cli@0.6.8\ncurl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 \n\u001b[1;31mError\u001b[0m: Could not download Pochi version 'cli@0.6.8'. See https://github.com/TabbyML/pochi/releases for a list of available releases\n\nbash: line 1: /root/.pochi/bin/pochi: No such file or directory\n\nstderr: None\n",
+        "occurred_at": "2026-05-14T18:16:18.646940"
+    },
+    "started_at": "2026-05-14T10:15:54.545475Z",
+    "finished_at": "2026-05-14T10:16:40.750398Z",
+    "environment_setup": {
+        "started_at": "2026-05-14T10:15:54.547473Z",
+        "finished_at": "2026-05-14T10:16:06.397063Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-14T10:16:06.397073Z",
+        "finished_at": "2026-05-14T10:16:18.645456Z"
+    },
+    "agent_execution": null,
+    "verifier": null
+}

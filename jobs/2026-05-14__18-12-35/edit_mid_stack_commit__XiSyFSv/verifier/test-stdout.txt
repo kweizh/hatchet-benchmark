@@ -1,0 +1,38 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 25ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 13 items
+
+tests/test_final_state.py .............                                  [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_b_extra_file_exists_in_workdir
+PASSED tests/test_final_state.py::test_b_extra_file_has_expected_content
+PASSED tests/test_final_state.py::test_workdir_tip_contains_all_stack_files[a.txt]
+PASSED tests/test_final_state.py::test_workdir_tip_contains_all_stack_files[b.txt]
+PASSED tests/test_final_state.py::test_workdir_tip_contains_all_stack_files[c.txt]
+PASSED tests/test_final_state.py::test_workdir_tip_contains_all_stack_files[d.txt]
+PASSED tests/test_final_state.py::test_descendants_of_commit_b_include_c_and_d
+PASSED tests/test_final_state.py::test_commit_b_diff_references_b_extra_txt
+PASSED tests/test_final_state.py::test_commit_b_diff_includes_added_line_text
+PASSED tests/test_final_state.py::test_commit_b_summary_includes_both_b_and_b_extra
+PASSED tests/test_final_state.py::test_commit_c_and_d_still_present_after_rebase
+PASSED tests/test_final_state.py::test_commit_b_parent_is_commit_a
+PASSED tests/test_final_state.py::test_commit_d_is_descendant_of_commit_b
+============================== 13 passed in 0.29s ==============================

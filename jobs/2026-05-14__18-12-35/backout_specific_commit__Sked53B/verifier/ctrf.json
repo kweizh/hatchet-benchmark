@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753730.336986,
+            "stop": 1778753730.5019822
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_app_py_buggy_line_removed",
+                "status": "passed",
+                "duration": 0.000547284260392189,
+                "start": 1778753730.3562348,
+                "stop": 1778753730.357003,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_readme_preserved",
+                "status": "passed",
+                "duration": 0.00043480005115270615,
+                "start": 1778753730.3572366,
+                "stop": 1778753730.3578076,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_three_original_commits_still_present",
+                "status": "passed",
+                "duration": 0.023204738274216652,
+                "start": 1778753730.3579779,
+                "stop": 1778753730.3814366,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bad_change_commit_still_exists_exactly_once",
+                "status": "passed",
+                "duration": 0.02440697280690074,
+                "start": 1778753730.3817105,
+                "stop": 1778753730.406317,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_revert_commit_present_in_ancestry",
+                "status": "passed",
+                "duration": 0.02350545907393098,
+                "start": 1778753730.4065838,
+                "stop": 1778753730.4302928,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_revert_commit_inverts_bad_change",
+                "status": "passed",
+                "duration": 0.024464499671012163,
+                "start": 1778753730.430538,
+                "stop": 1778753730.4552195,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_app_py_via_jj_file_show",
+                "status": "passed",
+                "duration": 0.022242666222155094,
+                "start": 1778753730.4554741,
+                "stop": 1778753730.4779081,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_readme_via_jj_file_show",
+                "status": "passed",
+                "duration": 0.02345222933217883,
+                "start": 1778753730.4781342,
+                "stop": 1778753730.5017748,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

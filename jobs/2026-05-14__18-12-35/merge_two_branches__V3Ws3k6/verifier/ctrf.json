@@ -1,0 +1,101 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753917.685681,
+            "stop": 1778753917.9596822
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_exactly_one_merge_commit_exists",
+                "status": "passed",
+                "duration": 0.021852486301213503,
+                "start": 1778753917.70147,
+                "stop": 1778753917.7236812,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_merge_commit_description_is_exact",
+                "status": "passed",
+                "duration": 0.022499346639961004,
+                "start": 1778753917.7239773,
+                "stop": 1778753917.7466896,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_merge_commit_has_exactly_two_parents_with_expected_descriptions",
+                "status": "passed",
+                "duration": 0.02651284448802471,
+                "start": 1778753917.7469392,
+                "stop": 1778753917.7737033,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_merge_commit_parent_change_ids_match_branch_tips",
+                "status": "passed",
+                "duration": 0.0671193478628993,
+                "start": 1778753917.773932,
+                "stop": 1778753917.8413074,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_branch_x_bookmark_not_moved",
+                "status": "passed",
+                "duration": 0.022562635596841574,
+                "start": 1778753917.8415468,
+                "stop": 1778753917.864315,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_branch_y_bookmark_not_moved",
+                "status": "passed",
+                "duration": 0.023312628269195557,
+                "start": 1778753917.8645663,
+                "stop": 1778753917.8880692,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_merge_commit_contains_shared_file",
+                "status": "passed",
+                "duration": 0.02293647639453411,
+                "start": 1778753917.8883464,
+                "stop": 1778753917.9115055,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_merge_commit_contains_x_file",
+                "status": "passed",
+                "duration": 0.022651928942650557,
+                "start": 1778753917.9117258,
+                "stop": 1778753917.934593,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_merge_commit_contains_y_file",
+                "status": "passed",
+                "duration": 0.0242880554869771,
+                "start": 1778753917.9348538,
+                "stop": 1778753917.9594865,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

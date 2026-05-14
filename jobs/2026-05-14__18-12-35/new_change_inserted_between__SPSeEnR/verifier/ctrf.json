@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778754117.3503258,
+            "stop": 1778754117.5844514
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_exactly_one_add_dependencies_change_exists",
+                "status": "passed",
+                "duration": 0.02198218973353505,
+                "start": 1778754117.366961,
+                "stop": 1778754117.389241,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_of_add_dependencies_is_setup",
+                "status": "passed",
+                "duration": 0.021284095011651516,
+                "start": 1778754117.389501,
+                "stop": 1778754117.410991,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_child_of_add_dependencies_is_implementation",
+                "status": "passed",
+                "duration": 0.02147160330787301,
+                "start": 1778754117.4112833,
+                "stop": 1778754117.432951,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_add_dependencies_contains_requirements_txt",
+                "status": "passed",
+                "duration": 0.02193711744621396,
+                "start": 1778754117.4332278,
+                "stop": 1778754117.4554393,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_requirements_txt_is_only_new_file_in_add_dependencies",
+                "status": "passed",
+                "duration": 0.02240505162626505,
+                "start": 1778754117.4556684,
+                "stop": 1778754117.478268,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_working_copy_contains_all_four_files",
+                "status": "passed",
+                "duration": 0.021134916692972183,
+                "start": 1778754117.4784958,
+                "stop": 1778754117.4998195,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_original_descriptions_still_exist",
+                "status": "passed",
+                "duration": 0.06248769070953131,
+                "start": 1778754117.5000424,
+                "stop": 1778754117.5627308,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_of_tests_is_implementation_after_rebase",
+                "status": "passed",
+                "duration": 0.021064570639282465,
+                "start": 1778754117.5629556,
+                "stop": 1778754117.5842636,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,35 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 87ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 10 items
+
+tests/test_final_state.py ..........                                     [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_commit_b_restored_with_single_change_id
+PASSED tests/test_final_state.py::test_commit_a_still_exists
+PASSED tests/test_final_state.py::test_commit_c_still_exists
+PASSED tests/test_final_state.py::test_chain_b_parent_is_a
+PASSED tests/test_final_state.py::test_chain_c_parent_is_b
+PASSED tests/test_final_state.py::test_tip_contains_all_three_files[a.txt-content A]
+PASSED tests/test_final_state.py::test_tip_contains_all_three_files[b.txt-content B]
+PASSED tests/test_final_state.py::test_tip_contains_all_three_files[c.txt-content C]
+PASSED tests/test_final_state.py::test_op_log_contains_abandon_operation
+PASSED tests/test_final_state.py::test_op_log_contains_undo_operation
+============================== 10 passed in 0.25s ==============================

@@ -1,0 +1,119 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753836.4701314,
+            "stop": 1778753836.683467
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_stage1_present",
+                "status": "passed",
+                "duration": 0.023921442218124866,
+                "start": 1778753836.4910038,
+                "stop": 1778753836.5152209,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stage2_restored",
+                "status": "passed",
+                "duration": 0.025898518972098827,
+                "start": 1778753836.5154862,
+                "stop": 1778753836.5415928,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stage3_absent",
+                "status": "passed",
+                "duration": 0.022008484695106745,
+                "start": 1778753836.5418236,
+                "stop": 1778753836.5640547,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_extra1_absent",
+                "status": "passed",
+                "duration": 0.021760904230177402,
+                "start": 1778753836.5643563,
+                "stop": 1778753836.5863438,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_extra2_absent",
+                "status": "passed",
+                "duration": 0.022560556884855032,
+                "start": 1778753836.5865858,
+                "stop": 1778753836.6093957,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stage2_parent_is_stage1",
+                "status": "passed",
+                "duration": 0.02351668244227767,
+                "start": 1778753836.6096282,
+                "stop": 1778753836.633818,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_file1_exists_on_disk",
+                "status": "passed",
+                "duration": 0.0005410271696746349,
+                "start": 1778753836.6340604,
+                "stop": 1778753836.634734,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_file2_exists_on_disk_with_content",
+                "status": "passed",
+                "duration": 0.000468177255243063,
+                "start": 1778753836.634926,
+                "stop": 1778753836.635564,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_file3_absent_on_disk",
+                "status": "passed",
+                "duration": 0.00044439174234867096,
+                "start": 1778753836.6357985,
+                "stop": 1778753836.6364005,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_most_recent_operation_is_restore",
+                "status": "passed",
+                "duration": 0.02365818666294217,
+                "start": 1778753836.6365829,
+                "stop": 1778753836.6604996,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stage2_change_contains_file2",
+                "status": "passed",
+                "duration": 0.022322576493024826,
+                "start": 1778753836.6607342,
+                "stop": 1778753836.6832716,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

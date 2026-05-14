@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753798.6482043,
+            "stop": 1778753798.818734
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_config_yaml_exact_content",
+                "status": "passed",
+                "duration": 0.0005151694640517235,
+                "start": 1778753798.6635895,
+                "stop": 1778753798.6643445,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_conflicted_commits_remain",
+                "status": "passed",
+                "duration": 0.021862995345145464,
+                "start": 1778753798.6645367,
+                "stop": 1778753798.6866038,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jj_status_reports_no_conflict",
+                "status": "passed",
+                "duration": 0.02236692700535059,
+                "start": 1778753798.6868386,
+                "stop": 1778753798.70945,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_branch_a_still_points_to_increase_60",
+                "status": "passed",
+                "duration": 0.021371955052018166,
+                "start": 1778753798.7096753,
+                "stop": 1778753798.7312357,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_branch_b_still_points_to_increase_120",
+                "status": "passed",
+                "duration": 0.02095809578895569,
+                "start": 1778753798.7314844,
+                "stop": 1778753798.752632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_branch_b_parent_is_branch_a",
+                "status": "passed",
+                "duration": 0.021080320235341787,
+                "start": 1778753798.7528582,
+                "stop": 1778753798.7741272,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_base_bookmark_unchanged",
+                "status": "passed",
+                "duration": 0.021683890838176012,
+                "start": 1778753798.7744105,
+                "stop": 1778753798.7962778,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_resolution_recorded_in_branch_b_commit",
+                "status": "passed",
+                "duration": 0.02183824684470892,
+                "start": 1778753798.7965424,
+                "stop": 1778753798.8185587,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

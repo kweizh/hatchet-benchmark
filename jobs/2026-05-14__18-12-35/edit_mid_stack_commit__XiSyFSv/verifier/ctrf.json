@@ -1,0 +1,113 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778753695.2036028,
+            "stop": 1778753695.4904566
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_b_extra_file_exists_in_workdir",
+                "status": "passed",
+                "duration": 0.0007227109745144844,
+                "start": 1778753695.2281988,
+                "stop": 1778753695.2291777,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_b_extra_file_has_expected_content",
+                "status": "passed",
+                "duration": 0.0006108307279646397,
+                "start": 1778753695.2294793,
+                "stop": 1778753695.2302554,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_workdir_tip_contains_all_stack_files",
+                "status": "passed",
+                "duration": 0.0005505508743226528,
+                "start": 1778753695.2304986,
+                "stop": 1778753695.2311964,
+                "retries": 3,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::fname::['a.txt', 'b.txt', 'c.txt', 'd.txt']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_descendants_of_commit_b_include_c_and_d",
+                "status": "passed",
+                "duration": 0.026414573192596436,
+                "start": 1778753695.2340944,
+                "stop": 1778753695.2607143,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_b_diff_references_b_extra_txt",
+                "status": "passed",
+                "duration": 0.024931184016168118,
+                "start": 1778753695.260965,
+                "stop": 1778753695.2861085,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_b_diff_includes_added_line_text",
+                "status": "passed",
+                "duration": 0.024432609789073467,
+                "start": 1778753695.2863748,
+                "stop": 1778753695.3110218,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_b_summary_includes_both_b_and_b_extra",
+                "status": "passed",
+                "duration": 0.02474024798721075,
+                "start": 1778753695.311356,
+                "stop": 1778753695.3364365,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_c_and_d_still_present_after_rebase",
+                "status": "passed",
+                "duration": 0.1004365966655314,
+                "start": 1778753695.3367271,
+                "stop": 1778753695.4374099,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_b_parent_is_commit_a",
+                "status": "passed",
+                "duration": 0.027880082838237286,
+                "start": 1778753695.4376605,
+                "stop": 1778753695.4657571,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_commit_d_is_descendant_of_commit_b",
+                "status": "passed",
+                "duration": 0.024018792901188135,
+                "start": 1778753695.4660213,
+                "stop": 1778753695.4902527,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
