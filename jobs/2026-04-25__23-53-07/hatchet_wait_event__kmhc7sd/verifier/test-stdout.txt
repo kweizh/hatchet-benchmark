@@ -1,0 +1,118 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 17ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_event_confirmation ____________________________
+
+worker_process = <Popen: returncode: None args: ['python3', 'worker.py']>
+
+    def test_event_confirmation(worker_process):
+        # Write a temporary script to trigger workflow and push event
+        script = """
+    from hatchet_sdk import Hatchet
+    import time
+    
+    def main():
+        hatchet = Hatchet()
+        workflow_run = hatchet.admin.run_workflow("OrderWorkflow", {})
+    
+        # Wait a bit for it to start
+        time.sleep(2)
+    
+        # Push the event
+        hatchet.client.event.push("user:confirm", {})
+    
+        # Wait for completion
+        result = workflow_run.result()
+        print(result)
+    
+    if __name__ == "__main__":
+        main()
+    """
+        script_path = os.path.join(PROJECT_DIR, "test_confirm.py")
+        with open(script_path, "w") as f:
+            f.write(script)
+    
+        result = subprocess.run(
+            ["python3", "test_confirm.py"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+    
+>       assert result.returncode == 0, f"Trigger script failed: {result.stderr}"
+E       AssertionError: Trigger script failed: Traceback (most recent call last):
+E           File "/home/user/myproject/test_confirm.py", line 2, in <module>
+E             from hatchet_sdk import Hatchet
+E         ModuleNotFoundError: No module named 'hatchet_sdk'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'test_confirm.py'], returncode=1, stdout='', stderr='Traceback (most recent call las...py", line 2, in <module>\n    from hatchet_sdk import Hatchet\nModuleNotFoundError: No module named \'hatchet_sdk\'\n').returncode
+
+tests/test_final_state.py:58: AssertionError
+______________________________ test_event_timeout ______________________________
+
+worker_process = <Popen: returncode: None args: ['python3', 'worker.py']>
+
+    def test_event_timeout(worker_process):
+        # Write a temporary script to trigger workflow and wait for timeout
+        script = """
+    from hatchet_sdk import Hatchet
+    
+    def main():
+        hatchet = Hatchet()
+        workflow_run = hatchet.admin.run_workflow("OrderWorkflow", {})
+    
+        # Wait for completion (should take 5 minutes)
+        result = workflow_run.result()
+        print(result)
+    
+    if __name__ == "__main__":
+        main()
+    """
+        script_path = os.path.join(PROJECT_DIR, "test_timeout.py")
+        with open(script_path, "w") as f:
+            f.write(script)
+    
+        start_time = time.time()
+        result = subprocess.run(
+            ["python3", "test_timeout.py"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+        elapsed = time.time() - start_time
+    
+>       assert result.returncode == 0, f"Trigger script failed: {result.stderr}"
+E       AssertionError: Trigger script failed: Traceback (most recent call last):
+E           File "/home/user/myproject/test_timeout.py", line 2, in <module>
+E             from hatchet_sdk import Hatchet
+E         ModuleNotFoundError: No module named 'hatchet_sdk'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'test_timeout.py'], returncode=1, stdout='', stderr='Traceback (most recent call las...py", line 2, in <module>\n    from hatchet_sdk import Hatchet\nModuleNotFoundError: No module named \'hatchet_sdk\'\n').returncode
+
+tests/test_final_state.py:91: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_event_confirmation - AssertionError: T...
+FAILED tests/test_final_state.py::test_event_timeout - AssertionError: Trigge...
+============================== 2 failed in 5.07s ===============================

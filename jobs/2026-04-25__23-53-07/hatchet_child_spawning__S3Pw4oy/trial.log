@@ -1,0 +1,88 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo hatchet_child_spawning__S3Pw4oy > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Hatchet Dynamic Child Spawning
+
+## Background
+Hatchet is a distributed task queue and workflow engine designed for high-concurrency, low-latency background jobs. One of its powerful features is the ability to spawn child tasks dynamically based on runtime input and wait for their completion, often used for fan-out/fan-in patterns.
+
+## Requirements
+Write a Python script using the `hatchet-sdk` package that implements a dynamic fan-out pattern:
+1. Define a Pydantic model `ParentInput` containing `items: list[str]`.
+2. Define a Pydantic model `ChildInput` containing `item: str`.
+3. Create a child workflow named `FanoutChild` with `input_validator=ChildInput`.
+4. Add a task to `FanoutChild` that takes the `ChildInput` and returns a dictionary `{"processed": input.item.upper()}`.
+5. Create a parent workflow named `FanoutParent` with `input_validator=ParentInput`.
+6. Add a task to `FanoutParent` (must be `async`) that spawns a `FanoutChild` for each string in `input.items` using `child_wf.aio_run_many` and `child_wf.create_bulk_run_item(input=ChildInput(item=x))`. It must wait for all children to complete and return a list of their results.
+7. The script must initialize a Hatchet client, start a worker with both workflows in the background, and then trigger `FanoutParent` with `items=["apple", "banana", "cherry"]`.
+8. Wait for the parent workflow to complete and write the final result (a list of dictionaries) as JSON to `/home/user/myproject/output.json`.
+
+## Constraints
+- Project path: `/home/user/myproject`
+- Log file: `/home/user/myproject/run.log`
+- The script should be named `/home/user/myproject/main.py`.
+- Ensure the worker runs in the background or a separate thread, so the script can trigger the workflow and wait for the result.
+- You must use the `HATCHET_CLIENT_TOKEN` environment variable for authentication (it will be provided in the environment).
+
+## Integrations
+- None
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

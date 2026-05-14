@@ -1,0 +1,80 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 28ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py .F.                                            [100%]
+
+=================================== FAILURES ===================================
+_______________ test_aio_wait_for_event_called_with_correct_args _______________
+
+    def test_aio_wait_for_event_called_with_correct_args():
+        with open(WORKER_FILE, "r") as f:
+            source = f.read()
+    
+        tree = ast.parse(source)
+    
+        found_wait = False
+        lookback_window_valid = False
+        expression_present = False
+        scope_present = False
+    
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call):
+                # Check if function name is aio_wait_for_event
+                func_name = None
+                if isinstance(node.func, ast.Name):
+                    func_name = node.func.id
+                elif isinstance(node.func, ast.Attribute):
+                    func_name = node.func.attr
+    
+                if func_name == "aio_wait_for_event":
+                    found_wait = True
+                    for kw in node.keywords:
+                        if kw.arg == "lookback_window":
+                            # Check if it's timedelta(minutes=5) or timedelta(seconds=300)
+                            if isinstance(kw.value, ast.Call):
+                                call_name = None
+                                if isinstance(kw.value.func, ast.Name):
+                                    call_name = kw.value.func.id
+                                elif isinstance(kw.value.func, ast.Attribute):
+                                    call_name = kw.value.func.attr
+    
+                                if call_name == "timedelta":
+                                    for t_kw in kw.value.keywords:
+                                        if t_kw.arg == "minutes" and isinstance(t_kw.value, ast.Constant) and t_kw.value.value == 5:
+                                            lookback_window_valid = True
+                                        if t_kw.arg == "seconds" and isinstance(t_kw.value, ast.Constant) and t_kw.value.value == 300:
+                                            lookback_window_valid = True
+                        if kw.arg == "expression":
+                            expression_present = True
+                        if kw.arg == "scope":
+                            scope_present = True
+    
+        assert found_wait, "aio_wait_for_event was not called in worker.py."
+>       assert lookback_window_valid, "aio_wait_for_event was not called with lookback_window=timedelta(minutes=5)."
+E       AssertionError: aio_wait_for_event was not called with lookback_window=timedelta(minutes=5).
+E       assert False
+
+tests/test_final_state.py:54: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_worker_file_exists
+PASSED tests/test_final_state.py::test_amika_validation
+FAILED tests/test_final_state.py::test_aio_wait_for_event_called_with_correct_args
+========================= 1 failed, 2 passed in 0.03s ==========================

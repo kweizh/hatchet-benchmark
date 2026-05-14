@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777133614.7124765,
+            "stop": 1777133619.7846873
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_event_confirmation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5.02110105403699,
+                "start": 1777133614.7249403,
+                "stop": 1777133619.7654495,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "worker_process = <Popen: returncode: None args: ['python3', 'worker.py']>\n\n    def test_event_confirmation(worker_process):\n        # Write a temporary script to trigger workflow and push event\n        script = \"\"\"\n    from hatchet_sdk import Hatchet\n    import time\n    \n    def main():\n        hatchet = Hatchet()\n        workflow_run = hatchet.admin.run_workflow(\"OrderWorkflow\", {})\n    \n        # Wait a bit for it to start\n        time.sleep(2)\n    \n        # Push the event\n        hatchet.client.event.push(\"user:confirm\", {})\n    \n        # Wait for completion\n        result = workflow_run.result()\n        print(result)\n    \n    if __name__ == \"__main__\":\n        main()\n    \"\"\"\n        script_path = os.path.join(PROJECT_DIR, \"test_confirm.py\")\n        with open(script_path, \"w\") as f:\n            f.write(script)\n    \n        result = subprocess.run(\n            [\"python3\", \"test_confirm.py\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n    \n>       assert result.returncode == 0, f\"Trigger script failed: {result.stderr}\"\nE       AssertionError: Trigger script failed: Traceback (most recent call last):\nE           File \"/home/user/myproject/test_confirm.py\", line 2, in <module>\nE             from hatchet_sdk import Hatchet\nE         ModuleNotFoundError: No module named 'hatchet_sdk'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', 'test_confirm.py'], returncode=1, stdout='', stderr='Traceback (most recent call las...py\", line 2, in <module>\\n    from hatchet_sdk import Hatchet\\nModuleNotFoundError: No module named \\'hatchet_sdk\\'\\n').returncode\n\ntests/test_final_state.py:58: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_event_timeout",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.015565613983199,
+                "start": 1777133619.7657914,
+                "stop": 1777133619.78445,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "worker_process = <Popen: returncode: None args: ['python3', 'worker.py']>\n\n    def test_event_timeout(worker_process):\n        # Write a temporary script to trigger workflow and wait for timeout\n        script = \"\"\"\n    from hatchet_sdk import Hatchet\n    \n    def main():\n        hatchet = Hatchet()\n        workflow_run = hatchet.admin.run_workflow(\"OrderWorkflow\", {})\n    \n        # Wait for completion (should take 5 minutes)\n        result = workflow_run.result()\n        print(result)\n    \n    if __name__ == \"__main__\":\n        main()\n    \"\"\"\n        script_path = os.path.join(PROJECT_DIR, \"test_timeout.py\")\n        with open(script_path, \"w\") as f:\n            f.write(script)\n    \n        start_time = time.time()\n        result = subprocess.run(\n            [\"python3\", \"test_timeout.py\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n        elapsed = time.time() - start_time\n    \n>       assert result.returncode == 0, f\"Trigger script failed: {result.stderr}\"\nE       AssertionError: Trigger script failed: Traceback (most recent call last):\nE           File \"/home/user/myproject/test_timeout.py\", line 2, in <module>\nE             from hatchet_sdk import Hatchet\nE         ModuleNotFoundError: No module named 'hatchet_sdk'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', 'test_timeout.py'], returncode=1, stdout='', stderr='Traceback (most recent call las...py\", line 2, in <module>\\n    from hatchet_sdk import Hatchet\\nModuleNotFoundError: No module named \\'hatchet_sdk\\'\\n').returncode\n\ntests/test_final_state.py:91: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

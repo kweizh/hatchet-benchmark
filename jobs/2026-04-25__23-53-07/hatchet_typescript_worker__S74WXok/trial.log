@@ -1,0 +1,83 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo hatchet_typescript_worker__S74WXok > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Hatchet TypeScript Worker
+
+## Background
+Hatchet is a distributed task queue and workflow engine designed for high-concurrency background jobs. In this task, you will set up a simple Hatchet worker using the TypeScript SDK that registers a workflow and processes an event.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app` with TypeScript.
+- Install `@hatchet-dev/typescript-sdk`, `typescript`, `ts-node`, and `@types/node`.
+- Create a Hatchet workflow in `worker.ts` that listens to the `user:create` event.
+- The workflow should have a single step named `greet` that receives the event payload, extracts the `username` from the input, and returns `{ message: "Welcome " + username }`.
+- Upon receiving the event, the `greet` step must also write the returned JSON object `{"message":"Welcome Alice"}` to `/home/user/app/output.log`.
+- The `worker.ts` script should initialize Hatchet, create a worker named `test-worker`, register the workflow, and start the worker.
+- Create a `trigger.ts` script that initializes Hatchet and pushes a `user:create` event with payload `{ username: "Alice" }`.
+- Add npm scripts: `"worker": "npx ts-node worker.ts"` and `"trigger": "npx ts-node trigger.ts"`.
+
+## Constraints
+- Project path: /home/user/app
+- Log file: /home/user/app/output.log
+- A valid Hatchet instance is required. The environment variable `HATCHET_CLIENT_TOKEN` will be provided.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

@@ -1,0 +1,111 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 29ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py sF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_workflow_execution ____________________________
+
+start_worker = None
+
+    def test_workflow_execution(start_worker):
+        """Test the workflow execution by triggering it via a script."""
+    
+        test_script_content = """
+    import sys
+    import time
+    from hatchet_sdk import Hatchet
+    from worker import support_agent, SupportTicketInput
+    
+    def main():
+        hatchet_client = Hatchet()
+    
+        print("Testing resolved path...")
+        ticket1 = SupportTicketInput(
+            ticket_id="t1",
+            customer_email="test@example.com",
+            subject="login issue",
+            body="broken"
+        )
+        # Start workflow without waiting
+        ref1 = support_agent.run_no_wait(ticket1)
+    
+        # Wait a bit for the workflow to reach the wait condition
+        time.sleep(1)
+    
+        # Push customer reply event
+        hatchet_client.event.push(
+            "customer:reply",
+            {"message": "fixed it"},
+            scope="t1"
+        )
+    
+        # Wait for result
+        res1 = ref1.result()
+        assert res1["status"] == "resolved", f"Expected resolved, got {res1}"
+        assert res1["triage_category"] == "account", f"Expected account, got {res1}"
+        assert res1["triage_priority"] == "medium", f"Expected medium, got {res1}"
+    
+        print("Testing escalated path...")
+        ticket2 = SupportTicketInput(
+            ticket_id="t2",
+            customer_email="test2@example.com",
+            subject="billing issue",
+            body="charge"
+        )
+        # Start workflow and wait for timeout
+        ref2 = support_agent.run_no_wait(ticket2)
+        res2 = ref2.result()
+    
+        assert res2["status"] == "escalated", f"Expected escalated, got {res2}"
+        assert res2["triage_category"] == "billing", f"Expected billing, got {res2}"
+        assert res2["triage_priority"] == "low", f"Expected low, got {res2}"
+    
+        print("ALL_TESTS_PASSED")
+    
+    if __name__ == "__main__":
+        main()
+    """
+    
+        with open(TEST_SCRIPT, "w") as f:
+            f.write(test_script_content)
+    
+        result = subprocess.run(
+            ["python3", "test_run.py"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+    
+>       assert result.returncode == 0, f"Test script failed: {result.stderr}\nSTDOUT: {result.stdout}"
+E       AssertionError: Test script failed: Traceback (most recent call last):
+E           File "/home/user/support-agent/test_run.py", line 4, in <module>
+E             from hatchet_sdk import Hatchet
+E         ModuleNotFoundError: No module named 'hatchet_sdk'
+E         
+E         STDOUT: 
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'test_run.py'], returncode=1, stdout='', stderr='Traceback (most recent call last):\...py", line 4, in <module>\n    from hatchet_sdk import Hatchet\nModuleNotFoundError: No module named \'hatchet_sdk\'\n').returncode
+
+tests/test_final_state.py:114: AssertionError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_final_state.py:43: amika CLI not found, skipping amika validation
+FAILED tests/test_final_state.py::test_workflow_execution - AssertionError: T...
+========================= 1 failed, 1 skipped in 5.05s =========================
