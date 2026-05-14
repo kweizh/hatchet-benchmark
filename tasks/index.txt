@@ -5,18 +5,884 @@
 5:I[36064,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 6:I[81497,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 7:I[42654,["/hatchet-benchmark/_next/static/chunks/babff0e7418ab052.js","/hatchet-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/hatchet-benchmark/_next/static/chunks/10cb4cef6c0eeb94.js","/hatchet-benchmark/_next/static/chunks/be08138953094657.js"],"TasksPageClient"]
-c:I[9986,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
-:HL["/hatchet-benchmark/_next/static/chunks/29c80e0ec759ef35.css","style"]
+1f:I[9986,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+:HL["/hatchet-benchmark/_next/static/chunks/f1dd46a3d6ac7fbf.css","style"]
 :HL["/hatchet-benchmark/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"P":null,"b":"2urFSJcNpfORKt3bIQOnb","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/hatchet-benchmark/_next/static/chunks/29c80e0ec759ef35.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/hatchet-benchmark/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/hatchet-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L7",null,{"tasksData":[{"taskName":"hatchet_child_spawning","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_child_spawning__S3Pw4oy","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":655.045,"latency_breakdown":{"env_setup":12.254,"agent_setup":21.889,"agent_exec":600.117,"verifier":4.975},"taskName":"hatchet_child_spawning","jobId":"S3Pw4oy","exec_duration":600.117}]},{"taskName":"hatchet_cron_workflow","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_cron_workflow__KmuwGv7","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":157.076,"latency_breakdown":{"env_setup":12.165,"agent_setup":55.791,"agent_exec":66.86,"verifier":7.037},"taskName":"hatchet_cron_workflow","jobId":"KmuwGv7","exec_duration":66.86}]},{"taskName":"hatchet_event_lookback","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_event_lookback__XptgnAK","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":113.909,"latency_breakdown":{"env_setup":4.059,"agent_setup":25.97,"agent_exec":64.734,"verifier":4.651},"taskName":"hatchet_event_lookback","jobId":"XptgnAK","exec_duration":64.734}]},{"taskName":"hatchet_failure_recovery","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_failure_recovery__mjhkSaW","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":668.386,"latency_breakdown":{"env_setup":12.225,"agent_setup":34.438,"agent_exec":600.108,"verifier":7.328},"taskName":"hatchet_failure_recovery","jobId":"mjhkSaW","exec_duration":600.108}]},{"taskName":"hatchet_input_validation","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_input_validation__X8ZuKZJ","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":457.096,"latency_breakdown":{"env_setup":12.214,"agent_setup":20.314,"agent_exec":405.159,"verifier":4.795},"taskName":"hatchet_input_validation","jobId":"X8ZuKZJ","exec_duration":405.159}]},{"taskName":"hatchet_llm_agent_loop","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_llm_agent_loop__pnp9wX7","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":667.665,"latency_breakdown":{"env_setup":12.185,"agent_setup":33.001,"agent_exec":600.108,"verifier":7.998},"taskName":"hatchet_llm_agent_loop","jobId":"pnp9wX7","exec_duration":600.108}]},{"taskName":"hatchet_python_worker","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_python_worker__pYL44aP","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":252.861,"latency_breakdown":{"env_setup":4.225,"agent_setup":19.618,"agent_exec":184.768,"verifier":30.903},"taskName":"hatchet_python_worker","jobId":"pYL44aP","exec_duration":184.768}]},{"taskName":"hatchet_simple_dag","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_simple_dag__43wLx4M","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":199.076,"latency_breakdown":{"env_setup":5.732,"agent_setup":54.941,"agent_exec":113.053,"verifier":11.034},"taskName":"hatchet_simple_dag","jobId":"43wLx4M","exec_duration":113.053}]},{"taskName":"hatchet_support_triage","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_support_triage__uiS9DDm","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":328.46,"latency_breakdown":{"env_setup":7.242,"agent_setup":19.898,"agent_exec":276.668,"verifier":10.436},"taskName":"hatchet_support_triage","jobId":"uiS9DDm","exec_duration":276.668}]},{"taskName":"hatchet_typescript_worker","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_typescript_worker__S74WXok","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":311.587,"latency_breakdown":{"env_setup":4.816,"agent_setup":17.507,"agent_exec":269.46,"verifier":4.859},"taskName":"hatchet_typescript_worker","jobId":"S74WXok","exec_duration":269.46}]},{"taskName":"hatchet_wait_event","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_wait_event__kmhc7sd","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":572.263,"latency_breakdown":{"env_setup":6.492,"agent_setup":17.923,"agent_exec":523.68,"verifier":10.947},"taskName":"hatchet_wait_event","jobId":"kmhc7sd","exec_duration":523.68}]},{"taskName":"hatchet_worker_slots","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_worker_slots__enfwncc","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":580.188,"latency_breakdown":{"env_setup":4.198,"agent_setup":54.102,"agent_exec":502.057,"verifier":6.025},"taskName":"hatchet_worker_slots","jobId":"enfwncc","exec_duration":502.057}]},{"taskName":"hatchet_workflow_cancellation","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_workflow_cancellation__3z7CwPD","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":155.578,"latency_breakdown":{"env_setup":8.48,"agent_setup":26.189,"agent_exec":93.914,"verifier":10.54},"taskName":"hatchet_workflow_cancellation","jobId":"3z7CwPD","exec_duration":93.914}]}]}]]}],["$L8","$L9"],"$La"]}],{},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
-d:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-e:"$Sreact.suspense"
-10:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
-12:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
-8:["$","script","script-0",{"src":"/hatchet-benchmark/_next/static/chunks/10cb4cef6c0eeb94.js","async":true,"nonce":"$undefined"}]
-9:["$","script","script-1",{"src":"/hatchet-benchmark/_next/static/chunks/be08138953094657.js","async":true,"nonce":"$undefined"}]
-a:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
-b:["$","$1","h",{"children":[null,["$","$L10",null,{"children":"$L11"}],["$","div",null,{"hidden":true,"children":["$","$L12",null,{"children":["$","$e",null,{"name":"Next.Metadata","children":"$L13"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
-11:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-f:null
-13:[["$","title","0",{"children":"Hatchet Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Hatchet tasks, measuring success rate and execution time with high precision."}]]
+8:Ted3,# Abandon a Commit, then Undo the Abandon in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Two of its most distinctive workflows are:
+
+- `jj abandon <revset>` — removes the targeted commit(s) from the visible history and automatically rebases their descendants onto the abandoned commit's parent(s).
+- `jj undo` — reverts the most recent repository operation by restoring the previous state from the operation log (`jj op log`). It does **not** delete operations from the log; instead it records a new operation that re-establishes the prior view.
+
+A Jujutsu repository is already initialized at `/home/user/myrepo`. The repo is colocated with Git (both `.jj/` and `.git/` directories are present) and user identity has been pre-configured globally. The repository contains exactly three user-created commits forming a linear chain:
+
+1. `Commit A` introduces `a.txt` with content `content A`.
+2. `Commit B` introduces `b.txt` with content `content B` (child of `Commit A`).
+3. `Commit C` introduces `c.txt` with content `content C` (child of `Commit B`).
+
+The working copy `@` is a new empty commit on top of `Commit C`.
+
+## Requirements
+You must complete the following two operations **in this exact order**, using the real `jj` CLI in `/home/user/myrepo`:
+
+1. **Abandon `Commit B`**:
+   - Look up the change ID of the commit whose description is exactly `Commit B`.
+   - Run `jj abandon <change_id_of_B>` to abandon that commit. `jj` will automatically rebase the descendants (`Commit C` and the empty working copy) onto `Commit A`.
+2. **Undo the abandon**:
+   - Realize the abandon was a mistake and run `jj undo`. This will revert the previous abandon operation and restore `Commit B` (with its original change ID) and the original `A → B → C → @` chain.
+
+After both operations complete successfully:
+
+- All three commits with descriptions `Commit A`, `Commit B`, and `Commit C` must exist again in the repository, forming a linear chain `Commit A → Commit B → Commit C`.
+- The files `a.txt`, `b.txt`, and `c.txt` must all be present in the tip of the chain (the parent of `@`, i.e., `Commit C`).
+- The operation log (`jj op log`) must show both the `abandon` operation **and** the subsequent `undo` operation in its history.
+- A revset query for the description `Commit B` must return a single, non-empty change ID.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Find the change ID of the `Commit B` commit using the `description(substring:...)` revset:
+   ```bash
+   jj log -r 'description(substring:"Commit B")' --no-graph -T 'change_id ++ "\n"'
+   ```
+   (Note: in jj 0.38 the plain `description("Commit B")` form does an exact match including any trailing newline; use the `substring:` form to match the description text reliably.)
+3. Abandon that change ID:
+   ```bash
+   jj abandon <change_id_of_B>
+   ```
+   After this, `jj log -r 'description(substring:"Commit B")' --no-graph -T 'change_id'` should return an empty result, and `Commit C` should now be a direct child of `Commit A`.
+4. Undo the abandon:
+   ```bash
+   jj undo
+   ```
+   After this, all three commits should be back and the chain `Commit A → Commit B → Commit C` should be restored.
+5. (Optional) Inspect the operation log to confirm both operations are recorded:
+   ```bash
+   jj op log
+   ```
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do NOT mock or stub `jj`.
+- You must use `jj abandon` to remove `Commit B` (not `jj op restore`, `git`, or manual file edits).
+- You must use `jj undo` to revert the abandon (not `jj op restore` or any other recovery mechanism).
+- Do not modify the descriptions or file contents of `Commit A`, `Commit B`, or `Commit C` at any point.
+9:Tc42,# Revert a Specific Buggy Commit in a jj History
+
+## Background
+You have a colocated Jujutsu (`jj`) repository at `/home/user/myrepo`. The repository contains three non-root commits in a linear stack (oldest to newest):
+
+1. `Initial app` — creates `app.py` with the body:
+
+   ```python
+   print("hello")
+   ```
+
+2. `Bad change` — modifies `app.py` to:
+
+   ```python
+   print("hello")
+   print("BUG: do not commit")
+   ```
+
+3. `Add documentation` — creates `README.md` with the body `Project docs`.
+
+The working copy `@` is a new empty commit on top of `Add documentation`. The `jj` binary is installed at `/usr/local/bin/jj` and the user identity is pre-configured.
+
+Note: As of jj 0.38, the `jj backout` command has been removed and replaced by `jj revert`, which provides the same functionality with cleaner flags.
+
+## Requirements
+Use the `jj revert` command to create a new commit in the ancestry of the working copy `@` that applies the reverse of the `Bad change` commit, so that the buggy line is undone in the working copy. After the operation:
+
+- The buggy line `print("BUG: do not commit")` MUST be removed from `app.py` on disk.
+- `app.py` MUST contain exactly `print("hello")` (a single line, plus a trailing newline).
+- `README.md` MUST still exist with the content `Project docs`.
+- The original three commits (`Initial app`, `Bad change`, `Add documentation`) MUST still be present in the repo history.
+- A new commit MUST exist in the ancestry of `@` that contains the inverse of `Bad change`.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`.
+2. Identify the `Bad change` commit using a revset such as `description(substring:"Bad change")`.
+3. Run `jj revert -r 'description(substring:"Bad change")' --insert-before @` to insert the reverse of that commit into the graph just before the working copy. `jj` will automatically rebase the working copy so that `@` becomes a child of the revert commit, and the files on disk will reflect the reverted state.
+   (Equivalent short flag: `-B @`. If you instead use `--destination @` / `--onto @` / `-A @`, the revert commit will be created as a child of `@` and you will additionally need to move the working copy onto it, e.g. with `jj new <revert-change-id>` or `jj edit <revert-change-id>`, so that the working files show the reverted state.)
+4. Verify with `jj log` that all three original commits are still listed and that a new commit titled `Revert "Bad change"` has been added to the ancestry of `@`.
+5. Verify with `cat app.py` that the buggy line is gone and the file is back to `print("hello")`.
+6. Verify with `cat README.md` that documentation is preserved.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Do NOT manually edit `.jj/` or `.git/` internals; only use the `jj` CLI.
+- Do NOT use `jj abandon` to remove the `Bad change` commit — the history of all three original commits must be preserved.
+- Do NOT directly rewrite `app.py` to remove the buggy line; use the `jj revert` flow.
+- The final content of `app.py` must be exactly `print("hello")\n` (no trailing buggy line).
+- The final content of `README.md` must be exactly `Project docs\n`.
+a:T5b2,# Configure jj User Identity
+
+## Background
+You are working with `jj` (Jujutsu), a Git-compatible version control system. A colocated `jj` repository has already been initialized at `/home/user/myrepo`, but the user identity (`user.name` and `user.email`) has NOT been configured yet. Without these values set, any commit you make with `jj` will be attributed to an empty or anonymous author.
+
+## Requirements
+Configure the global (user-level) `jj` identity so that:
+- `user.name` is `Alice Example`
+- `user.email` is `alice@example.com`
+
+These values must be persisted in the user-level `jj` configuration so that they are visible via `jj config list user` from inside the repository.
+
+## Implementation Guide
+1. Open a shell.
+2. Run the following commands to set the user identity at the user (global) scope:
+   ```bash
+   jj config set --user user.name "Alice Example"
+   jj config set --user user.email "alice@example.com"
+   ```
+3. Verify the configuration by running:
+   ```bash
+   jj config list user
+   ```
+   The output should include both `user.name = "Alice Example"` and `user.email = "alice@example.com"`.
+
+## Constraints
+- Project path: /home/user/myrepo
+- The repository at `/home/user/myrepo` is a pre-initialized colocated jj/Git repo — do NOT re-initialize it.
+- Use `jj config set --user` (the user/global scope), not `--repo`.
+- Do NOT manually hand-edit the TOML config file; use the `jj config set` CLI command.
+
+## Integrations
+None.b:Tc0e,# Create a Bookmark and Push It to a Local Git Remote
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Unlike Git branches, `jj` allows commits to be *anonymous* (not pointed to by any named bookmark). To share a commit with a Git remote (e.g., the `origin` remote), you must first create a **bookmark** that points to the commit, and then push that bookmark with `jj git push`.
+
+A colocated jj+git repository is already initialized at `/home/user/myrepo` (it has both a `.jj/` directory and a `.git/` directory). The user identity is pre-configured globally. The repository has a strictly linear history of two user-created commits (oldest → newest):
+
+1. A commit with description `First` that introduces the file `first.txt`.
+2. A commit with description `Second` that introduces the file `second.txt`.
+
+On top of `Second` there is an empty anonymous working-copy commit (`@`) — it has no description and no file changes. There are currently **no local or remote bookmarks** in the repository.
+
+There is also a **local bare Git repository** at `/home/user/remote.git` that has been configured as the `origin` Git remote of `/home/user/myrepo`. This bare repo is currently empty (no refs). All communication with the remote happens via the local filesystem — no network access is needed.
+
+## Requirements
+- Create a new **local** bookmark named `my-feature` that points to the parent of the working copy (`@-`) — i.e., the commit with description `Second`.
+- Push that bookmark to the `origin` remote so that the bare Git repository at `/home/user/remote.git` has a ref `refs/heads/my-feature` pointing to the same commit (by Git commit ID) as the local bookmark.
+- The original commits `First` and `Second` must still exist with the same descriptions and the same Git commit IDs. Do not rewrite, abandon, rebase, squash, or otherwise modify any existing commit.
+- Do not create any other local bookmark. Only `my-feature` may be created.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the current state if you wish:
+   ```bash
+   jj log
+   jj bookmark list
+   jj git remote list
+   ```
+3. Create the local bookmark `my-feature` pointing to `@-` (the `Second` commit):
+   ```bash
+   jj bookmark create my-feature -r @-
+   ```
+4. Push the bookmark to the `origin` remote:
+   ```bash
+   jj git push --bookmark my-feature
+   ```
+   (`-b my-feature` is an accepted short form.)
+5. Verify the push succeeded:
+   ```bash
+   jj bookmark list my-feature
+   git --git-dir=/home/user/remote.git show-ref refs/heads/my-feature
+   ```
+
+## Constraints
+- Project path: `/home/user/myrepo`
+- Remote bare repository path: `/home/user/remote.git`
+- Remote name: `origin`
+- Bookmark name to create and push: `my-feature`
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj` or `git`.
+- Do not change the URL of the `origin` remote and do not add any other remote.
+- Do not push using raw `git push` against the working repo — the push must go through `jj git push` so that jj tracks the remote bookmark.
+c:T9c0,# Render a Custom `jj log` Template to a File
+
+## Background
+Jujutsu (`jj`) provides a powerful functional [templating language](https://docs.jj-vcs.dev/latest/templates/) that lets you customize the output of commands such as `jj log`. Templates can call zero-argument methods on the implicit `Commit` keyword (for example `commit_id`, `description`) and chain methods on those values (for example `.short()` and `.first_line()`). The `++` operator concatenates template fragments.
+
+## Requirements
+A colocated jj/Git repository is already initialized at `/home/user/myrepo`. It contains three real commits with descriptions "Initial commit", "Add feature B", and "Fix bug C" (each commit adds a different file), plus an empty working-copy commit `@` on top of them.
+
+Using a single `jj log` invocation, produce a plain-text report where each described non-root commit (i.e. every visible commit except the root commit and the empty working-copy commit `@`) is rendered on its own line in the form:
+
+```
+<short_commit_id> <first_line_of_description>
+```
+
+The full output must be written to `/home/user/myrepo/log_output.txt`. Do not include any graph characters, headers, or rows for the root commit or the working-copy commit `@`.
+
+## Implementation Guide
+1. Change into the project directory: `cd /home/user/myrepo`.
+2. Run a single `jj log` command with:
+   - `--no-graph` to suppress the graph characters,
+   - the revset `-r 'all() ~ root() ~ @'` so the root commit and the working-copy commit are both excluded, leaving only the three real commits,
+   - the template `-T 'commit_id.short() ++ " " ++ description.first_line() ++ "\n"'`.
+3. Redirect the standard output of that command to `/home/user/myrepo/log_output.txt`.
+
+A concrete command that satisfies the requirements is:
+
+```bash
+jj log --no-graph -r 'all() ~ root() ~ @' \
+    -T 'commit_id.short() ++ " " ++ description.first_line() ++ "\n"' \
+    > /home/user/myrepo/log_output.txt
+```
+
+## Constraints
+- Project path: /home/user/myrepo
+- Log file: /home/user/myrepo/log_output.txt
+- Use the `jj` binary already installed at `/usr/local/bin/jj`; do not reinstall or upgrade jj.
+- Do not modify any commits, create new commits, or change descriptions. The repository must remain in the same state it started in (apart from the new `log_output.txt` file at the working-copy root).
+- Do not hand-craft the file with `echo`, `printf`, or by editing it manually; the contents must be produced by `jj log` with the specified template.
+d:T765,# Describe the Working Copy Commit and Start a New Change
+
+## Background
+Jujutsu (`jj`) is a Git-compatible version control system that treats the working copy as a permanent commit (referenced by `@`). When you make file changes, they are automatically recorded into the working-copy commit. Initially, this commit has an empty description. You can give the commit a meaningful description with `jj describe -m "<message>"` and then start a fresh, empty change for the next batch of work with `jj new`.
+
+You have a pre-initialized colocated jj repository at `/home/user/myrepo`. The user identity (`user.name` and `user.email`) is already configured. The working-copy commit `@` currently has an empty description and contains uncommitted changes to a file named `README.md`.
+
+## Requirements
+1. Set the description of the current working-copy commit to exactly `Add README documentation`.
+2. After describing it, create a new empty change on top of that commit so that the new working-copy commit `@` is empty and the described commit becomes its parent (`@-`).
+
+## Implementation Guide
+From inside `/home/user/myrepo`, run:
+
+```bash
+cd /home/user/myrepo
+jj describe -m "Add README documentation"
+jj new
+```
+
+The `-m` flag passes the message non-interactively (no editor is opened). `jj new` (with no arguments) creates a new empty change whose parent is the current working-copy commit, and switches `@` to point to that new empty change.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Do NOT use `git` directly for this task; use `jj` commands only.
+- The description must match exactly: `Add README documentation` (case-sensitive, no trailing punctuation, no quotes).
+- After completing the task, the new working-copy commit `@` must be empty (no file changes).
+- The previous commit (now `@-`) must contain the changes to `README.md` and the description `Add README documentation`.
+e:T9f2,# Duplicate a Commit in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Each commit is identified by both a *change ID* (a stable identifier that survives rewrites) and a *commit ID* (the underlying Git SHA). The `jj duplicate` command creates a copy of an existing commit as a sibling — the new commit keeps the same description and file changes, but is assigned a brand-new change ID.
+
+A Jujutsu repository is already initialized at `/home/user/myrepo`. The repo is colocated with Git (it has both a `.jj/` and a `.git/` directory) and user identity has been pre-configured. There is exactly one user-created commit with the description `Feature A` that introduces a file named `feature_a.txt` containing the text `feature A content`. The working copy `@` is a new empty commit on top of that commit.
+
+## Requirements
+- Locate the change ID of the existing commit whose description contains the substring `Feature A`.
+- Use `jj duplicate` to create a duplicate of that commit. The duplicate must:
+  - Have the same description (`Feature A`).
+  - Contain the same file `feature_a.txt` with the same content `feature A content`.
+  - Have a *different* change ID from the original (i.e., it must be a brand-new sibling commit, not an alias of the original).
+- After the operation, the repository must contain at least two distinct commits whose description matches `Feature A`.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Find the change ID of the existing `Feature A` commit using the `description(substring:...)` revset, for example:
+   ```bash
+   jj log -r 'description(substring:"Feature A")' --no-graph -T 'change_id ++ "\n"'
+   ```
+   (Note: in jj 0.38, the plain `description("Feature A")` form does an exact match including any trailing newline; use the `substring:` form to match the description text.)
+3. Run `jj duplicate <change_id>` with that change ID. This creates a new sibling commit with the same description and changes but a new change ID.
+4. Confirm the duplication by re-running the log command and verifying that two lines (two distinct change IDs) are printed.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj`.
+- Do not modify the original `Feature A` commit's description or its file contents.
+- Do not introduce additional commits with the description `Feature A` by any means other than `jj duplicate` (e.g., do not hand-create another commit with the same description).
+f:Tc5b,# Edit a Mid-Stack Commit and Let `jj` Auto-Rebase Descendants
+
+## Background
+Jujutsu (`jj`) is a Git-compatible version control system that makes editing any commit in a stack trivial: `jj edit <change_id>` switches the working copy `@` to that commit, any file changes are auto-snapshotted into it, and all descendant commits are automatically rebased to preserve the stack. There is no need to run `git rebase -i`, mark commits as `edit`, and finish with `git rebase --continue`.
+
+You have a pre-initialized colocated jj repository at `/home/user/myrepo`. The user identity (`user.name` and `user.email`) is already configured. The repository already contains a 4-commit linear stack:
+
+```
+@  (empty working copy on top of D)
+○  Commit D   (adds d.txt)
+○  Commit C   (adds c.txt)
+○  Commit B   (adds b.txt)
+○  Commit A   (adds a.txt)
+◆  root
+```
+
+Each commit `X` introduces a single file `x.txt`.
+
+## Requirements
+1. Use `jj edit` to make the **mid-stack** `Commit B` the current working-copy commit.
+2. While `@` is pointing at `Commit B`, create a new file `b_extra.txt` in the repository root containing exactly the text `extra line for B` (followed by a single trailing newline).
+3. Return the working copy to the tip of the stack so that `@` is at (or above) the rebased `Commit D`. You may use either `jj edit <change_id_of_D>` or `jj new <change_id_of_D>`. Do **not** abandon, squash, or rewrite Commits C or D.
+4. After you finish, the repository must look like this (the change IDs of B, C, D are stable across the rewrite, but their commit IDs will change):
+
+   - `Commit B` contains both `b.txt` and `b_extra.txt`.
+   - `Commit C` (with `c.txt`) and `Commit D` (with `d.txt`) are rebased on top of the new `Commit B` automatically.
+   - The working-copy tip contains `a.txt`, `b.txt`, `b_extra.txt`, `c.txt`, and `d.txt`.
+
+## Implementation Guide
+From inside `/home/user/myrepo`:
+
+1. List the commits to discover the change IDs:
+   ```bash
+   cd /home/user/myrepo
+   jj log
+   ```
+   Note the change ID (the first short alphabetic identifier on each line) for `Commit B` and `Commit D`. You can also use revsets to capture them, e.g. `description(substring:"Commit B")`.
+
+2. Edit `Commit B`:
+   ```bash
+   jj edit <change_id_of_B>
+   # or:  jj edit "description(substring:\"Commit B\")"
+   ```
+
+3. Create the new file:
+   ```bash
+   printf 'extra line for B\n' > b_extra.txt
+   ```
+   The next `jj` command will auto-snapshot the file into `Commit B`. Descendants `Commit C` and `Commit D` will be auto-rebased.
+
+4. Return to the tip:
+   ```bash
+   jj edit <change_id_of_D>
+   # or:  jj new <change_id_of_D>
+   ```
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use `jj` commands only — do NOT use `git` directly.
+- Do NOT modify the descriptions of any commit (they must remain exactly `Commit A`, `Commit B`, `Commit C`, `Commit D`).
+- Do NOT delete, abandon, squash, or fold any of the four commits.
+- The new file must be named exactly `b_extra.txt` and contain exactly `extra line for B` (plus one trailing newline).
+- After completion, `b.txt`, `b_extra.txt`, `c.txt`, and `d.txt` must all be visible in the working-copy tip.
+10:T4aa,# Initialize a Colocated jj/Git Repository
+
+## Background
+Jujutsu (`jj`) is a modern Git-compatible version control system. When working with existing Git tooling, the recommended workflow is to create a *colocated* repository, which keeps a standard `.git/` directory alongside the `.jj/` directory so that Git commands and `jj` commands can both operate on the same working copy.
+
+## Requirements
+- Initialize a new colocated `jj`/Git repository inside the pre-existing empty directory `/home/user/myrepo`.
+- The single command must produce both a `.jj/` directory and a `.git/` directory at the root of `/home/user/myrepo`.
+
+## Implementation Guide
+1. Change into the project directory: `cd /home/user/myrepo`.
+2. Run `jj git init --colocate` from inside `/home/user/myrepo`.
+3. Do not create any additional commits, files, or configuration beyond what `jj git init --colocate` creates by default.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the `jj` binary that is already installed in the container (`/usr/local/bin/jj`).
+- Do not use `git init` directly; the repository must be initialized through `jj git init --colocate` so that both `.jj/` and `.git/` are created by `jj`.
+11:Tb4a,# Merge Two Diverged Branches in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Unlike Git, a commit in `jj` can have any number of parents. To produce a merge commit you create a new change whose parent list contains the tips of the branches you want to merge. The canonical way to do this is `jj new <rev1> <rev2> [...]`, which the official documentation describes as:
+
+> Note that you can create a merge commit by specifying multiple revisions as argument. For example, `jj new @ main` will create a new commit with the working copy and the `main` bookmark as parents.
+
+A colocated jj+git repository is already initialized at `/home/user/myrepo`. User identity is pre-configured. The starting history looks like this (newest at top):
+
+```
+@   (empty working copy on top of the branch_x tip)
+|
+*  Branch X commit   <-- bookmark: branch_x   (adds x.txt = "x")
+|
+|  *  Branch Y commit   <-- bookmark: branch_y   (adds y.txt = "y")
+|/
+*  Base commit                                   (adds shared.txt = "shared content")
+```
+
+The two branches modify disjoint files (`x.txt` vs `y.txt`) so the merge will not produce conflicts.
+
+## Requirements
+- Create a single new commit (a merge commit) with description exactly `Merge branches`.
+- The merge commit must have exactly two parents: the tip of `branch_x` and the tip of `branch_y`.
+- The merge commit must include the three data files at the expected contents:
+  - `shared.txt` = `shared content`
+  - `x.txt` = `x`
+  - `y.txt` = `y`
+- The `branch_x` and `branch_y` bookmarks must NOT be moved by this operation.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the current history to confirm the divergence: `jj log`.
+3. Create the merge commit by passing both bookmark names as the parents of the new change:
+   ```bash
+   jj new branch_x branch_y -m "Merge branches"
+   ```
+   This creates a new working-copy change whose parents are exactly the tips of `branch_x` and `branch_y`, and sets its description to `Merge branches`.
+4. Verify the merge with:
+   ```bash
+   jj log -r 'description(substring:"Merge branches")' --no-graph -T 'description.first_line() ++ "\n"'
+   jj log -r 'description(substring:"Merge branches")-' --no-graph -T 'description.first_line() ++ "\n"'
+   ```
+   The first command must print one line `Merge branches`. The second command must print exactly the two parent descriptions `Branch X commit` and `Branch Y commit` (in some order).
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj`.
+- Do not move, rename, or delete the `branch_x` or `branch_y` bookmarks.
+- Do not modify the contents of `shared.txt`, `x.txt`, or `y.txt`.
+- Use a single `jj new` invocation with multiple revsets to create the merge — do not synthesize the merge by manually editing files.
+12:Tb08,# Move a Bookmark Forward in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Unlike Git branches, `jj` uses **bookmarks** — named pointers to specific commits that do *not* automatically follow new commits. To advance a bookmark, you must explicitly move it using `jj bookmark move` (or equivalently `jj bookmark set` for an existing bookmark).
+
+A Jujutsu repository is already initialized at `/home/user/myrepo`. The repo is colocated with Git (it has both a `.jj/` and a `.git/` directory) and user identity has been pre-configured. The repository has a strict linear history of exactly three user-created commits (oldest → newest):
+
+1. A commit with description `Commit 1`.
+2. A commit with description `Commit 2`.
+3. A commit with description `Commit 3`.
+
+On top of `Commit 3` there is an empty working-copy commit (`@`), which has no description and no file changes. A local bookmark named `feature` already exists and points to the commit whose description is `Commit 2`.
+
+## Requirements
+- Move the existing local bookmark `feature` forward so that it points to the commit whose description is `Commit 3`.
+- The move must be a *fast-forward* move — that is, it must advance the bookmark to a descendant of its current position (no `--allow-backwards` flag is needed).
+- After the operation:
+  - The bookmark `feature` must still exist as a local bookmark.
+  - The commit at which the bookmark `feature` resolves must have description `Commit 3` (and not `Commit 2`).
+  - The commit with description `Commit 1`, `Commit 2`, and `Commit 3` must all still exist with the same descriptions. Do not rewrite any commit.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the current state of the bookmark if you wish:
+   ```bash
+   jj bookmark list feature
+   jj log -r 'feature' --no-graph -T 'description.first_line()'
+   ```
+3. Find the change ID of the commit with description `Commit 3` (it is the parent of the working copy):
+   ```bash
+   jj log -r 'description(substring:"Commit 3")' --no-graph -T 'change_id ++ "\n"'
+   ```
+4. Move the `feature` bookmark to that commit using either form:
+   - `jj bookmark move feature --to 'description(substring:"Commit 3")'`
+   - or `jj bookmark set feature -r 'description(substring:"Commit 3")'`
+5. Confirm with `jj log -r 'feature' --no-graph -T 'description.first_line()'`. The output must be exactly `Commit 3`.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj`.
+- Do not modify or rewrite any existing commit (no `jj describe`, no `jj edit`, no `jj rebase` of `Commit 1` / `Commit 2` / `Commit 3`).
+- Do not delete or recreate the `feature` bookmark (no `jj bookmark delete feature` followed by `jj bookmark create`).
+13:Tc8a,# Insert a New Change Between Two Existing Commits with `jj`
+
+## Background
+You are working on a project tracked by Jujutsu (`jj`). The repository at `/home/user/myrepo` is a colocated `jj`/Git repo (created with `jj git init --colocate`). The user identity (`user.name`, `user.email`) is pre-configured.
+
+The repository currently contains a linear stack of three commits:
+
+```
+@   (empty working copy)
+|
+Tests              (creates test_main.py)
+|
+Implementation     (creates main.py)
+|
+Setup              (creates setup.py)
+|
+<root>
+```
+
+You realized that you forgot to record the project's Python dependencies between "Setup" and "Implementation". You must INSERT a brand new change BETWEEN the "Setup" and "Implementation" commits without re-creating the existing commits manually. `jj`'s `new --insert-after` flag is designed for exactly this workflow: it splices a new change into the DAG and automatically rebases all descendants on top of it.
+
+## Requirements
+1. Create a new change whose description is exactly `Add dependencies`.
+2. The new change must be inserted directly after the commit whose description is `Setup`, so that its parent is `Setup` and its child is `Implementation`.
+3. The descendant commits `Implementation` and `Tests` must be automatically rebased on top of the newly inserted change (do not re-create them manually).
+4. The new change must contain a single file `requirements.txt` with the exact content `pytest==8.0.0` (and no trailing newline beyond what your tool naturally writes; the test only checks that the file's content starts with `pytest==8.0.0`).
+5. After the operation, the working-copy tip must still be the empty child of `Tests`, and the working-copy tree must contain all four files: `setup.py`, `requirements.txt`, `main.py`, `test_main.py`.
+6. The original commits `Setup`, `Implementation`, and `Tests` must still exist with their original descriptions.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Use a revset to address the `Setup` commit by description, e.g. `description(substring:"Setup")`.
+3. Run:
+   ```
+   jj new --insert-after 'description(substring:"Setup")' -m "Add dependencies"
+   ```
+   This places the new change between `Setup` and its child `Implementation`, and `jj` automatically rebases `Implementation` and `Tests` on top of the new change.
+4. The command leaves the working copy on the newly inserted change. Write `requirements.txt` with content `pytest==8.0.0` into the working copy. `jj` will snapshot it into the new change automatically on the next command, or you can run `jj status` to force a snapshot.
+5. Restore the original working-copy position by creating an empty change on top of `Tests`:
+   ```
+   jj new 'description(substring:"Tests")'
+   ```
+   so that `@` is once again an empty child of `Tests` and the working copy contains all four files.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` CLI for every operation; do not edit `.git`/`.jj` internals directly.
+- Do NOT abandon, rewrite, or rename the existing `Setup`, `Implementation`, or `Tests` descriptions.
+- The `Add dependencies` change must contain exactly one new file (`requirements.txt`) relative to its parent `Setup`.
+14:T14de,# Restore a Jujutsu Repository to a Past Operation
+
+## Background
+Jujutsu (`jj`) records every repository-modifying command in its **operation log** (`jj op log`). Each entry in the operation log has a stable operation ID, a human-readable operation description (e.g. `commit`, `new empty commit`, `abandon commit`), and an `args:` line that records the exact CLI invocation that produced the operation. Using `jj op restore <operation_id>` you can recover the repository view to exactly the state it had right after that operation, even after many subsequent commits, abandons, rebases, or other history rewrites.
+
+A colocated jj + git repository is already initialized at `/home/user/myrepo`. User identity has been pre-configured globally. The repository has had a sequence of named operations performed on it. The CURRENT (visible) state of the repo is:
+
+- A linear chain `Stage 1 -> Stage 3 -> extra1 -> extra2 -> @` where `@` is the empty working copy.
+- `Stage 1` introduced `file1.txt` with content `content A`.
+- `Stage 3` introduced `file3.txt` with content `content C`.
+- `extra1` and `extra2` are empty commits made after `Stage 3`.
+- There is **no** visible commit whose description contains `Stage 2`.
+- The working copy on disk contains `file1.txt` and `file3.txt` but **not** `file2.txt`.
+
+However, earlier in the history of operations, the repository did go through a state with a `Stage 2` commit that contained `file2.txt` with content `content B`. Specifically, the operation that committed `Stage 2` was a `jj commit -m "Stage 2"` operation. After that operation, a `Stage 3` commit was added, then `Stage 2` was abandoned (which rebased `Stage 3` onto `Stage 1` and removed `file2.txt` from history), and finally two empty commits (`extra1`, `extra2`) were created.
+
+## Requirements
+You must restore the repository to the **TARGET STATE** — the state that existed right after the `jj commit -m "Stage 2"` operation — using only `jj op log` and `jj op restore`. After restoring, the repository must satisfy ALL of the following:
+
+1. The visible repository must contain exactly one commit whose description is `Stage 1` and exactly one commit whose description is `Stage 2`.
+2. The visible repository must contain **no** commit whose description contains `Stage 3`.
+3. The visible repository must contain **no** commit whose description contains `extra1` or `extra2`.
+4. The file `/home/user/myrepo/file1.txt` must exist on disk in the working copy.
+5. The file `/home/user/myrepo/file2.txt` must exist on disk in the working copy with content `content B` (a trailing newline is acceptable).
+6. The file `/home/user/myrepo/file3.txt` must **not** exist on disk in the working copy.
+7. The most recent operation in `jj op log` must be a `restore` operation, demonstrating that the restoration was performed via `jj op restore`.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`.
+2. Inspect the operation log to understand the history of operations:
+   ```bash
+   jj op log
+   ```
+   Each entry shows the operation ID, the operation description (e.g. `commit`, `new empty commit`, `abandon commit`, etc.), and an `args:` line with the exact CLI command that produced that operation.
+3. Identify the operation that committed `Stage 2`. It is the operation whose **operation description** is `commit <commit_id>` and whose `args:` line is `args: jj commit -m 'Stage 2'` (jj may render the message with either single or double quotes depending on its shell-escaping rules; the human-readable description begins with the word `commit` rather than `snapshot working copy`). Note that there is typically a separate `snapshot working copy` operation immediately before the `commit` operation that shares the same `args:` line; you want the `commit` operation, **not** the `snapshot working copy` operation, because only the `commit` operation produces the full `Stage 1 -> Stage 2 -> @` state.
+   You can also print operation IDs alongside the args by running:
+   ```bash
+   jj op log --no-graph -T 'self.id().short() ++ " | " ++ self.description() ++ "\n"'
+   ```
+   or with `-p` to see what each operation changed.
+4. Copy the (short or full) operation ID of that operation. Any unambiguous prefix is enough.
+5. Restore the repository to that operation:
+   ```bash
+   jj op restore <operation_id>
+   ```
+   This will create a new operation that restores the repo view to exactly the state at the `jj commit -m "Stage 2"` operation: `Stage 1 (file1.txt) -> Stage 2 (file2.txt) -> @ (empty)`. The working-copy files on disk will also be updated to reflect this restored state — `file2.txt` will reappear and `file3.txt` will be removed.
+6. Verify with `jj log` and `ls /home/user/myrepo` that the restored state matches the requirements above.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do NOT mock or stub `jj`.
+- You MUST use `jj op log` to find the target operation and `jj op restore <op_id>` to restore. Do NOT use `jj undo` (which only reverts the single most recent operation and would not yield the correct multi-operation rollback), do NOT manually re-create the commits with `jj new`/`jj commit`, and do NOT manually create/delete files with shell commands to fake the state.
+- Do not modify the user identity or global jj configuration.
+15:Tb95,# Rebase a Feature Branch onto Main in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Bookmarks in `jj` are similar to Git branches — movable references to commits. The `jj rebase` command moves revisions to different parent(s) while preserving their changes. A common workflow is to rebase a stale feature branch on top of the latest tip of `main` so the feature commits sit linearly on top of the main commits.
+
+A Jujutsu repository is already initialized at `/home/user/myrepo`. The repo is colocated with Git (it has both a `.jj/` and a `.git/` directory) and user identity has been pre-configured. The initial history looks like this (newest at the top):
+
+```
+@   (empty working copy on top of Feat2)
+|
+* Feat2  <-- bookmark: feature   (adds feat2.txt)
+|
+* Feat1                          (adds feat1.txt)
+|  
+| * Main2  <-- bookmark: main    (adds main2.txt)
+| |
+| * Main1                        (adds main1.txt)
+|/
+* Base                           (adds base.txt)
+```
+
+The `main` bookmark and the `feature` bookmark share a common ancestor (`Base`) but have diverged. The two branches modify disjoint files (`main1.txt`/`main2.txt` vs. `feat1.txt`/`feat2.txt`), so no conflicts will be produced by rebasing.
+
+## Requirements
+- Rebase the entire `feature` branch (the commits `Feat1` and `Feat2`) onto the tip of the `main` bookmark (i.e., on top of the `Main2` commit).
+- After the rebase, the resulting linear history of `feature` must be: `Base -> Main1 -> Main2 -> Feat1' -> Feat2'`.
+- The `feature` bookmark must point to the rewritten `Feat2'` commit (a child of `Main2`).
+- The `main` bookmark must still point to the `Main2` commit and must not be moved.
+- All four data files (`base.txt`, `main1.txt`, `main2.txt`, `feat1.txt`, `feat2.txt`) must be present in the rewritten `feature` tip.
+- The commit descriptions of the rewritten feature commits must remain `Feat1` and `Feat2` respectively (in the same order).
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the current history with `jj log` to confirm the divergence.
+3. Use `jj rebase` with the `-b` (branch) and `-d` (destination) flags to move the whole `feature` branch onto `main`:
+   ```bash
+   jj rebase -b feature -d main
+   ```
+   The `-b feature` selects the feature branch revset (all commits reachable from `feature` that are not reachable from `main`), and `-d main` puts them onto the `main` bookmark's commit.
+4. Confirm the result with:
+   ```bash
+   jj log -r 'main..feature' --no-graph -T 'description.first_line() ++ "\n"'
+   ```
+   which should print exactly `Feat2` and `Feat1` (two lines, newest first).
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj`.
+- Do not move or modify the `main` bookmark.
+- Do not modify file contents of any commit; only their parentage should change.
+- Do not rename the `feature` bookmark.
+16:T12c7,# Resolve a Rebase Conflict in Jujutsu
+
+## Background
+Jujutsu (`jj`) is a modern, Git-compatible version control system. Unlike Git, `jj` treats conflicts as first-class citizens: when a rebase produces a conflict, the rebase still succeeds and the conflict is recorded inside the resulting commit. The working copy then materializes the conflict using `jj`'s special conflict markers (`<<<<<<<`, `%%%%%%%`, `+++++++`, `>>>>>>>`). The conflict is resolved simply by editing the file so that the conflict markers are gone — `jj` will auto-snapshot the resolution the next time any `jj` command runs.
+
+A colocated `jj`+`git` repository is already initialized at `/home/user/myrepo`. The user identity is pre-configured. The starting history looks like this:
+
+```
+@   Increase timeout to 120   <-- bookmark: branch-b   (HAS A CONFLICT in config.yaml)
+|
+* Increase timeout to 60      <-- bookmark: branch-a
+|
+* Base                        <-- bookmark: base   (creates config.yaml with `timeout: 30`)
+```
+
+This state was produced by:
+1. Creating `config.yaml` with `timeout: 30` in the `Base` commit.
+2. Changing `timeout` to `60` in `branch-a` (a child of `Base`).
+3. Changing `timeout` to `120` in `branch-b` (originally a child of `Base`).
+4. Running `jj rebase -s branch-b -d branch-a`, which moves `branch-b` on top of `branch-a` and produces a CONFLICT in `config.yaml` because the change `30 -> 120` could not be applied on top of `60`.
+
+The working copy `@` is on the rebased, conflicted `branch-b` commit. The file `/home/user/myrepo/config.yaml` therefore contains `jj` conflict markers (`<<<<<<<`, `%%%%%%%` and/or `+++++++`, `>>>>>>>`).
+
+## Requirements
+Your job is to **resolve the conflict** in `config.yaml` by hand. The resolution must be a specific compromise value:
+
+- The final content of `/home/user/myrepo/config.yaml` MUST be exactly:
+  ```
+  timeout: 90
+  ```
+  (a single line `timeout: 90` followed by one trailing newline; no conflict markers; no other lines; no extra whitespace).
+- After the resolution, `jj` must record the conflict as resolved on the `branch-b` commit. The next `jj` command auto-snapshots the working copy, so after editing the file you must NOT introduce any new commit (do not run `jj new` or `jj commit`) — the resolution belongs to the existing `branch-b` commit.
+- The `branch-a` bookmark must remain on the commit whose description is exactly `Increase timeout to 60`.
+- The `branch-b` bookmark must remain on the commit whose description is exactly `Increase timeout to 120`, and that commit must still be a child of `branch-a` (i.e. the rebase chain `Base -> Increase timeout to 60 -> Increase timeout to 120` must be preserved).
+- The `base` bookmark must remain on the commit whose description is exactly `Base`.
+- After resolution, `jj log -r 'conflicts()' --no-graph -T 'change_id ++ "\n"'` must print nothing (no conflicted commits in the repository).
+- After resolution, `jj status` must report no conflicted files in the working copy.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the state of the repository:
+   - `jj status` shows the working-copy commit and lists conflicted files.
+   - `jj log` shows the commit graph; the conflicted commit will be annotated as having a conflict.
+   - `jj log -r 'conflicts()'` lists every commit that currently contains conflicts.
+3. Open `config.yaml` and read its full content. You will see something like:
+   ```
+   <<<<<<< Conflict 1 of 1
+   %%%%%%% Changes from base to side #1
+   -timeout: 30
+   +timeout: 60
+   +++++++ Contents of side #2
+   timeout: 120
+   >>>>>>> Conflict 1 of 1 ends
+   ```
+   (The exact marker text may vary slightly across `jj` versions, but the file will contain `<<<<<<<` / `%%%%%%%` / `+++++++` / `>>>>>>>` markers around the two competing changes.)
+4. Rewrite the entire file so that its content is exactly:
+   ```
+   timeout: 90
+   ```
+   (followed by a single trailing newline character). All conflict markers and all references to `timeout: 30`, `timeout: 60`, and `timeout: 120` must be removed.
+5. Verify with `jj status` that there are no remaining conflicts (the next `jj` invocation will auto-snapshot the file and clear the conflict from the commit).
+6. Verify with `jj log -r 'conflicts()' --no-graph -T 'change_id ++ "\n"'` that the output is empty.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use the real `jj` binary that is pre-installed in the environment. Do not mock or stub `jj`.
+- Do not create any new commits. The resolution must be auto-snapshotted onto the existing `branch-b` commit.
+- Do not move any bookmark (`base`, `branch-a`, `branch-b`).
+- Do not undo the rebase (no `jj undo`, no `jj op restore`).
+- The final `config.yaml` content must be exactly `timeout: 90\n` (one line plus a trailing newline) and nothing else.
+17:Tb13,# Restore a Single File From an Earlier Revision With `jj restore`
+
+## Background
+You have a colocated Jujutsu (`jj`) repository at `/home/user/myrepo`. The repository contains two non-root commits in a linear stack, plus an empty working-copy commit on top:
+
+1. The grand-parent commit `@--` has the description `Initial config` and creates `config.json` with the content:
+
+   ```json
+   {"version": "1.0"}
+   ```
+
+2. The parent commit `@-` has the description `Update config and add extras`. It modifies `config.json` to:
+
+   ```json
+   {"version": "2.0"}
+   ```
+
+   and creates a new file `extra.txt` with the content `additional data`.
+
+3. The working copy `@` is an empty commit on top of `@-` (no description, no changes).
+
+The user identity is already configured in the repo, and the `jj` binary is installed at `/usr/local/bin/jj`.
+
+## Requirements
+In the working copy `@`, restore **only** `config.json` to the version stored in the `Initial config` commit (`{"version": "1.0"}`). The file `extra.txt` must remain present in the working copy with its content `additional data`, and the `Update config and add extras` commit (`@-`) must NOT be modified.
+
+After your changes:
+
+- On disk in `/home/user/myrepo`, `config.json` must contain `{"version": "1.0"}`.
+- On disk in `/home/user/myrepo`, `extra.txt` must still exist with content `additional data`.
+- The parent commit `@-` (`Update config and add extras`) must still be the same change — it must still modify `config.json` to `{"version": "2.0"}` and add `extra.txt`.
+- `jj diff -r '@'` must show `config.json` being reverted from `{"version": "2.0"}` to `{"version": "1.0"}` in the working copy.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`.
+2. Use `jj restore` to copy the version of `config.json` from the `Initial config` revision into the working copy:
+
+   ```bash
+   jj restore --from 'description(substring:"Initial config")' config.json
+   ```
+
+   The `--from <REVSET>` flag selects the source revision (the `Initial config` commit). When `--into` is omitted, `jj` restores into the working copy `@`. Passing the path `config.json` restricts the restore to that single file, leaving `extra.txt` untouched in `@`.
+3. Verify with `jj diff -r '@'` and `cat config.json` / `cat extra.txt` that only `config.json` was reverted.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use only the `jj` CLI; do not manually edit anything under `.jj/` or `.git/`.
+- Do NOT abandon, rewrite, or `jj edit` the existing commits — `@-` (`Update config and add extras`) must remain unchanged, and the `Initial config` commit must still exist with its description.
+- Do NOT delete `extra.txt`; it must still be present in the working copy after your changes.
+- The change must live in the working copy `@` (i.e., `jj diff -r '@'` must show the revert of `config.json`).
+18:Tba0,# Filter Commits by Author and Description with a jj Revset
+
+## Background
+Jujutsu (`jj`) provides a powerful functional revset language for selecting commits. Two of the most useful predicates are `author(pattern)` (which matches against the author's name OR email) and `description(pattern)` (which matches against the commit description). Combined with the `&` operator and the `substring:` string-pattern kind, you can build queries that pick out very specific subsets of history — for example, "all commits by Alice that have the word 'fix' in their description".
+
+A colocated jj/Git repository is already initialized at `/home/user/myrepo`. It contains five user-authored commits plus an empty working copy on top:
+
+1. Alice `<alice@example.com>` — description `fix login bug` (added `file1.txt`)
+2. Bob `<bob@example.com>` — description `fix database` (added `file2.txt`)
+3. Alice `<alice@example.com>` — description `add feature X` (added `file3.txt`)
+4. Alice `<alice@example.com>` — description `fix typo in README` (added `file4.txt`)
+5. Charlie `<charlie@example.com>` — description `add tests` (added `file5.txt`)
+
+The working copy `@` is a new empty commit on top of commit 5.
+
+## Requirements
+Write the change IDs of every commit that is **both** authored by Alice **and** has a description containing the substring `fix` to the file `/home/user/myrepo/alice_fixes.txt`. The file must:
+
+- Exist at the absolute path `/home/user/myrepo/alice_fixes.txt`.
+- Contain exactly one change ID per line.
+- Contain exactly the change IDs of the matching commits — no more, no less, with no extra blank lines beyond a trailing newline.
+- Be derived from a real `jj` revset query — do not hand-write change IDs.
+
+For the initial repository state described above, the expected matching commits are commit 1 (`fix login bug`) and commit 4 (`fix typo in README`), so the file must contain exactly 2 change IDs.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Run the revset query and redirect the output to the target file:
+   ```bash
+   jj log -r 'author(substring:"Alice") & description(substring:"fix")' --no-graph -T 'change_id ++ "\n"' > /home/user/myrepo/alice_fixes.txt
+   ```
+   - `author(substring:"Alice")` matches commits whose author name or email contains `Alice`.
+   - `description(substring:"fix")` matches commits whose description contains `fix`.
+   - `--no-graph` disables the ASCII graph so only template output is produced.
+   - `-T 'change_id ++ "\n"'` prints just the change ID followed by a newline for each matched commit.
+3. (Optional) Inspect the file with `cat /home/user/myrepo/alice_fixes.txt` to confirm it contains exactly 2 change IDs.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Output file: /home/user/myrepo/alice_fixes.txt
+- Use the real, pre-installed `jj` binary. Do not mock or stub `jj`.
+- Do not modify any existing commits' authors, descriptions, or file contents.
+- Do not introduce additional commits.
+19:Tc40,# Split a Jujutsu Commit into Two by File Paths
+
+## Background
+You have a colocated Jujutsu (`jj`) repository at `/home/user/myrepo`. The repository currently contains a single non-root commit whose description is `Combined changes`. That commit touches **two** files in the project root:
+
+- `feature_a.py` with the content:
+
+  ```python
+  def a(): return "a"
+  ```
+
+- `feature_b.py` with the content:
+
+  ```python
+  def b(): return "b"
+  ```
+
+The working-copy commit `@` is an empty child of the `Combined changes` commit. The user identity is already configured and the `jj` binary is installed at `/usr/local/bin/jj`.
+
+## Requirements
+Split the `Combined changes` commit into TWO separate commits using `jj split` in **non-interactive** mode (by passing file path filesets, not a diff editor):
+
+1. A commit whose description is exactly `Feature A` and whose only changed file is `feature_a.py`.
+2. A commit whose description is exactly `Feature B` and whose only changed file is `feature_b.py`.
+3. The `Feature A` commit must be the **parent** of the `Feature B` commit (i.e. they form a linear stack `Feature A → Feature B`, not parallel siblings).
+4. The original `Combined changes` commit must no longer exist as such — it was *split*, not kept alongside the new commits.
+5. The contents of `feature_a.py` and `feature_b.py` on disk must be unchanged.
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Inspect the repo to find the `Combined changes` commit, e.g. with `jj log` or by using the revset `description(substring:"Combined changes")`.
+3. Use `jj split` non-interactively by passing `feature_a.py` as a fileset argument and a description via `-m`. For example:
+
+   ```bash
+   jj split -r 'description(substring:"Combined changes")' feature_a.py -m "Feature A"
+   ```
+
+   Because filesets are provided, `jj split` will NOT open an interactive diff editor. The *selected* commit (containing `feature_a.py`) gets the description `Feature A`. The *remaining* commit (containing `feature_b.py`) keeps the original description `Combined changes` and becomes a child of the selected commit. Do **not** pass `--parallel`/`-p`; the two new commits must form a parent/child stack.
+4. Rename the remaining commit from `Combined changes` to `Feature B`, for example:
+
+   ```bash
+   jj describe -r 'description(substring:"Combined changes")' -m "Feature B"
+   ```
+5. Verify with `jj log` that you now have two non-root, non-empty commits: `Feature A` (containing only `feature_a.py`) and `Feature B` (containing only `feature_b.py`), with `Feature A` as the parent of `Feature B`. No commit with description `Combined changes` should remain.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Use only the `jj` CLI; do not manually edit `.jj/` or `.git/` internals.
+- Do NOT use `jj split --parallel` / `-p` — the two resulting commits must form a parent/child stack.
+- Do NOT change the contents of `feature_a.py` or `feature_b.py`.
+- The descriptions must be exactly `Feature A` and `Feature B` (no extra whitespace, no trailing punctuation).
+- No commit with description `Combined changes` may remain in the repository.
+1a:T763,# Squash Working Copy Changes Into Parent Commit
+
+## Background
+You have a colocated Jujutsu (`jj`) repository at `/home/user/myrepo`. The repository contains two non-root commits in a linear stack:
+
+1. The parent commit `@-` has the description `Initial implementation` and created the file `app.py` with the following body:
+
+   ```python
+   def main(): pass
+   ```
+
+2. The working-copy commit `@` has an **empty description** and modifies `app.py` so its body is now:
+
+   ```python
+   def main(): return 0
+   ```
+
+The user identity is already configured in the repo, and the `jj` binary is installed at `/usr/local/bin/jj`.
+
+## Requirements
+Combine (squash) the unfinished change in the working copy into the existing `Initial implementation` parent commit so that:
+
+- After your changes, there is exactly **one** non-root commit in the repository.
+- That single non-root commit has the description `Initial implementation` and contains the final version of `app.py` with the body `def main(): return 0`.
+- The working copy `@` becomes a new empty commit on top of `Initial implementation` (this is `jj`'s normal behaviour after `jj squash`).
+
+## Implementation Guide
+1. `cd /home/user/myrepo`
+2. Use `jj squash` (with no arguments) to move the working-copy changes into the parent commit. Because the working copy has an empty description, `jj` will keep the parent commit's description `Initial implementation` automatically.
+3. Verify with `jj log` that only one non-root commit remains and that the working copy `@` is now empty.
+
+## Constraints
+- Project path: /home/user/myrepo
+- Do NOT manually edit `.jj/` or `.git/` internals; only use the `jj` CLI.
+- Do NOT change the contents of `app.py` — the final content must remain `def main(): return 0`.
+- The description of the resulting non-root commit must remain exactly `Initial implementation` (no trailing newline shenanigans).
+0:{"P":null,"b":"2GAFgIsVJiDZvWQIDWnWh","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/hatchet-benchmark/_next/static/chunks/f1dd46a3d6ac7fbf.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/hatchet-benchmark/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/hatchet-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L7",null,{"tasksData":[{"taskName":"abandon_and_undo","instruction":"$8","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"abandon_and_undo__s9RFgqk","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":148.271,"latency_breakdown":{"env_setup":11.364,"agent_setup":28.269,"agent_exec":73.472,"verifier":13.925},"taskName":"abandon_and_undo","jobId":"s9RFgqk","exec_duration":73.472}]},{"taskName":"backout_specific_commit","instruction":"$9","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"backout_specific_commit__Sked53B","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":192.815,"latency_breakdown":{"env_setup":11.451,"agent_setup":42.445,"agent_exec":100.922,"verifier":14.046},"taskName":"backout_specific_commit","jobId":"Sked53B","exec_duration":100.922}]},{"taskName":"configure_user_identity","instruction":"$a","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"configure_user_identity__SL6zbBk","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":105.486,"latency_breakdown":{"env_setup":11.396,"agent_setup":24.887,"agent_exec":36.673,"verifier":12.864},"taskName":"configure_user_identity","jobId":"SL6zbBk","exec_duration":36.673}]},{"taskName":"create_bookmark_and_push","instruction":"$b","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"create_bookmark_and_push__5opPTXz","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":134.167,"latency_breakdown":{"env_setup":11.484,"agent_setup":28.871,"agent_exec":61.176,"verifier":14.776},"taskName":"create_bookmark_and_push","jobId":"5opPTXz","exec_duration":61.176}]},{"taskName":"custom_log_template","instruction":"$c","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"custom_log_template__TsUYAyL","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":125.558,"latency_breakdown":{"env_setup":8.45,"agent_setup":37.486,"agent_exec":53.974,"verifier":12.693},"taskName":"custom_log_template","jobId":"TsUYAyL","exec_duration":53.974}]},{"taskName":"describe_working_copy_message","instruction":"$d","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"describe_working_copy_message__4Xrs4MQ","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":46.205,"latency_breakdown":{"env_setup":11.85,"agent_setup":12.248,"agent_exec":null,"verifier":null},"taskName":"describe_working_copy_message","jobId":"4Xrs4MQ","exec_duration":46.205}]},{"taskName":"duplicate_commit","instruction":"$e","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"duplicate_commit__ELQtitb","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":104.311,"latency_breakdown":{"env_setup":4.332,"agent_setup":31.648,"agent_exec":43.35,"verifier":12.203},"taskName":"duplicate_commit","jobId":"ELQtitb","exec_duration":43.35}]},{"taskName":"edit_mid_stack_commit","instruction":"$f","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"edit_mid_stack_commit__XiSyFSv","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":148.532,"latency_breakdown":{"env_setup":11.449,"agent_setup":27.421,"agent_exec":79.532,"verifier":15.445},"taskName":"edit_mid_stack_commit","jobId":"XiSyFSv","exec_duration":79.532}]},{"taskName":"hatchet_child_spawning","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_child_spawning__S3Pw4oy","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":655.045,"latency_breakdown":{"env_setup":12.254,"agent_setup":21.889,"agent_exec":600.117,"verifier":4.975},"taskName":"hatchet_child_spawning","jobId":"S3Pw4oy","exec_duration":600.117}]},{"taskName":"hatchet_cron_workflow","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_cron_workflow__KmuwGv7","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":157.076,"latency_breakdown":{"env_setup":12.165,"agent_setup":55.791,"agent_exec":66.86,"verifier":7.037},"taskName":"hatchet_cron_workflow","jobId":"KmuwGv7","exec_duration":66.86}]},{"taskName":"hatchet_event_lookback","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_event_lookback__XptgnAK","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":113.909,"latency_breakdown":{"env_setup":4.059,"agent_setup":25.97,"agent_exec":64.734,"verifier":4.651},"taskName":"hatchet_event_lookback","jobId":"XptgnAK","exec_duration":64.734}]},{"taskName":"hatchet_failure_recovery","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_failure_recovery__mjhkSaW","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":668.386,"latency_breakdown":{"env_setup":12.225,"agent_setup":34.438,"agent_exec":600.108,"verifier":7.328},"taskName":"hatchet_failure_recovery","jobId":"mjhkSaW","exec_duration":600.108}]},{"taskName":"hatchet_input_validation","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_input_validation__X8ZuKZJ","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":457.096,"latency_breakdown":{"env_setup":12.214,"agent_setup":20.314,"agent_exec":405.159,"verifier":4.795},"taskName":"hatchet_input_validation","jobId":"X8ZuKZJ","exec_duration":405.159}]},{"taskName":"hatchet_llm_agent_loop","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_llm_agent_loop__pnp9wX7","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":667.665,"latency_breakdown":{"env_setup":12.185,"agent_setup":33.001,"agent_exec":600.108,"verifier":7.998},"taskName":"hatchet_llm_agent_loop","jobId":"pnp9wX7","exec_duration":600.108}]},{"taskName":"hatchet_python_worker","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_python_worker__pYL44aP","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":252.861,"latency_breakdown":{"env_setup":4.225,"agent_setup":19.618,"agent_exec":184.768,"verifier":30.903},"taskName":"hatchet_python_worker","jobId":"pYL44aP","exec_duration":184.768}]},{"taskName":"hatchet_simple_dag","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_simple_dag__43wLx4M","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":199.076,"latency_breakdown":{"env_setup":5.732,"agent_setup":54.941,"agent_exec":113.053,"verifier":11.034},"taskName":"hatchet_simple_dag","jobId":"43wLx4M","exec_duration":113.053}]},{"taskName":"hatchet_support_triage","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_support_triage__uiS9DDm","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":328.46,"latency_breakdown":{"env_setup":7.242,"agent_setup":19.898,"agent_exec":276.668,"verifier":10.436},"taskName":"hatchet_support_triage","jobId":"uiS9DDm","exec_duration":276.668}]},{"taskName":"hatchet_typescript_worker","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_typescript_worker__S74WXok","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":311.587,"latency_breakdown":{"env_setup":4.816,"agent_setup":17.507,"agent_exec":269.46,"verifier":4.859},"taskName":"hatchet_typescript_worker","jobId":"S74WXok","exec_duration":269.46}]},{"taskName":"hatchet_wait_event","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_wait_event__kmhc7sd","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":572.263,"latency_breakdown":{"env_setup":6.492,"agent_setup":17.923,"agent_exec":523.68,"verifier":10.947},"taskName":"hatchet_wait_event","jobId":"kmhc7sd","exec_duration":523.68}]},{"taskName":"hatchet_worker_slots","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_worker_slots__enfwncc","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":580.188,"latency_breakdown":{"env_setup":4.198,"agent_setup":54.102,"agent_exec":502.057,"verifier":6.025},"taskName":"hatchet_worker_slots","jobId":"enfwncc","exec_duration":502.057}]},{"taskName":"hatchet_workflow_cancellation","instruction":"","trials":[{"job_name":"2026-04-25__23-53-07","trial_name":"hatchet_workflow_cancellation__3z7CwPD","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":155.578,"latency_breakdown":{"env_setup":8.48,"agent_setup":26.189,"agent_exec":93.914,"verifier":10.54},"taskName":"hatchet_workflow_cancellation","jobId":"3z7CwPD","exec_duration":93.914}]},{"taskName":"init_colocate_repo","instruction":"$10","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"init_colocate_repo__uV4iu8E","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":116.234,"latency_breakdown":{"env_setup":17.576,"agent_setup":27.86,"agent_exec":43.15,"verifier":14.11},"taskName":"init_colocate_repo","jobId":"uV4iu8E","exec_duration":43.15}]},{"taskName":"merge_two_branches","instruction":"$11","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"merge_two_branches__V3Ws3k6","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":133.852,"latency_breakdown":{"env_setup":4.009,"agent_setup":23.676,"agent_exec":77.019,"verifier":12.563},"taskName":"merge_two_branches","jobId":"V3Ws3k6","exec_duration":77.019}]},{"taskName":"move_bookmark_to_revision","instruction":"$12","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"move_bookmark_to_revision__EEopv44","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":128.631,"latency_breakdown":{"env_setup":12.514,"agent_setup":23.682,"agent_exec":66.659,"verifier":12.708},"taskName":"move_bookmark_to_revision","jobId":"EEopv44","exec_duration":66.659}]},{"taskName":"new_change_inserted_between","instruction":"$13","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"new_change_inserted_between__SPSeEnR","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":142.385,"latency_breakdown":{"env_setup":9.688,"agent_setup":24.431,"agent_exec":84.022,"verifier":12.731},"taskName":"new_change_inserted_between","jobId":"SPSeEnR","exec_duration":84.022}]},{"taskName":"operation_log_restore","instruction":"$14","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"operation_log_restore__uSXe4Hu","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":139.827,"latency_breakdown":{"env_setup":19.414,"agent_setup":24.844,"agent_exec":70.366,"verifier":11.855},"taskName":"operation_log_restore","jobId":"uSXe4Hu","exec_duration":70.366}]},{"taskName":"rebase_branch_onto_main","instruction":"$15","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"rebase_branch_onto_main__TWx2hLq","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":129.818,"latency_breakdown":{"env_setup":13.827,"agent_setup":28.994,"agent_exec":61.474,"verifier":13.296},"taskName":"rebase_branch_onto_main","jobId":"TWx2hLq","exec_duration":61.474}]},{"taskName":"resolve_rebase_conflict","instruction":"$16","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"resolve_rebase_conflict__fdVJRj4","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":144.086,"latency_breakdown":{"env_setup":10.405,"agent_setup":28.826,"agent_exec":78.301,"verifier":14.131},"taskName":"resolve_rebase_conflict","jobId":"fdVJRj4","exec_duration":78.301}]},{"taskName":"restore_files_from_revision","instruction":"$17","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"restore_files_from_revision__5r2xU6M","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":233.675,"latency_breakdown":{"env_setup":23.745,"agent_setup":25.73,"agent_exec":154.97,"verifier":14.073},"taskName":"restore_files_from_revision","jobId":"5r2xU6M","exec_duration":154.97}]},{"taskName":"revset_authors_filter","instruction":"$18","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"revset_authors_filter__XAgLY9y","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":111.13,"latency_breakdown":{"env_setup":4.863,"agent_setup":25.03,"agent_exec":49.1,"verifier":14.901},"taskName":"revset_authors_filter","jobId":"XAgLY9y","exec_duration":49.1}]},{"taskName":"split_commit_by_paths","instruction":"$19","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"split_commit_by_paths__3e3dPBa","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":165.644,"latency_breakdown":{"env_setup":19.675,"agent_setup":24.831,"agent_exec":88.597,"verifier":15.349},"taskName":"split_commit_by_paths","jobId":"3e3dPBa","exec_duration":88.597}]},{"taskName":"squash_into_parent","instruction":"$1a","trials":[{"job_name":"2026-05-14__18-12-35","trial_name":"squash_into_parent__KgFVRhR","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":114.883,"latency_breakdown":{"env_setup":4.503,"agent_setup":21.336,"agent_exec":53.09,"verifier":14.647},"taskName":"squash_into_parent","jobId":"KgFVRhR","exec_duration":53.09}]}]}]]}],["$L1b","$L1c"],"$L1d"]}],{},null,false,false]},null,false,false]},null,false,false],"$L1e",false]],"m":"$undefined","G":["$1f",[]],"S":true}
+20:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+21:"$Sreact.suspense"
+23:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
+25:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
+1b:["$","script","script-0",{"src":"/hatchet-benchmark/_next/static/chunks/10cb4cef6c0eeb94.js","async":true,"nonce":"$undefined"}]
+1c:["$","script","script-1",{"src":"/hatchet-benchmark/_next/static/chunks/be08138953094657.js","async":true,"nonce":"$undefined"}]
+1d:["$","$L20",null,{"children":["$","$21",null,{"name":"Next.MetadataOutlet","children":"$@22"}]}]
+1e:["$","$1","h",{"children":[null,["$","$L23",null,{"children":"$L24"}],["$","div",null,{"hidden":true,"children":["$","$L25",null,{"children":["$","$21",null,{"name":"Next.Metadata","children":"$L26"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+24:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+22:null
+26:[["$","title","0",{"children":"Hatchet Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Hatchet tasks, measuring success rate and execution time with high precision."}]]
