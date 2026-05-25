@@ -1,0 +1,7 @@
+{
+  "library_name": "Hatchet",
+  "task_name": "rate_limiting_py",
+  "complexity_level": "multi-step parallel command set",
+  "research_plan_path": "/Users/kw/code/zealt/hatchet-benchmark/plan.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}
