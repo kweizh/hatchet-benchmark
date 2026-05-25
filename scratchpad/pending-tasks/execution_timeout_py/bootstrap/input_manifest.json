@@ -1,0 +1,7 @@
+{
+  "library_name": "Hatchet",
+  "task_name": "execution_timeout_py",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "/Users/kw/code/zealt/hatchet-benchmark/plan.md",
+  "output_dir": "/Users/kw/code/zealt/hatchet-benchmark/scratchpad/pending-tasks"
+}
