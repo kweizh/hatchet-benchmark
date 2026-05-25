@@ -1,7 +1,0 @@
-{
-  "library_name": "Hatchet",
-  "task_name": "retry_with_backoff_factor_py",
-  "complexity_level": "multi-step sequential command set",
-  "research_plan_path": "/Users/kw/code/zealt/hatchet-benchmark/plan.md",
-  "output_dir": "/Users/kw/code/zealt/hatchet-benchmark/scratchpad/pending-tasks"
-}

@@ -1,4 +1,0 @@
-{
-    "task": ["HATCHET_CLIENT_TOKEN", "HATCHET_SERVER_URL"],
-    "verifier": ["HATCHET_CLIENT_TOKEN", "HATCHET_SERVER_URL"]
-}

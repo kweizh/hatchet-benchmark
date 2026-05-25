@@ -1,7 +1,0 @@
-{
-  "library_name": "Hatchet",
-  "task_name": "linear_dag_three_steps_py",
-  "complexity_level": "multi-step sequential command set",
-  "research_plan_path": "/Users/kw/code/zealt/hatchet-benchmark/plan.md",
-  "output_dir": "/Users/kw/code/zealt/hatchet-benchmark/scratchpad/pending-tasks"
-}
