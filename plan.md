@@ -6,9 +6,10 @@
 *   **Ecosystem Role**: It serves as a more powerful alternative to simple task queues (like Celery or BullMQ) and a more developer-friendly alternative to heavy workflow engines (like Temporal or Airflow). It is particularly popular for AI agent orchestration and real-time data pipelines.
 *   **Project Setup**:
     1.  **CLI Installation**: `curl -fsSL https://install.hatchet.run/install.sh | bash`
-    2.  **Authentication**: `hatchet profile add` (requires an API token from Hatchet Cloud or a self-hosted instance).
+    2.  **Authentication**: `hatchet profile add` (requires an API token from Hatchet Cloud).
     3.  **Local Development**: Use `hatchet quickstart` to generate a boilerplate or `hatchet worker dev` to start a worker with hot-reloading.
-    4.  **Environment Variables**: `HATCHET_CLIENT_TOKEN` is required for worker/client authentication, `HATCHET_SERVER_URL` is required for reading the server URL.
+    4.  **Environment Variables**: `HATCHET_CLIENT_TOKEN` is required for worker/client authentication.
+    5.  **Server Address**: Always use the Hatchet Cloud, and the server address is the default value in SDKs, so no need to specify.
 
 ---
 
