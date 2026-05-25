@@ -1,0 +1,4 @@
+{
+    "task": ["HATCHET_CLIENT_TOKEN", "ZEALT_RUN_ID"],
+    "verifier": ["ZEALT_RUN_ID"]
+}

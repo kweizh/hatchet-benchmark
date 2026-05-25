@@ -1,0 +1,44 @@
+# Diamond-Shaped Parallel DAG with Hatchet (Python)
+
+## Background
+Hatchet is a distributed task queue and durable workflow engine. Its DAG primitive lets you declare tasks and dependencies upfront so that Hatchet can run independent tasks in parallel, then merge their outputs at a downstream task that depends on multiple parents.
+
+In this task you will build a small "diamond" DAG using the Hatchet Python SDK against **Hatchet Cloud**. The DAG has a single root task that fans out into two parallel branches, which then merge into a final aggregation task. You must define the workflow, register it on a worker, trigger one run, and persist the final merge output to disk so that it can be inspected.
+
+## Requirements
+- Use the `hatchet-sdk` Python package against Hatchet Cloud (no server URL configuration is needed; the SDK uses the default Cloud endpoint).
+- Authentication is provided via the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment.
+- Define a single Hatchet workflow with four tasks whose dependency graph forms a diamond:
+  - `start`: the root task, has no parents.
+  - `branch_a`: depends only on `start`.
+  - `branch_b`: depends only on `start`.
+  - `merge`: depends on both `branch_a` and `branch_b`.
+- Each task must return the exact JSON-shaped output described in the Acceptance Criteria section.
+- Register the workflow on a Hatchet worker, start the worker, and trigger exactly one run of the workflow.
+- After the run completes, write the final `merge` task's output to `/tmp/result.json` as a JSON object.
+- Do not mock any part of Hatchet; the workflow must actually execute through Hatchet Cloud.
+
+## Implementation Hints
+- Create a Hatchet client and workflow using the Python SDK (`hatchet-sdk`).
+- Use the `@workflow.task(...)` decorator to declare tasks; declare parents using the `parents=[...]` keyword argument.
+- In `merge`, read parent outputs from the task context (for example via `ctx.task_output(branch_a)` and `ctx.task_output(branch_b)`).
+- Start a worker via `hatchet.worker("...", workflows=[...])` and `worker.start()`; run the worker in the background while you trigger the workflow.
+- Trigger the workflow synchronously and capture its result, or read the `merge` task output from the run reference, then persist it as JSON to `/tmp/result.json`.
+- It is fine to run the worker and the trigger in the same Python process (for example, start the worker in a background thread or subprocess) as long as the final JSON file is written before the process exits.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Output file: /tmp/result.json
+- Use the `hatchet-sdk` Python package; do not mock Hatchet.
+- The workflow must contain exactly four tasks with the following names and parent relationships:
+  - `start` with no parents.
+  - `branch_a` with parents `[start]`.
+  - `branch_b` with parents `[start]`.
+  - `merge` with parents `[branch_a, branch_b]`.
+- Task output shapes (JSON):
+  - `start` returns an object containing the integer field `value` equal to `10`.
+  - `branch_a` returns an object containing the integer field `a` equal to `start.value * 2`.
+  - `branch_b` returns an object containing the integer field `b` equal to `start.value + 5`.
+  - `merge` returns an object containing the integer field `sum` equal to `branch_a.a + branch_b.b`.
+- After running the workflow once, `/tmp/result.json` must exist and contain a JSON object with at least the field `sum` set to the integer value produced by `merge`.
+

@@ -1,0 +1,7 @@
+{
+  "library_name": "Hatchet",
+  "task_name": "task_retries_py",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}

@@ -1,0 +1,7 @@
+{
+  "library_name": "Hatchet",
+  "task_name": "rate_limit_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}
