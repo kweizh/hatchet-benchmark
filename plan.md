@@ -8,7 +8,7 @@
     1.  **CLI Installation**: `curl -fsSL https://install.hatchet.run/install.sh | bash`
     2.  **Authentication**: `hatchet profile add` (requires an API token from Hatchet Cloud or a self-hosted instance).
     3.  **Local Development**: Use `hatchet quickstart` to generate a boilerplate or `hatchet worker dev` to start a worker with hot-reloading.
-    4.  **Environment Variables**: `HATCHET_CLIENT_TOKEN` is required for worker/client authentication.
+    4.  **Environment Variables**: `HATCHET_CLIENT_TOKEN` is required for worker/client authentication, `HATCHET_SERVER_URL` is required for reading the server URL.
 
 ---
 
