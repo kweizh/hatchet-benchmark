@@ -1,5 +1,942 @@
 1:"$Sreact.fragment"
-2:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"zUl4ZgoAp5QBUMlB26mZq","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/hatchet-benchmark/_next/static/chunks/15c4e4f02af9a445.js","async":true}],["$","script","script-1",{"src":"/hatchet-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:"$Sreact.suspense"
+3:I[42654,["/hatchet-benchmark/_next/static/chunks/babff0e7418ab052.js","/hatchet-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/hatchet-benchmark/_next/static/chunks/15c4e4f02af9a445.js","/hatchet-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+1e:I[75049,["/hatchet-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/hatchet-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:T1794,# Document-Processing Fan-out + Aggregate DAG with Hatchet Python SDK
+
+## Background
+You will build a multi-stage Hatchet pipeline using the Python SDK (`hatchet-sdk`) that combines a **declarative DAG** with **runtime child-spawning**, modeling the classic document-processing fan-out + aggregate pattern.
+
+A single Hatchet DAG workflow drives three sequential stages. The middle stage runs a dynamic fan-out by spawning a separate child workflow once per input URL (the number of children is determined at runtime by the upstream task's output, not hardcoded). The final stage reads the fan-out result through the DAG's `ctx.task_output(...)` API and produces an aggregated summary.
+
+Hatchet Cloud is already provisioned and the worker authentication token is provided via the `HATCHET_CLIENT_TOKEN` environment variable. You do NOT need to configure a server URL — the Python SDK targets Hatchet Cloud by default.
+
+## Requirements
+- Use the `hatchet-sdk` Python package against real Hatchet Cloud (no mocking, no fake in-process replacement).
+- Define a Hatchet DAG workflow named `doc_pipeline` containing **exactly three tasks** with the following names and parent relationships:
+  - `prepare` — no parents.
+  - `scrape_all` — parents = `[prepare]`.
+  - `aggregate` — parents = `[scrape_all]`.
+- Define a **separate child Hatchet workflow** named `scrape_one` that processes one URL at a time. It must be registered on the worker as its own workflow (NOT defined as a task inside the `doc_pipeline` DAG).
+- Task contracts:
+  - `prepare` returns a JSON-serializable object containing the field `urls` set to the hard-coded list of three strings: `["https://example.com/a", "/b", "/c"]` (these three string values exactly — do not normalize or expand them).
+  - `scrape_one` accepts an input with a string field `url` and returns a JSON-serializable object containing the fields `url` (the same input URL) and `length` set to `len(url) * 7`. URLs are NOT actually fetched — `len(url) * 7` is the deterministic simulation of "scraped page length".
+  - `scrape_all` reads the `urls` list from the upstream `prepare` task's output, then **dynamically spawns one `scrape_one` child workflow per URL at runtime** (the number of children must be determined by the runtime length of `urls`, not hardcoded). Use Hatchet's Python child-spawning bulk API — specifically `scrape_one.aio_run_many(...)` (with `scrape_one.create_bulk_run_item(...)` per URL) — to fan out and gather the child outputs in one call. `scrape_all` must return a JSON-serializable object containing the field `pages`, whose value is a list of `{"url": <str>, "length": <int>}` objects — one per child run.
+  - `aggregate` reads the `pages` list from the upstream `scrape_all` task's output via `ctx.task_output(scrape_all)` and returns a JSON-serializable object containing exactly two fields: `total_length` (the integer sum of all `length` values in `pages`) and `count` (the integer number of pages).
+- Register BOTH the `doc_pipeline` DAG and the `scrape_one` child workflow on a single Hatchet worker. Start the worker (in the background — e.g., a background thread or subprocess) before triggering the pipeline.
+- Trigger the `doc_pipeline` DAG exactly once. Wait for the run to complete, then write the `aggregate` task's final output to `/tmp/result.json` as valid UTF-8 JSON (e.g., via `json.dump`).
+
+## Implementation Hints
+- Install the `hatchet-sdk` Python package. The SDK reads `HATCHET_CLIENT_TOKEN` automatically; no extra client configuration is needed.
+- Combine `hatchet.workflow(name="...")` to declare a DAG with `@<workflow>.task(...)` (and the `parents=[...]` kwarg) to declare task dependencies. This is the **DAG** primitive — distinct from a standalone `@hatchet.task(...)`.
+- The child `scrape_one` must be its **own** workflow (e.g., a separate `hatchet.workflow(name="scrape_one")` with a single task, or an `@hatchet.task(name="scrape_one")` standalone task) so that you can invoke it as a child runnable via `.aio_run_many(...)`. Do NOT make `scrape_one` a task inside the `doc_pipeline` DAG.
+- Inside `scrape_all`, build the bulk inputs with `scrape_one.create_bulk_run_item(input=...)` per URL, then `await scrape_one.aio_run_many([...])` to fan out and gather results in one network round-trip.
+- The `scrape_all` task body MUST be `async def` so you can `await` the bulk run.
+- Use `ctx.task_output(<task_reference>)` inside `aggregate` to retrieve `scrape_all`'s output — do NOT recompute or re-spawn anything in `aggregate`.
+- Start the worker with `hatchet.worker("...", workflows=[doc_pipeline, scrape_one])` and run it in the background so the trigger script can complete the run. Both the DAG workflow and the child workflow MUST be registered on the same worker.
+- Trigger the DAG via Hatchet (e.g., `doc_pipeline.run(...)` or `await doc_pipeline.aio_run(...)`) — do NOT call the task functions directly as plain Python functions.
+- The DAG takes no meaningful input; an empty input is fine.
+- After the run completes, persist the aggregate output as a JSON object to `/tmp/result.json`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Output file: /tmp/result.json
+- The `hatchet-sdk` Python package is used; Hatchet is not mocked.
+- A Hatchet worker that registers BOTH the `doc_pipeline` DAG workflow AND the `scrape_one` child workflow is started against Hatchet Cloud using the `HATCHET_CLIENT_TOKEN` environment variable.
+- The `doc_pipeline` DAG workflow is triggered exactly once, with the topology `prepare -> scrape_all -> aggregate` (where `scrape_all` parent is `[prepare]` and `aggregate` parent is `[scrape_all]`).
+- The fan-out in `scrape_all` is implemented via Hatchet child-spawning of the `scrape_one` workflow at runtime (one child per URL produced by `prepare`); the number of children must be derived from the upstream output, not hardcoded.
+- `/tmp/result.json` MUST exist and contain a JSON object with both keys `total_length` (integer) and `count` (integer).
+
+5:T1582,# Hatchet Durable Agent Loop with Python SDK
+
+## Background
+Hatchet supports **durable execution** through `@hatchet.durable_task`. A durable task receives a `DurableContext` and may pause itself via durable primitives such as `ctx.aio_sleep_for(...)`. These primitives create checkpoints in the durable event log so the task can resume across worker evictions, restarts, and crashes - unlike a plain `time.sleep`/`asyncio.sleep`, which is tied to the local process.
+
+In this task you will simulate a tiny "AI agent loop" as a Hatchet durable task. To keep tests deterministic, the agent does **not** call an actual LLM - each iteration just bumps a step counter, appends a stub thought to a history list, persists state to a JSON file, and then yields back to Hatchet via a durable sleep. You will run this task end-to-end against Hatchet Cloud (the default control plane baked into the Python SDK) using a real `HATCHET_CLIENT_TOKEN`.
+
+You will use the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to define a durable task named `agent_loop` decorated with `@hatchet.durable_task`.
+- The task's input is an empty JSON object `{}` (no fields required).
+- Behavior of the durable task:
+  - State file path: `/tmp/agent_state.json`.
+  - On the very first iteration, initialize the state file to `{"step": 0, "history": []}` if it does not already exist.
+  - Loop for **up to 5 iterations**. In each iteration:
+    1. Read the current state from `/tmp/agent_state.json`.
+    2. Increment `step` by 1.
+    3. Append `{"thought": "iter <step>"}` (where `<step>` is the new step value) to the `history` array.
+    4. Write the updated state back to `/tmp/agent_state.json`.
+    5. Yield back to Hatchet via durable sleep using `await ctx.aio_sleep_for(timedelta(seconds=1))`. You **MUST** use a durable-context sleep primitive (e.g. `ctx.aio_sleep_for`). You **MUST NOT** use bare `time.sleep` or `asyncio.sleep` to pause between iterations.
+  - Exit the loop as soon as `step == 5`.
+  - Return a JSON-serializable result of the form `{"final_step": 5, "history_length": 5}`.
+- Write a runner script that:
+  1. Reads `ZEALT_RUN_ID` from the environment.
+  2. Removes any pre-existing `/tmp/agent_state.json` and `/tmp/result.json` before starting (so the run begins from a clean slate).
+  3. Creates a Hatchet worker whose worker name is `ai-agent-loop-worker-${ZEALT_RUN_ID}`, registers the `agent_loop` durable task on it, and starts it (in the background or in a separate thread/process) so the task can be executed.
+  4. Triggers exactly one run of `agent_loop` with input `{}` against Hatchet Cloud and waits for the run to complete.
+  5. Writes the task's output (the JSON object containing `final_step` and `history_length`) to `/tmp/result.json` as valid JSON.
+  6. Shuts down the worker cleanly and exits with code 0.
+- The result must come from an actual Hatchet Cloud durable task run (no mocking, no local function call shortcut, no bypassing the worker).
+
+## Implementation Hints
+- Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value.
+- Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone.
+- Durable tasks must be declared with `@hatchet.durable_task(...)` and accept a `DurableContext` parameter. To pause inside the task, call `await ctx.aio_sleep_for(timedelta(seconds=1))` (see Hatchet's "Durable Sleep" docs). The state-update logic between sleeps should be straightforward Python that reads/writes the JSON file.
+- A typical Python program defines `hatchet = Hatchet()`, decorates the function with `@hatchet.durable_task(...)`, creates a worker via `hatchet.worker(...)` with the durable task in its workflow list, and starts the worker. To trigger a run from the same process, you can run the worker in a background thread/subprocess and call the task's `run` / `aio_run` method, which returns the task's output when the run finishes.
+- Make sure the script terminates after the result is written; do not leave the worker process blocking.
+- Install dependencies with `pip install hatchet-sdk`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader)
+- Result file: /tmp/result.json
+- State file: /tmp/agent_state.json
+- The task must be defined using `@hatchet.durable_task` from the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment.
+- The worker name registered on Hatchet Cloud must be `ai-agent-loop-worker-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The result file at `/tmp/result.json` must be valid JSON containing top-level integer fields `final_step` equal to `5` and `history_length` equal to `5`.
+- The state file at `/tmp/agent_state.json` must be valid JSON containing a top-level integer field `step` equal to `5` and a top-level array field `history` of length `5` where each element is a JSON object with a `thought` field equal to the string `iter <n>` for `n` in `1..5` (in order).
+
+6:Tcfe,# Basic Hatchet Task with Python SDK
+
+## Background
+Hatchet is a distributed task queue and durable execution engine. The `hatchet-sdk` Python package allows you to define tasks as Python functions, register them on a worker, and invoke them through Hatchet Cloud. This task asks you to build a minimal end-to-end example: define one task, register a worker, run the task once against Hatchet Cloud, and save the result.
+
+You will use the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to define a task named `simple_greeting`.
+  - Input: a JSON object of the form `{"name": str}`.
+  - Output: a JSON object of the form `{"greeting": "Hello, <name>!"}` where `<name>` is the value of the input `name` field, inserted verbatim (no extra whitespace, no surrounding quotes).
+- Write a runner script that:
+  1. Reads `ZEALT_RUN_ID` from the environment.
+  2. Creates a Hatchet worker whose worker name is `basic-task-worker-${ZEALT_RUN_ID}`, registers the `simple_greeting` task on it, and starts it (in the background or in a separate thread/process) so the task can be executed.
+  3. Triggers exactly one run of `simple_greeting` with input `{"name": "World"}` against Hatchet Cloud and waits for the run to complete.
+  4. Writes the task's output (a JSON object containing the `greeting` field) to `/tmp/result.json` as valid JSON.
+  5. Shuts down the worker cleanly and exits with code 0.
+- The result must come from an actual Hatchet Cloud task run (no mocking, no local function call shortcut).
+
+## Implementation Hints
+- Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value.
+- Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone.
+- A typical Python program defines `hatchet = Hatchet()`, decorates a function with `@hatchet.task(...)`, creates a worker via `hatchet.worker(...)` with the task in its workflow list, and starts the worker. To trigger a run from the same process, you can run the worker in a background thread/subprocess and call the task's `run` / `aio_run` method, which returns the task's output when the run finishes.
+- Make sure the script terminates after the result is written; do not leave the worker process blocking.
+- Install dependencies with `pip install hatchet-sdk`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader)
+- Result file: /tmp/result.json
+- The result file at `/tmp/result.json` must be valid JSON and contain a top-level field `greeting` whose value is exactly `Hello, World!`.
+- The task and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment.
+- The worker name registered on Hatchet Cloud must be `basic-task-worker-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+
+7:Te1a,# Hatchet Bulk Run with Python SDK
+
+## Background
+Hatchet is a distributed task queue and durable workflow engine. When you need to execute the same task with many different inputs, calling the task one input at a time is wasteful — every invocation incurs network roundtrips to the Hatchet engine. Hatchet provides bulk run helpers on the Python SDK that submit many inputs in one shot and wait for all of the results.
+
+In this task you will implement a small Hatchet project that defines a `double_value` task, registers a worker for it, and a runner that uses the **bulk run API** to fan out 10 inputs in a single call and writes the results into a JSON file.
+
+## Requirements
+- Use the `hatchet-sdk` Python package against **Hatchet Cloud** (no self-hosted server; the SDK default server address is used).
+- Define a single Hatchet task that accepts an input `{"n": int}` and returns an output `{"result": int}` where `result == n * 2`.
+- Provide a worker entrypoint that registers the task and runs the worker process. The worker must be started in the background before the runner is invoked.
+- Provide a runner entrypoint that submits **a single bulk run of exactly 10 inputs** with `n = 1, 2, 3, ..., 10` using the SDK's bulk run API (for example `double_value.run_many([...])` or `await double_value.aio_run_many([...])`, building each item with `double_value.create_bulk_run_item(input=...)`).
+- The runner must collect all 10 results returned by the bulk call and write them to `/tmp/results.json` as a JSON array of objects ordered by `n` ascending:
+
+  ```json
+  [
+    {"n": 1, "result": 2},
+    {"n": 2, "result": 4},
+    ...
+    {"n": 10, "result": 20}
+  ]
+  ```
+
+- After the runner finishes and `/tmp/results.json` is written, the task is considered complete. You must actually start the worker and execute the runner — do not pre-compute results without going through Hatchet.
+
+## Implementation Hints
+- Authenticate with the `HATCHET_CLIENT_TOKEN` environment variable — the SDK picks this up automatically; do not hardcode the token and do not pass a custom server URL.
+- Define the task with `@hatchet.task(...)` on a `Hatchet()` client instance. Use a Pydantic `BaseModel` (or a plain dict) for the input type so the bulk helper can serialize it.
+- Start the worker **before** the runner submits the bulk call, otherwise the runs will time out. Give the worker a few seconds to register before triggering the runs.
+- Use the bulk API in **one** call. Do **not** loop over `run()` 10 times — that would defeat the purpose of bulk submission.
+- The order of results returned by `run_many` / `aio_run_many` follows the order of the input list, but the verifier reads `/tmp/results.json` and checks the mapping `n -> 2n`, so sort by `n` before writing the file if you are unsure.
+- Each object in the output JSON must have exactly the keys `n` and `result`, both as integers.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /tmp/results.json
+- The Hatchet worker must be implemented and runnable; the runner must trigger a real bulk run against Hatchet Cloud using `HATCHET_CLIENT_TOKEN` from the environment.
+- The file `/tmp/results.json` must exist and contain a JSON array of exactly 10 objects.
+- Each object in the array must have exactly the integer fields `n` and `result`, with `result == n * 2`.
+- The array must contain every value of `n` from 1 through 10 inclusive (each appearing exactly once), ordered by `n` ascending.
+- The bulk run must be submitted via the Hatchet Python SDK's bulk API (e.g. `run_many` or `aio_run_many`) in a single call.
+
+8:Ta20,# Scaffold a Hatchet Quickstart Project with the Hatchet CLI
+
+## Background
+Hatchet is a distributed task queue and workflow engine that ships with an official command-line tool (`hatchet`). The CLI exposes a `hatchet quickstart` subcommand that scaffolds a runnable Hatchet worker project (with a sample workflow, worker entrypoint, README, and language-specific dependency manifest).
+
+Your goal is to use the Hatchet CLI to scaffold a Python quickstart project on disk. You must invoke the real `hatchet` CLI binary; do **NOT** hand-craft the project files yourself.
+
+## Requirements
+- Ensure the Hatchet CLI binary is available on `PATH`. If `hatchet --version` already succeeds, you may skip the install step; otherwise install it using the official install script:
+  - `curl -fsSL https://install.hatchet.run/install.sh | bash`
+- Use the `hatchet quickstart` subcommand (non-interactively, via its flags) to scaffold a Python project named `testapp` into the directory `/home/user/quickstart-project`.
+- Use `uv` as the Python package manager for the scaffolded project.
+- The scaffolded project directory must contain the boilerplate files emitted by the Hatchet CLI, including at least one Python source file and a README.
+
+## Implementation Hints
+- Inspect `hatchet quickstart --help` to discover the exact flag names for language, package manager, project name, and target directory. The flag set includes options for `--language`, `--package-manager`, `--project-name`, and `--directory` (each also has a short form).
+- The `hatchet quickstart` command refuses to run if the target directory already exists, so make sure `/home/user/quickstart-project` does NOT exist before invoking it.
+- A Hatchet CLI profile is already configured in `~/.hatchet/profiles.yaml` for this environment, so you do **not** need to run `hatchet profile add` or `hatchet server start`.
+- Do **not** mock or hand-write the generated project files. The verifier runs the real CLI output checks.
+
+## Acceptance Criteria
+- Project path: `/home/user/quickstart-project`
+- The `hatchet` binary is available on `PATH` (i.e., `hatchet --version` succeeds and prints a non-empty version string).
+- The directory `/home/user/quickstart-project` exists and was generated by `hatchet quickstart`.
+- The directory contains at least one Python source file (a file matching `*.py`, recursively).
+- The directory contains a top-level README file (either `README.md` or `README`).
+- The directory contains a `hatchet.yaml` configuration file at its top level (this is part of the standard Hatchet quickstart scaffold).
+
+9:Te61,# Hatchet TypeScript: Per-Region Concurrency Limit
+
+## Background
+You are building an order-processing service on Hatchet Cloud using the TypeScript SDK (`@hatchet-dev/typescript-sdk`). To prevent race conditions in a downstream legacy system that only accepts one in-flight order per geographic region, you must enforce a strict concurrency limit of `maxRuns: 1` keyed by the order's `region` field. Orders from different regions must still be able to run in parallel.
+
+In this task, you will implement a Hatchet task named `processOrder`, register it on a worker, and write a runner that fires 4 parallel runs (2 US, 2 EU) to demonstrate that the concurrency limit is enforced per region while different regions run in parallel.
+
+## Requirements
+- Use the `@hatchet-dev/typescript-sdk` package. Do not mock the SDK.
+- Implement a Hatchet task named `processOrder` with concurrency configured via a CEL expression on the `region` input field, with `maxRuns: 1`.
+- The task body must:
+  1. Append a `start <region> <epochMs>` line to the log file.
+  2. Sleep approximately 1.5 seconds (1500 ms).
+  3. Append an `end <region> <epochMs>` line to the log file.
+- Provide a worker entrypoint that registers `processOrder` and starts the worker.
+- Provide a runner script that fires 4 runs in parallel using `Promise.all`: 2 with region `US-<run-id>` and 2 with region `EU-<run-id>`, then waits for all of them to complete.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable to namespace the region keys and the log file path. This avoids cross-trial collisions on Hatchet Cloud concurrency keys.
+- Authenticate with Hatchet Cloud using `HATCHET_CLIENT_TOKEN` from the environment. Do not hardcode a server URL; rely on the SDK default.
+
+## Implementation Hints
+- Use `hatchet.task({ name, concurrency: { ... }, fn: ... })` to declare the task. Refer to the Hatchet TypeScript concurrency documentation for the exact option shape.
+- Append to the log file with `fs.appendFileSync` so writes are atomic line-by-line; use `\n` as the line terminator and integer `Date.now()` for the epoch-millis timestamp.
+- Use `Promise.all` to submit 4 runs concurrently via `processOrder.run({ region })`.
+- The worker must be running before the runner submits jobs; you may start the worker as a background process and the runner as a foreground command.
+- Truncate the log file at the start of the runner so the verifier sees a clean state for the current trial.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. Use `US-${run-id}` and `EU-${run-id}` as the two region values.
+- Log file: `/tmp/orders-${run-id}.log`
+- Worker start command: `pnpm run worker` (or equivalent `tsx src/worker.ts`); the worker must register the `processOrder` task and stay running.
+- Runner command: `pnpm run runner` (or equivalent `tsx src/runner.ts`); the runner fires 4 runs in parallel and exits once all complete.
+- The `processOrder` task must be configured with a concurrency strategy keyed by the `region` input field with `maxRuns: 1`.
+- Log line format (one entry per line, exactly three space-separated fields):
+  - `start <region> <epochMs>` written immediately when the task starts.
+  - `end <region> <epochMs>` written immediately before the task returns.
+  - `<region>` is the literal region string from the input (e.g. `US-zr-abc123`).
+  - `<epochMs>` is a base-10 integer of milliseconds since Unix epoch.
+- After the runner completes, the log file must contain exactly 8 lines: 4 `start` and 4 `end` lines, 2 of each per region.
+- Each task run must sleep approximately 1500 ms between its `start` and `end` lines.
+
+a:T1428,# Per-Key Concurrency Control with Hatchet (Python)
+
+## Background
+You are building a payment-processing background task with [Hatchet](https://docs.hatchet.run). Payments for the *same* customer must be processed strictly one at a time to avoid double-charging, but payments for *different* customers may be processed in parallel. Hatchet's [concurrency control](https://docs.hatchet.run/home/concurrency) makes this possible with a per-key strategy: a CEL expression over the task input identifies the key (here, the user id), and `max_runs=1` ensures at most one in-flight run per key.
+
+In this task you will define a Hatchet Python task named `process_payment`, register it with a worker, trigger four concurrent runs (two for user A, two for user B), and produce a single log file that proves the per-key serialization invariant holds.
+
+The Hatchet Cloud account is already authenticated via the `HATCHET_CLIENT_TOKEN` environment variable. You do **NOT** need to configure a server address - the default Hatchet Cloud endpoint is used by the SDK automatically.
+
+## Requirements
+- Use the `hatchet-sdk` Python package (no mocking - the worker must connect to real Hatchet Cloud).
+- Define a Hatchet task `process_payment` (the registered task name should be suffixed with the current `run-id` so concurrent grader trials do not collide on Hatchet Cloud).
+- Configure the task with a concurrency strategy whose key is the `user_id` field of the input and whose `max_runs` (limit) is `1`. Use the `GROUP_ROUND_ROBIN` limit strategy so queued runs are processed fairly rather than cancelled.
+- The task body must:
+    1. Append one line `start <user_id> <unix_epoch_seconds_float>` to `/tmp/runs.log`.
+    2. Sleep for approximately 2 seconds to simulate real work.
+    3. Append one line `end <user_id> <unix_epoch_seconds_float>` to `/tmp/runs.log`.
+- Provide a runner that:
+    - Starts a Hatchet worker process registered with the `process_payment` task (worker slots must be `>= 4` so the worker itself is never the bottleneck - the only constraint must come from Hatchet's per-key concurrency strategy).
+    - Triggers exactly **4** runs concurrently: two with `user_id="A"` and two with `user_id="B"`.
+    - Waits for all four runs to finish before exiting.
+- After the runner exits, `/tmp/runs.log` must contain exactly 8 lines (4 `start`, 4 `end`).
+
+## Implementation Hints
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and incorporate it into the registered Hatchet task name (e.g., `process-payment-${run-id}`) and the worker name so multiple grader trials can run in parallel against the same Hatchet Cloud tenant.
+- The Python SDK exposes concurrency configuration via `ConcurrencyExpression(expression=..., max_runs=..., limit_strategy=ConcurrencyLimitStrategy.GROUP_ROUND_ROBIN)` passed to the `@hatchet.task(...)` decorator (or `hatchet.workflow(...)` / `hatchet.task(...)` factory). The `expression` is a CEL string that references the validated input (e.g., `"input.user_id"`).
+- Use a `pydantic.BaseModel` as `input_validator` so the SDK can serialize/deserialize inputs reliably.
+- A simple pattern for the runner is to launch the worker as a background subprocess (e.g., `python worker.py` or `hatchet.worker(...).start()` in a child process), then in the parent process trigger four concurrent task runs using the SDK's async batch helpers (e.g., `aio_run_many`, or `asyncio.gather` over `aio_run`). Make sure to terminate the worker subprocess once the runs complete so the runner exits cleanly.
+- Use `time.time()` (a float Unix timestamp) for the timestamps - the verifier compares them numerically.
+- Open `/tmp/runs.log` in append mode and flush after every write so the timestamps are durably recorded even if the worker is killed.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Log file: `/tmp/runs.log`
+- The runner is invoked exactly once with: `cd /home/user/myproject && python run.py` (you may add helper modules under `/home/user/myproject` as needed, but `run.py` must be the single entrypoint that produces `/tmp/runs.log`).
+- Before `run.py` exits with status 0, `/tmp/runs.log` must contain exactly 8 lines.
+- Each line must match the format `<event> <user_id> <timestamp>` where:
+    - `<event>` is either the literal string `start` or `end`.
+    - `<user_id>` is either the literal string `A` or `B`.
+    - `<timestamp>` is a Unix epoch seconds value parsable as a Python `float`.
+- For each `user_id`, there must be exactly 2 `start` lines and 2 `end` lines.
+- For `user_id=A`, the two `[start, end]` intervals must **NOT** overlap (one interval must end at or before the other begins).
+- For `user_id=B`, the two `[start, end]` intervals must **NOT** overlap.
+- Runs across different `user_id` values are permitted to overlap (the verifier will additionally check that the elapsed wall-clock duration is consistent with parallel execution across users - i.e., the total time spanned by all 8 entries is meaningfully less than 4 * sleep_duration).
+- The registered Hatchet task name must include the `run-id` from `ZEALT_RUN_ID` so the task is uniquely scoped to this grader trial.
+
+b:T108e,# Hatchet Cron Schedule with Python SDK
+
+## Background
+Hatchet supports recurring task runs via cron schedules. In addition to declaring `on_crons` on a workflow definition, the Python SDK exposes a programmatic API to create and delete cron triggers at runtime. This task asks you to build a small end-to-end heartbeat using a dynamically-registered cron trigger that fires at least once during a short observation window, then clean up the trigger so it does not keep running.
+
+You will use the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to define a task named `heartbeat`.
+  - When the task runs, it must append a single line containing the current timestamp in ISO 8601 format (e.g. `2024-05-25T12:34:56.789012+00:00`) followed by a newline to `/tmp/heartbeats.log`. Use UTC and `datetime.now(timezone.utc).isoformat()` (or an equivalent that produces a value parseable by `datetime.fromisoformat`).
+  - The task must be safe to run repeatedly; each invocation appends one timestamp line.
+- Write a runner script that:
+  1. Reads `ZEALT_RUN_ID` from the environment.
+  2. Programmatically registers a cron trigger for the `heartbeat` task using the SDK's runtime cron API (for example `heartbeat.cron(...)` / `create_cron(...)`). The cron name must be `hb-cron-${ZEALT_RUN_ID}` and the expression must be `* * * * *` (every minute). The cron input is an empty object.
+  3. Starts a Hatchet worker (in the background, e.g. in a thread or subprocess) that registers the `heartbeat` task so cron-fired runs can execute.
+  4. Keeps the worker running for approximately 75 seconds so the every-minute cron fires at least once.
+  5. Shuts down the worker cleanly.
+  6. Deletes the cron trigger that was created in step 2 (using the SDK's cron delete API, e.g. by passing the cron id returned at creation time).
+  7. Exits with code 0.
+- The heartbeats must come from real Hatchet Cloud cron-fired task runs (no mocking, no local function call shortcut, no direct file writes from the runner).
+
+## Implementation Hints
+- Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value.
+- Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone.
+- Define `hatchet = Hatchet()`, decorate a function with `@hatchet.task(name="heartbeat-${ZEALT_RUN_ID}", ...)` (or similar unique name) and register it on a worker created with `hatchet.worker(...)`. Run the worker in a background thread or subprocess so the main process can manage the cron lifecycle.
+- Use the SDK's programmatic cron API to create the trigger after the worker has started, and to delete it before exiting. Consult the Hatchet docs for the exact method names (`cron(...)`, `create_cron(...)`, `hatchet.cron.delete(...)`, etc.).
+- The cron expression `* * * * *` enqueues a run every minute on the wall clock minute boundary, so a ~75 second window guarantees at least one firing. Make sure the worker is up before the boundary so it can pick up the run.
+- Install dependencies with `pip install hatchet-sdk`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader)
+- Heartbeat file: /tmp/heartbeats.log
+- The heartbeat file must exist after the runner finishes and must contain at least one non-empty line.
+- Each non-empty line in `/tmp/heartbeats.log` must be parseable as an ISO 8601 timestamp by `datetime.fromisoformat`.
+- The cron trigger and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment.
+- The cron trigger name registered on Hatchet Cloud must be `hb-cron-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable, and it must be deleted before the runner exits (cleanup).
+
+c:Ta6f,# Hatchet TypeScript Cron Heartbeat
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports cron-style scheduled tasks. In this task you will create a small TypeScript program that defines a Hatchet task, registers a cron trigger programmatically against Hatchet Cloud, runs a worker that processes the trigger, and then cleans up the cron registration.
+
+## Requirements
+- Define a Hatchet task named `heartbeatTs` using the `@hatchet-dev/typescript-sdk`. Each invocation must append a single line containing the current UTC ISO 8601 timestamp (e.g. `2026-05-25T12:00:00.000Z`) followed by a newline to `/tmp/heartbeats.log`.
+- Programmatically create a cron trigger with the name `hb-cron-ts-${ZEALT_RUN_ID}` and the expression `* * * * *` (every minute), passing an empty input object `{}`.
+- Start a Hatchet worker so that the task actually executes when the cron fires.
+- Keep the worker running for approximately 75 seconds so that at least one cron tick is processed.
+- After the run window completes, delete the cron trigger using the SDK's crons delete API and then exit cleanly.
+
+## Implementation Hints
+- Use the `@hatchet-dev/typescript-sdk` package. Authenticate by relying on the `HATCHET_CLIENT_TOKEN` environment variable. Do not hard-code or override the Hatchet Cloud server address.
+- Run TypeScript directly with `tsx` (already installed in the environment) instead of compiling first.
+- Read the `ZEALT_RUN_ID` environment variable and build the cron name as `hb-cron-ts-${ZEALT_RUN_ID}` so that concurrent runs do not collide.
+- The Hatchet TS SDK exposes a `.cron(name, expression, input)` method on standalone task objects and a `hatchet.crons.delete(cronId)` method for cleanup. Capture the returned cron's `metadata.id` so you can delete it later.
+- Be careful not to block the worker thread; start the worker first (do not `await` its lifetime indefinitely) and then wait ~75 seconds before shutting down and deleting the cron.
+- Append to `/tmp/heartbeats.log` using Node's `fs` module. Use `new Date().toISOString()` to produce the ISO timestamp.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /tmp/heartbeats.log
+- The project must depend on `@hatchet-dev/typescript-sdk`.
+- After the agent finishes executing the task, `/tmp/heartbeats.log` must exist and contain at least one line whose content is a valid ISO 8601 UTC timestamp (format `YYYY-MM-DDTHH:MM:SS(.sss)Z`).
+- The cron trigger named `hb-cron-ts-${ZEALT_RUN_ID}` (where `ZEALT_RUN_ID` is taken from the environment) must NOT be present in the Hatchet Cloud cron list after the agent finishes (it must be deleted as cleanup).
+
+d:Td85,# Hatchet Python Durable Sleep Task
+
+## Background
+Hatchet is a distributed task queue and workflow engine that provides durable execution semantics. One of its hallmark features is *durable sleep*: a task can pause for a specified duration without holding worker resources, and the wait is guaranteed across worker restarts and replays.
+
+You will build a small Python project that defines a Hatchet **durable task** that sleeps for ~5 seconds using Hatchet's durable sleep API, then returns a structured result. A runner script triggers the task synchronously and writes the result to a fixed JSON file on disk.
+
+## Requirements
+- Implement a Hatchet durable task named `delayed_greeting` that:
+  - Captures the wall-clock start time at the very beginning of the task.
+  - Sleeps durably for approximately 5 seconds using Hatchet's durable sleep API (NOT Python's `time.sleep` and NOT `asyncio.sleep` alone).
+  - After waking, computes `elapsed_sec` as the integer number of wall-clock seconds between the start time and the end of the task.
+  - Returns a JSON-serializable result of the shape `{"message": "wakeup", "elapsed_sec": <int>}` where `elapsed_sec >= 5`.
+- Implement a runner that:
+  - Starts a Hatchet worker that registers the `delayed_greeting` durable task.
+  - Triggers the task and waits for it to complete (synchronously, end-to-end).
+  - Writes the final task result (the dict above) as JSON to `/tmp/result.json`.
+  - Exits cleanly with status code 0 after writing the file.
+- Use the **Hatchet Cloud** managed service. Do NOT run a local Hatchet engine. Authenticate with the real `HATCHET_CLIENT_TOKEN` value provided in the environment.
+- Do NOT mock the Hatchet SDK, the worker, or the cloud service. The result must come from a real round-trip through Hatchet Cloud.
+
+## Implementation Hints
+- Install the `hatchet-sdk` Python package.
+- Construct a `Hatchet` client (it will read `HATCHET_CLIENT_TOKEN` from the environment automatically).
+- Define the durable task using the `@hatchet.durable_task(...)` decorator. The handler receives a `DurableContext`.
+- Inside the handler, use `await ctx.aio_sleep_for(timedelta(seconds=5))` (or the equivalent sync `ctx.sleep_for(...)`) to perform durable sleep. A plain `time.sleep` or `asyncio.sleep` does not satisfy the task.
+- Use the task's `.run(...)` (or `.aio_run(...)`) helper, or trigger via the client and poll for completion. The runner must block until a real result is available, then serialize it to `/tmp/result.json`.
+- Start a worker (e.g. `hatchet.worker(name=..., slots=...)` with `worker.start()`) in the same process or a background thread so the task can actually execute.
+- Reference docs: https://docs.hatchet.run/llms/v1/durable-sleep.md and https://docs.hatchet.run/llms/v1/durable-tasks.md
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /tmp/result.json
+- The runner must be executable as: `python3 /home/user/myproject/run.py`
+- After the runner exits with status 0, the file `/tmp/result.json` must exist and contain a JSON object with exactly these properties:
+  - `message`: the string `"wakeup"`
+  - `elapsed_sec`: an integer greater than or equal to `5`
+- The task implementation must use Hatchet's durable sleep API (`@hatchet.durable_task` plus `ctx.aio_sleep_for` or `ctx.sleep_for`).
+- Authentication must use the real `HATCHET_CLIENT_TOKEN` environment variable; the Hatchet Cloud default server address is used (no override).
+
+e:Tfae,# Dynamic Fan-out with Hatchet Python SDK (Child Spawning)
+
+## Background
+You will build a distributed task pipeline using the [Hatchet](https://hatchet.run) Python SDK that demonstrates **dynamic fan-out via child spawning**. A *parent* workflow receives a batch of integers, spawns one *child* workflow per item to perform a computation, then aggregates the results in the original input order.
+
+This pattern is heavily used in real Hatchet applications — for example, when a parent task receives a list of documents at runtime and fans out one OCR/extract job per document. Crucially, the number of children is **not known at workflow-definition time**: it depends on the runtime input.
+
+Hatchet Cloud is already provisioned, and the worker authentication token is provided via the `HATCHET_CLIENT_TOKEN` environment variable. You do NOT need to set a server URL — the Python SDK targets Hatchet Cloud by default.
+
+## Requirements
+- Implement two Hatchet workflows using the Python SDK (`hatchet-sdk`):
+  1. A **child** workflow named `square_item` that accepts a single integer field `item` and returns `{ "square": item * item }`.
+  2. A **parent** workflow named `process_batch` that accepts `{ "items": [int, int, ...] }` (a JSON-serializable list of integers).
+- The parent workflow MUST dynamically spawn one `square_item` child workflow per element in the input list (child spawning / fan-out — not hardcoded N children).
+- The parent MUST await ALL children and aggregate their `square` outputs into a list, preserving the **original input order** of `items`.
+- The parent's final return value MUST be a JSON-serializable object of the form `{ "squares": [<int>, <int>, ...] }`.
+- Register both workflows on a Hatchet worker, start the worker, then trigger the parent workflow ONCE with the input `{ "items": [1, 2, 3, 4, 5] }`.
+- Wait for the parent run to complete (fire-and-wait), then write its final output to the file `/tmp/result.json` as valid JSON.
+
+## Implementation Hints
+- Install the `hatchet-sdk` Python package.
+- Authenticate by reading the `HATCHET_CLIENT_TOKEN` environment variable; the SDK picks this up automatically.
+- Use Hatchet's child-spawning API to invoke the child workflow from within the parent's task function. In the Python SDK this looks like calling the child workflow's run method (sync `run` or `aio_run`) from inside the parent's task body. The bulk variants (`aio_run_many` / `run_many` with `create_bulk_run_item`) are well suited for fanning out.
+- Whichever approach you choose, you MUST preserve original input order in the aggregated `squares` list.
+- A Hatchet worker must be running (in the background or another process) when you trigger the parent workflow, otherwise the run will be queued forever.
+- Trigger the parent workflow from a separate client script (or after worker startup) — do NOT just call the parent function directly as a plain Python function; the run must go through Hatchet so child spawning actually happens.
+- After receiving the parent's result, persist it to `/tmp/result.json` using `json.dump` (UTF-8, standard JSON).
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- The `hatchet-sdk` Python package is used (no mocking, no fake in-process replacement of Hatchet).
+- A Hatchet worker that registers BOTH `process_batch` (parent) AND `square_item` (child) workflows is started against Hatchet Cloud using the `HATCHET_CLIENT_TOKEN` environment variable.
+- The parent workflow `process_batch` is triggered exactly once with input `{ "items": [1, 2, 3, 4, 5] }`, and its final output is written to `/tmp/result.json`.
+- `/tmp/result.json` MUST be a JSON file containing an object with a `"squares"` key whose value is a list of integers, in the order corresponding to the original input list.
+- The parent workflow's implementation MUST fan out by **spawning child workflow runs at runtime** (one `square_item` child per input item) — it must not compute the squares directly inside the parent task body.
+
+f:Td9e,# Dynamic Fan-out with Hatchet TypeScript SDK
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports durable execution and dynamic child spawning. In this task, you will use the `@hatchet-dev/typescript-sdk` to implement a parent task that dynamically fans out work to multiple child tasks at runtime, awaits their results, and aggregates them.
+
+The Hatchet client connects to **Hatchet Cloud**. A real `HATCHET_CLIENT_TOKEN` is provided in the environment. **Do NOT mock the Hatchet SDK or any of its behavior** — the task MUST connect to the real Hatchet Cloud control plane, run a real worker, register real tasks, and execute real task runs end-to-end.
+
+## Requirements
+- Implement two Hatchet tasks in TypeScript using `@hatchet-dev/typescript-sdk`:
+  - A child task named `square-item-${run-id}` that accepts an input `{ n: number }` and returns `{ square: n*n }`.
+  - A parent task named `process-batch-${run-id}` that accepts `{ items: number[] }`. For each item in `items`, it must spawn the child task and await its result. The parent must return `{ squares: number[] }` where each entry is the square of the corresponding input item (preserving order).
+- Start a Hatchet worker that registers both tasks and connects to Hatchet Cloud using `HATCHET_CLIENT_TOKEN`.
+- Trigger the parent task with the concrete input `{ items: [1, 2, 3, 4, 5] }` and write the returned output to `/tmp/result.json` as a JSON object with shape `{ "squares": [1, 4, 9, 16, 25] }`.
+- The runner must shut down cleanly after writing the result so the container exits.
+
+## Implementation Hints
+- Use `@hatchet-dev/typescript-sdk` and run TypeScript directly with `tsx`.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and append it as a suffix to all Hatchet task names (child + parent) to avoid collisions with other concurrent runs sharing the same Hatchet account.
+- Look up the child-spawning pattern in the Hatchet docs (`https://docs.hatchet.run/home/child-spawning`). The TypeScript SDK supports spawning a child by calling `.run(input)` on the child task object from within the parent's `fn`. Use `Promise.all` to fan out and await all children in parallel.
+- Hatchet Cloud server URL is the default in the SDK — do **NOT** set `HATCHET_CLIENT_HOST_PORT` or any custom server address.
+- The worker must be started in the same process (or a sibling process) so that the parent and child task registrations are picked up before triggering the parent. After the parent's run completes, write the result file and exit.
+- Place all code under `/home/user/myproject`. A `package.json` with `@hatchet-dev/typescript-sdk`, `typescript`, and `tsx` must be set up so the project can be run with `npx tsx <entry>.ts` or `npm start`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Output file: /tmp/result.json
+- The Hatchet child task name must be `square-item-${run-id}` and the parent task name must be `process-batch-${run-id}`, where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The implementation must use the real `@hatchet-dev/typescript-sdk` against Hatchet Cloud. No mocks or stand-ins are allowed.
+- The parent task must spawn one child task per input item (dynamic fan-out at runtime, not via a statically declared DAG with named parents).
+- After execution, `/tmp/result.json` must be a valid JSON file containing exactly `{"squares": [1, 4, 9, 16, 25]}` (the order must match the order of the input items).
+10:T1090,# Hatchet Event-Triggered Task (Python)
+
+## Background
+Hatchet is a distributed task queue and durable workflow engine. Tasks can be configured to run automatically when an event is pushed to Hatchet, which is useful for fan-out patterns like running multiple independent reactions to a single business event (e.g., `user:created`).
+
+In this task you will build a small Python project that registers an event-triggered Hatchet task, runs a worker, pushes an event, and verifies that the task body was actually executed by checking a file written to disk.
+
+## Requirements
+- Use the Hatchet Python SDK (`hatchet-sdk`) targeting Hatchet Cloud. Authentication is provided via the `HATCHET_CLIENT_TOKEN` environment variable; do **not** override the Hatchet server address (the SDK default points at Hatchet Cloud).
+- Define a Hatchet task named `on_user_created` that is triggered by the event key `user:created` (i.e., `on_events=["user:created"]`).
+- The task body must write a JSON record to the file `/tmp/triggered.json` containing two top-level fields:
+  - `event_payload`: the entire input payload that triggered the task (a JSON object including the `user_id` field that was pushed).
+  - `received_at`: an ISO 8601 timestamp string for when the task body ran.
+- Provide a single runner entrypoint that performs the full end-to-end flow in one process invocation:
+  1. Removes any pre-existing `/tmp/triggered.json` file.
+  2. Starts the Hatchet worker that has the `on_user_created` task registered (run it in the background so the script can continue).
+  3. Waits long enough for the worker to register with Hatchet Cloud.
+  4. Pushes an event with key `user:created` and a payload `{"user_id": "abc-<run-id>"}`, where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+  5. Waits approximately 10 seconds (and no more than ~60 seconds) for Hatchet to dispatch the event back to the worker and for the task body to write `/tmp/triggered.json`.
+  6. Exits cleanly (the worker may be terminated as part of cleanup).
+- No mocking: the event must be pushed to the real Hatchet Cloud API and the task must be executed by a real Hatchet worker.
+
+## Implementation Hints
+- Read about event-triggered tasks at https://docs.hatchet.run/home/run-on-event. In Python, you can attach an event trigger directly to a task using `@hatchet.task(name=..., on_events=[...])`.
+- Create the Hatchet client with `from hatchet_sdk import Hatchet` and instantiate it (e.g., `hatchet = Hatchet()`); it picks up `HATCHET_CLIENT_TOKEN` automatically.
+- Build a worker with `hatchet.worker("<name>", workflows=[<task>]).start()` and run it in a background process/thread so the runner script can also push events.
+- Push events from the same Python process (or a sibling process) using `hatchet.event.push("user:created", {"user_id": f"abc-{run_id}"})`.
+- Read the run id from the `ZEALT_RUN_ID` environment variable before pushing the event.
+- Inside the task body, serialize the input back to a plain dict (for example, by calling `.model_dump()` on a Pydantic input model or by accepting a dict-like input) and write the JSON file with the standard library `json` module.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Output file: /tmp/triggered.json
+- Runner command (executed from `/home/user/myproject`): `python3 run.py`
+  - The command starts the worker, pushes the `user:created` event, waits for the task to run, and exits without requiring any further input.
+  - The command must exit within 120 seconds.
+- The Hatchet task is declared with `on_events=["user:created"]` and named `on_user_created` (the registered Hatchet task name as visible in code).
+- After running `python3 run.py`, the file `/tmp/triggered.json` exists and contains a JSON object with the following shape:
+  ```json
+  {
+    "event_payload": { "user_id": "abc-<run-id>", "...": "..." },
+    "received_at": "<ISO 8601 timestamp string>"
+  }
+  ```
+  where `<run-id>` is the value of the `ZEALT_RUN_ID` environment variable used during the run.
+- `event_payload.user_id` must equal `abc-${ZEALT_RUN_ID}` exactly.
+- The environment variable `HATCHET_CLIENT_TOKEN` is required for the worker and the event client to authenticate against Hatchet Cloud.
+
+11:T12bf,# Hatchet Durable Event Wait with Python SDK
+
+## Background
+Hatchet supports **durable execution** through `durable_task` functions that can pause and resume across worker restarts. A common pattern is for a task to wait until either an external event arrives, or a timeout elapses, using an OR-group of conditions on `ctx.aio_wait_for(...)`. This is the foundation for human-in-the-loop workflows.
+
+In this task, you will build a minimal Python program that uses the `hatchet-sdk` package against the managed Hatchet Cloud control plane. A durable task `onboarding_flow` waits for *either* a `user:profile_completed` event *or* a 30-second sleep, whichever comes first. A runner triggers the workflow, then pushes the event a few seconds later so the event branch resolves first.
+
+You MUST use Hatchet Cloud only (the default server endpoint baked into the SDK). Do NOT configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to define a durable task named `onboarding_flow`.
+  - It must take no required input fields (use `EmptyModel` or equivalent).
+  - As its very first action, it must append the line `onboarding_flow started\n` to `/tmp/events.log`.
+  - It must then call `ctx.aio_wait_for(...)` (the durable wait API on the `DurableContext`) with an OR group of two alternatives:
+    1. A `SleepCondition` with a 30-second duration.
+    2. A `UserEventCondition` with `event_key="user:profile_completed"`.
+  - Inspect the resolved condition. If the `user:profile_completed` event resolved the wait first, return `{"status": "completed_via_event"}`. Otherwise return `{"status": "completed_via_timeout"}`.
+- Write a runner script that:
+  1. Reads `ZEALT_RUN_ID` from the environment.
+  2. Creates a Hatchet worker whose worker name is `event-wait-worker-${ZEALT_RUN_ID}`, registers the `onboarding_flow` durable task on it, and starts it (in a background thread/process) so the durable task can execute.
+  3. Triggers exactly one run of `onboarding_flow` against Hatchet Cloud.
+  4. Approximately 5 seconds after triggering the run, pushes the `user:profile_completed` event via `hatchet.event.push("user:profile_completed", {})` (or the async equivalent `hatchet.event.aio_push(...)`).
+  5. Waits for the run to finish, writes the task's final output (a JSON object containing the `status` field) to `/tmp/result.json` as valid JSON.
+  6. Shuts down the worker cleanly and exits with code 0.
+- The result must come from an actual Hatchet Cloud durable task run (no mocking, no local function-call shortcut). The wait must go through Hatchet's real durable event/wait infrastructure.
+
+## Implementation Hints
+- Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable (already set). Do NOT hardcode any token value.
+- Do NOT set a server address. The default endpoint in the SDK points at Hatchet Cloud; leave it alone.
+- The durable-wait API in Python lives on `DurableContext`. The relevant primitives are `ctx.aio_wait_for(signal_key, *conditions)`, and the helpers `SleepCondition`, `UserEventCondition`, and `or_` for grouping alternatives.
+- The result of `ctx.aio_wait_for(...)` is a dict shaped like `{"CREATE": {"<condition_key>": ...}}`. The `<condition_key>` for a `UserEventCondition` is the event key (e.g. `user:profile_completed`), which is how you decide whether the event or the timeout resolved the wait.
+- Make sure the worker is actually running before pushing the event, otherwise the durable task will not be ready to receive it. Starting the worker in a background thread and then sleeping briefly before triggering the workflow is a reasonable approach.
+- The script must terminate after the result is written; do not leave the worker process blocking forever.
+- Install dependencies with `pip install hatchet-sdk` (already preinstalled in the environment).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /home/user/myproject/output.log (runner stdout/stderr is appended here when executed by the grader)
+- Events log: /tmp/events.log (must contain the line `onboarding_flow started`, written from inside the durable task as its first action)
+- Result file: /tmp/result.json
+- The result file at `/tmp/result.json` must be valid JSON and contain a top-level field `status` whose value is exactly the string `completed_via_event`.
+- The task and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment.
+- The worker name registered on Hatchet Cloud must be `event-wait-worker-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+
+12:T1186,# Linear DAG Workflow with Hatchet Python SDK
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports building durable DAGs (Directed Acyclic Graphs). In a DAG, child tasks can read their parent tasks' outputs via the runtime `Context` object, and Hatchet schedules tasks in dependency order on a connected worker.
+
+You will build a small linear DAG with the Hatchet Python SDK (`hatchet-sdk`), register it on a worker connected to Hatchet Cloud, trigger a run, and persist the final result to disk.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to build a single DAG workflow with **exactly three tasks** that run **strictly sequentially** (each task is the parent of the next).
+- The three tasks must be declared with these task names (the function/Python identifiers, as accepted by the `@workflow.task(...)` decorator):
+  1. `step1_load` - takes no meaningful input and returns `{"text": "hello"}`.
+  2. `step2_transform` - declares `step1_load` as its parent. It must read the parent's output via the Hatchet `Context` (using `ctx.task_output(step1_load)`) and return `{"text": "<step1_text> world"}`, where `<step1_text>` is the `text` value from `step1_load`'s output (i.e., the literal string `hello world` for this run).
+  3. `step3_finalize` - declares `step2_transform` as its parent. It must read the parent's output via the Hatchet `Context` (using `ctx.task_output(step2_transform)`) and return `{"final": "<step2_text>!"}` (i.e., the literal string `hello world!` for this run).
+- Connect to **Hatchet Cloud** (the default Hatchet server). Do not configure a custom server address. Authenticate with the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment.
+- The workflow must be **registered on and executed by a real Hatchet worker** process connected to Hatchet Cloud. Do not mock, stub, or bypass the Hatchet client/server interaction.
+- The workflow name on Hatchet must be unique per run by reading the `ZEALT_RUN_ID` environment variable and using the workflow name `linear-dag-${ZEALT_RUN_ID}`. The same suffix must be used so concurrent runs do not collide on Hatchet Cloud.
+- Trigger the workflow exactly once and capture the result of `step3_finalize`. Write the captured object as JSON to `/tmp/result.json` so the verifier can inspect the final output.
+
+## Implementation Hints
+- Install the `hatchet-sdk` Python package (`pip install hatchet-sdk`).
+- Create a Hatchet client instance, then declare a workflow with `hatchet.workflow(name=...)` and three tasks on it via the workflow's `task(...)` decorator. The third task should declare `parents=[step2_transform]`, and the second `parents=[step1_load]`.
+- Inside each child task, use `ctx.task_output(<parent_task_object>)` to retrieve the parent's return value at runtime, as documented in the Hatchet DAG guide.
+- Start a Hatchet worker (`hatchet.worker(...).start()` or the async equivalent) that registers the workflow, then trigger the workflow with its `run` / `aio_run` method to fire-and-wait for the result. The worker and the trigger can live in the same script (e.g., start the worker in a background process/thread) or in two separate scripts run one after the other.
+- After the workflow completes, serialize the final task output dictionary (the one returned by `step3_finalize`) to `/tmp/result.json` using `json.dump` so the verifier can read it.
+- Read `ZEALT_RUN_ID` from the environment and build the workflow name as `linear-dag-${ZEALT_RUN_ID}` before declaring the workflow.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Result file: /tmp/result.json
+- The project must contain at least one Python source file under `/home/user/myproject/` that imports from the `hatchet_sdk` package and defines a workflow with three tasks named `step1_load`, `step2_transform`, and `step3_finalize` (parents declared in that linear order: `step1_load` -> `step2_transform` -> `step3_finalize`). The workflow name registered on Hatchet must be `linear-dag-${ZEALT_RUN_ID}`, where `ZEALT_RUN_ID` is read from the environment.
+- After the task is run, `/tmp/result.json` must exist and contain a JSON object whose top-level `final` field is exactly the string `hello world!`.
+- The result in `/tmp/result.json` must be produced by an actual Hatchet workflow run (no mocking of the SDK or the server); the agent must use the real `hatchet-sdk` package configured against Hatchet Cloud via `HATCHET_CLIENT_TOKEN`.
+
+13:Tea0,# Hatchet Linear DAG (TypeScript)
+
+## Background
+Build a small Hatchet workflow using the `@hatchet-dev/typescript-sdk` (TypeScript SDK) that demonstrates a linear, 3-step Directed Acyclic Graph (DAG). Each step receives the output of its parent task via `ctx.parentOutput(...)` and transforms a piece of text. The workflow is registered on a worker, triggered by a runner script, and the final result is written to a JSON file on disk so it can be verified.
+
+The Hatchet client must connect to Hatchet Cloud using the default server address (do not override the server URL). Authentication is performed exclusively via the real `HATCHET_CLIENT_TOKEN` environment variable.
+
+## Requirements
+- Implement a single Hatchet workflow named `linear-dag-${ZEALT_RUN_ID}` with exactly three tasks executed sequentially: `step1` -> `step2` -> `step3`.
+- `step1` returns an object `{ text: "hello" }`.
+- `step2` declares `step1` as its parent, reads the parent output via `ctx.parentOutput(step1)`, and returns `{ text: <parent.text> + " world" }`.
+- `step3` declares `step2` as its parent, reads the parent output via `ctx.parentOutput(step2)`, and returns `{ final: <parent.text> + "!" }`.
+- A worker script must register the workflow and run continuously.
+- A runner script must trigger the workflow (fire-and-wait), capture the final `step3` output, and write it to `/tmp/result.json` as JSON.
+- All side-effect-prone identifiers (workflow name, worker name) must be suffixed with the current `run-id` taken from the `ZEALT_RUN_ID` environment variable so concurrent trials do not collide.
+
+## Implementation Hints
+- Install the `@hatchet-dev/typescript-sdk` package and use `tsx` to run the worker and runner scripts.
+- Create a Hatchet client with `new Hatchet()` (or the SDK's standard factory) so it picks up the `HATCHET_CLIENT_TOKEN` env var automatically. Do not set a custom server address; the SDK's default points at Hatchet Cloud.
+- Declare the workflow with `hatchet.workflow({ name: ... })` and add tasks with `workflow.task({ name, parents, fn })`.
+- Inside child tasks, get parent output via `await ctx.parentOutput(parentTaskRef)`.
+- Start the worker with `hatchet.worker(<workerName>, { workflows: [workflow] })` followed by `await worker.start()`.
+- In a separate runner script, call `await workflow.run({})` (or `.run({}, {})`) and write the returned `step3` task output to `/tmp/result.json` using `fs.writeFileSync`. The DAG run result is keyed by task name, so the final value can be retrieved as `result.step3` (or by reading the equivalent task-output field returned by the SDK).
+- Read `ZEALT_RUN_ID` from `process.env.ZEALT_RUN_ID` and embed it in the workflow name and the worker name (e.g. `linear-dag-${runId}`, `linear-dag-worker-${runId}`).
+- Add `npm` scripts (`worker`, `run`) that invoke `tsx` against the respective TypeScript entry files, so they can be triggered with `npm run ...`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Workflow name: `linear-dag-${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable).
+- Worker start command: `npm run worker` (must run a long-lived Hatchet worker registered with the workflow above).
+- Runner command: `npm run run` (must trigger the workflow and wait for it to complete).
+- The runner MUST write the final step's output to the file `/tmp/result.json` as a JSON object with the following shape:
+  ```json
+  {
+    "final": string
+  }
+  ```
+- After a successful end-to-end execution, `/tmp/result.json` MUST contain exactly `{"final": "hello world!"}` (whitespace insensitive).
+- The Hatchet client/worker MUST authenticate using the real `HATCHET_CLIENT_TOKEN`; no mocking of the Hatchet service is allowed.
+
+14:Tdc3,# Diamond-Shaped Parallel DAG with Hatchet (Python)
+
+## Background
+Hatchet is a distributed task queue and durable workflow engine. Its DAG primitive lets you declare tasks and dependencies upfront so that Hatchet can run independent tasks in parallel, then merge their outputs at a downstream task that depends on multiple parents.
+
+In this task you will build a small "diamond" DAG using the Hatchet Python SDK against **Hatchet Cloud**. The DAG has a single root task that fans out into two parallel branches, which then merge into a final aggregation task. You must define the workflow, register it on a worker, trigger one run, and persist the final merge output to disk so that it can be inspected.
+
+## Requirements
+- Use the `hatchet-sdk` Python package against Hatchet Cloud (no server URL configuration is needed; the SDK uses the default Cloud endpoint).
+- Authentication is provided via the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment.
+- Define a single Hatchet workflow with four tasks whose dependency graph forms a diamond:
+  - `start`: the root task, has no parents.
+  - `branch_a`: depends only on `start`.
+  - `branch_b`: depends only on `start`.
+  - `merge`: depends on both `branch_a` and `branch_b`.
+- Each task must return the exact JSON-shaped output described in the Acceptance Criteria section.
+- Register the workflow on a Hatchet worker, start the worker, and trigger exactly one run of the workflow.
+- After the run completes, write the final `merge` task's output to `/tmp/result.json` as a JSON object.
+- Do not mock any part of Hatchet; the workflow must actually execute through Hatchet Cloud.
+
+## Implementation Hints
+- Create a Hatchet client and workflow using the Python SDK (`hatchet-sdk`).
+- Use the `@workflow.task(...)` decorator to declare tasks; declare parents using the `parents=[...]` keyword argument.
+- In `merge`, read parent outputs from the task context (for example via `ctx.task_output(branch_a)` and `ctx.task_output(branch_b)`).
+- Start a worker via `hatchet.worker("...", workflows=[...])` and `worker.start()`; run the worker in the background while you trigger the workflow.
+- Trigger the workflow synchronously and capture its result, or read the `merge` task output from the run reference, then persist it as JSON to `/tmp/result.json`.
+- It is fine to run the worker and the trigger in the same Python process (for example, start the worker in a background thread or subprocess) as long as the final JSON file is written before the process exits.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Output file: /tmp/result.json
+- Use the `hatchet-sdk` Python package; do not mock Hatchet.
+- The workflow must contain exactly four tasks with the following names and parent relationships:
+  - `start` with no parents.
+  - `branch_a` with parents `[start]`.
+  - `branch_b` with parents `[start]`.
+  - `merge` with parents `[branch_a, branch_b]`.
+- Task output shapes (JSON):
+  - `start` returns an object containing the integer field `value` equal to `10`.
+  - `branch_a` returns an object containing the integer field `a` equal to `start.value * 2`.
+  - `branch_b` returns an object containing the integer field `b` equal to `start.value + 5`.
+  - `merge` returns an object containing the integer field `sum` equal to `branch_a.a + branch_b.b`.
+- After running the workflow once, `/tmp/result.json` must exist and contain a JSON object with at least the field `sum` set to the integer value produced by `merge`.
+
+15:Te65,# Hatchet Python Priority Queue Reordering
+
+## Background
+Hatchet supports per-run priorities so that high-priority work can jump ahead of lower-priority work waiting in the same task's queue. You are given an isolated Python project and must demonstrate priority-based reordering by enqueuing several runs of a single task against a worker that has only one execution slot.
+
+This task targets Hatchet Cloud. The standard `HATCHET_CLIENT_TOKEN` environment variable is already set, so the SDK will use the default Hatchet Cloud server address without further configuration.
+
+## Requirements
+- Define a single Hatchet Python task named `prio-task-${ZEALT_RUN_ID}` (with `ZEALT_RUN_ID` read at runtime from the environment) with a workflow/task-level `default_priority` of `1` (low).
+- The task body must:
+  1. Read the effective priority of the current run from the context (or input).
+  2. Compute the current epoch time in milliseconds (integer).
+  3. Append exactly one line to the log file (see Acceptance Criteria) in the format `<priority> <epoch_ms>\n`.
+  4. Sleep for approximately 2 seconds.
+  5. Return successfully.
+- Configure the worker with `slots=1` so that at most one run executes at a time and the rest queue.
+- Provide a runner that:
+  1. Truncates (creates fresh) the log file.
+  2. Starts the worker (e.g., in a background process/thread).
+  3. Submits 5 task runs back-to-back with no waiting between submissions:
+     - First: 3 runs at priority `1` (low).
+     - Then: 2 runs at priority `3` (high).
+  4. Waits for all 5 runs to complete (synchronously block until done).
+  5. Stops the worker cleanly and exits.
+- The end-to-end execution must be triggered by a single shell command.
+
+## Implementation Hints
+- Install the `hatchet-sdk` Python package.
+- Look up Hatchet's priority API for Python: setting `default_priority` on the task/workflow definition and overriding it via the `priority` argument on `.run()` / `.run_no_wait()` invocations. Priority values are integers `1`, `2`, or `3` (or use the `Priority` enum).
+- Use the worker's `slots` parameter to constrain concurrency to 1.
+- Use `run_no_wait()` to enqueue without blocking, collect the returned references, and later resolve them to wait for completion.
+- Use Python's `time.time_ns() // 1_000_000` or `int(time.time()*1000)` for epoch milliseconds.
+- Suffix Hatchet resource names (task/workflow name) and the log path with the `ZEALT_RUN_ID` value to avoid collisions across concurrent runs of this evaluation.
+- The Hatchet client typically needs to be created at module load using `Hatchet()`.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Log file: `/tmp/prio_log_${ZEALT_RUN_ID}.txt` where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable.
+- Job command: `bash /home/user/myproject/run.sh` — running this single command must perform the full end-to-end flow (start worker, submit 5 runs, wait, exit) and must terminate within ~60 seconds.
+- The log file must exist after the job completes and must contain exactly 5 non-empty lines.
+- Each line must match the format `<priority> <epoch_ms>` where `<priority>` is `1` or `3` and `<epoch_ms>` is a positive integer.
+- The 5 lines must contain exactly 3 entries with priority `1` and exactly 2 entries with priority `3`.
+- Priority reordering requirement: among lines 2 through 5 (i.e., excluding the very first executed run, which may have been a priority-1 run that was already executing when the priority-3 runs arrived), every priority-`3` line must appear before every priority-`1` line.
+- The Hatchet task/workflow name registered with Hatchet Cloud must be `prio-task-${ZEALT_RUN_ID}`.
+
+16:T140e,# Hatchet Static Rate-Limited Task (Python)
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports first-class rate limiting. Static rate limits are declared on the `Admin` client (via `hatchet.rate_limits.put(...)`) before the worker starts, and individual tasks consume units from a named limit via the `rate_limits=[RateLimit(static_key=..., units=...)]` configuration. When more runs are dispatched than the limit allows, Hatchet re-queues them until capacity becomes available, which is exactly the behaviour this task verifies end-to-end against Hatchet Cloud.
+
+Your job is to implement a small Python project that defines a single rate-limited task called `call_external_api`, registers a static rate limit, starts a worker, and triggers many runs in parallel so that the rate limit visibly throttles execution.
+
+## Requirements
+- Use the `hatchet-sdk` Python package and connect to Hatchet Cloud using the `HATCHET_CLIENT_TOKEN` from the environment (no server URL needed).
+- Read the current run-id from the `ZEALT_RUN_ID` environment variable and build the static rate-limit key as `ext-api-${ZEALT_RUN_ID}` so concurrent trials do not interfere with each other.
+- Register a static rate limit on this key with `limit=5` and `duration=RateLimitDuration.MINUTE` using `hatchet.rate_limits.put(...)` before starting the worker.
+- Define a Hatchet task named `call_external_api` that:
+  - Is decorated with `rate_limits=[RateLimit(static_key="ext-api-${ZEALT_RUN_ID}", units=1)]` (with `${ZEALT_RUN_ID}` interpolated at runtime).
+  - On each invocation appends one line to `/tmp/rate_log.txt`. Each line must be the UTC start timestamp of that invocation in ISO 8601 format with a trailing `Z` (e.g. `2025-05-25T12:34:56.789012Z`).
+  - Writes must be append-only and safe under concurrent invocations.
+- Provide a single orchestration entrypoint that, when executed, performs the full end-to-end flow against Hatchet Cloud:
+  1. Clears any pre-existing `/tmp/rate_log.txt`.
+  2. Registers/updates the static rate limit.
+  3. Starts a Hatchet worker (in the same process or a child process) that exposes the `call_external_api` task.
+  4. Triggers 15 runs of `call_external_api` in parallel (or in very rapid succession) from the same process.
+  5. Waits until all 15 runs have completed.
+  6. Exits with status 0 only after `/tmp/rate_log.txt` contains 15 timestamp lines.
+- No mocking: the worker MUST connect to Hatchet Cloud and runs MUST be dispatched and executed through Hatchet.
+
+## Implementation Hints
+- The `hatchet-sdk` Python package exposes `Hatchet`, `Context`, `RateLimit`, and `RateLimitDuration` at the top level.
+- Use `hatchet = Hatchet(debug=True)` (or similar) and then `hatchet.rate_limits.put(KEY, 5, RateLimitDuration.MINUTE)` to declare the static limit.
+- Attach the limit to your task by passing `rate_limits=[RateLimit(static_key=KEY, units=1)]` to the `@hatchet.task(...)` decorator.
+- Use `hatchet.worker("rate-limit-worker", slots=20, workflows=[call_external_api])` so the local worker has enough slots that any throttling is due to the Hatchet rate limit and not local capacity.
+- To start the worker and trigger runs from the same script, run the worker in a background thread/process (e.g. via `multiprocessing.Process` or `worker.start()` in another process). Make sure to terminate the worker after the runs complete.
+- To trigger 15 runs in parallel, prefer the SDK helpers such as `call_external_api.run_many([...])` or call `call_external_api.run()` from a thread pool. Make sure the calls are non-blocking enough that they all reach Hatchet within a few seconds.
+- Append to `/tmp/rate_log.txt` using `"a"` mode and a single `write` call per invocation; using a short `with open(...)` block is sufficient because Hatchet runs each task in its own process step.
+- Because the static rate limit is `5 per minute`, expect 15 runs to take at least ~2 minutes to fully drain. Configure your wait/timeouts accordingly (e.g. wait up to 5 minutes).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /tmp/rate_log.txt
+- Orchestration entrypoint: `bash /home/user/myproject/run.sh` runs the full flow (register rate limit, start worker, trigger 15 runs, wait for completion) and exits 0 on success.
+- The rate-limit key registered on Hatchet must be `ext-api-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable.
+- The static rate limit must be `limit=5` with `duration=RateLimitDuration.MINUTE` and the task `call_external_api` must consume `units=1` per invocation via `RateLimit(static_key=..., units=1)`.
+- After the entrypoint finishes, `/tmp/rate_log.txt` must contain exactly 15 non-empty lines, each line a single UTC ISO 8601 timestamp ending in `Z` (e.g. `2025-05-25T12:34:56.789012Z`).
+- The timestamps in the log file must show evidence of rate limiting: the difference between the latest and earliest timestamp must be at least 50 seconds, and no rolling 60-second window may contain more than 5 timestamps.
+- The orchestration must complete (exit 0) within 5 minutes wall-clock time.
+
+17:Td44,# Hatchet Scheduled Run (Python SDK)
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports durable execution. One of its core features is the ability to programmatically schedule a one-time future run of a registered task. In this task you will use the Hatchet Python SDK (`hatchet-sdk`) to define a task, schedule it to run once in the near future, run a worker to pick up that scheduled execution, and finally clean up the schedule.
+
+## Requirements
+- Implement a Hatchet task named `scheduled-hello` in Python that, when fired, writes a JSON object of the form `{"fired_at": "<iso8601 utc timestamp>", "input": <input dict>}` to `/tmp/scheduled_result.json`.
+- Programmatically schedule the task to run ONE TIME at approximately `now + 15 seconds` (UTC) with input `{"name": "world"}` using the Hatchet Python SDK's scheduled-run API.
+- Start a Hatchet worker that has the task registered so the scheduled run can be picked up and executed.
+- Wait long enough (at least ~30 seconds total) for the scheduled time to pass and for the task to actually execute on the worker.
+- After execution, delete (clean up) the scheduled run via the SDK so no stale schedule is left behind.
+- The task must connect to Hatchet Cloud using the credentials provided through the `HATCHET_CLIENT_TOKEN` environment variable. Do not hard-code tokens or mock the Hatchet service.
+
+## Implementation Hints
+- Install and use the `hatchet-sdk` Python package.
+- A Hatchet client is created with `Hatchet()` (it reads `HATCHET_CLIENT_TOKEN` from the environment; no server URL configuration is needed for Hatchet Cloud).
+- Tasks are defined with the `@hatchet.task(...)` decorator. Inside the task body you receive the input and can write to a file on disk.
+- Use the task object's `schedule(...)` method to programmatically create a one-off future run, passing a UTC `datetime` (e.g. `datetime.now(tz=timezone.utc) + timedelta(seconds=15)`) and an `input=` dict.
+- A worker must be running on the same client to actually execute the scheduled task. Run the worker in the background (e.g. a thread or subprocess) so your main script can also wait and then delete the schedule.
+- Use `hatchet.scheduled.delete(scheduled_id=<schedule.metadata.id>)` (or the equivalent attribute exposed by the SDK) to remove the scheduled run during cleanup.
+- The whole orchestration (define task + schedule + run worker + wait + cleanup) should live in one or a few Python files under the project directory.
+- Use `ZEALT_RUN_ID` from the environment only if you also write additional log artifacts; the primary output file path `/tmp/scheduled_result.json` is fixed by the requirements.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The task uses the real Hatchet Cloud service authenticated via the `HATCHET_CLIENT_TOKEN` environment variable.
+- After the orchestration finishes, the file `/tmp/scheduled_result.json` must exist and contain a JSON object with:
+  - A field `input` whose value is an object containing `"name": "world"`.
+  - A field `fired_at` whose value is a valid ISO 8601 timestamp string (parseable by `datetime.fromisoformat`, accepting a trailing `Z` as UTC).
+- The scheduled run must have been created via the Hatchet Python SDK's scheduled-run API (not via CLI or dashboard).
+- The scheduled run is deleted via the SDK after it fires (cleanup step is executed).
+
+18:T16bc,# Hatchet Sticky Worker Assignment with a 3-Step DAG (Python)
+
+## Background
+Hatchet supports **sticky assignment**, which keeps all tasks within a workflow on the same worker for the duration of the workflow run. This is useful when tasks share expensive local state (model weights, caches, sessions). In this task you will demonstrate this feature using the official `hatchet-sdk` Python package against **Hatchet Cloud** (no self-hosting).
+
+Your job is to build a Python project that:
+
+1. Defines a single Hatchet **DAG workflow** with **three sequentially-dependent tasks** `step_a -> step_b -> step_c` where the workflow is configured with `StickyStrategy.SOFT` (or `HARD`).
+2. Starts **two long-running workers** as separate OS processes in the same container (different process IDs, both connected to the same Hatchet Cloud tenant) so the scheduler actually has a choice between them.
+3. Triggers the workflow exactly once and waits for it to finish.
+4. Records, from inside each task body, the executing worker's identifying information (hostname and a unique `WORKER_ID` env variable that distinguishes the two worker processes) to a shared log file.
+5. After the workflow completes, writes a small JSON summary file that lists the worker ids that ran each step.
+
+The verifier will inspect the log file and the JSON summary and confirm that **sticky assignment was honored** — i.e. all three steps executed on the **same** `WORKER_ID`.
+
+## Requirements
+
+- Use the official `hatchet-sdk` Python package.
+- Use **Hatchet Cloud only**. Authenticate with the `HATCHET_CLIENT_TOKEN` already present in the environment. Do **not** override the server address; let the SDK use its default.
+- Define a DAG workflow named `sticky-dag-${run-id}` (with `run-id` read from the `ZEALT_RUN_ID` environment variable, so concurrent trials do not collide) configured with `sticky=StickyStrategy.SOFT`.
+- The workflow must contain **three tasks** named `step_a`, `step_b`, and `step_c` with the dependency chain `step_a -> step_b -> step_c` (each subsequent task lists the previous one as its parent).
+- Inside each task body:
+  - Read the worker identity from the `WORKER_ID` environment variable.
+  - Read the container hostname with `socket.gethostname()`.
+  - Append a single line to `/tmp/run_steps.log` in the exact format:
+    `step=<step_name> worker_id=<WORKER_ID> hostname=<hostname> pid=<pid>`
+  - Return `{"worker_id": <WORKER_ID>}` as the task output so downstream steps can consume it.
+- Start **two** worker processes concurrently from the runner. Each worker process:
+  - Must run in its own OS process (different PIDs).
+  - Must be started with a different `WORKER_ID` value (e.g. `worker-A-${run-id}` and `worker-B-${run-id}`).
+  - Must register the same DAG workflow and be eligible to execute any of the three steps.
+- Once both workers are ready, the runner triggers the workflow **exactly once** and waits for it to complete.
+- After the workflow finishes, the runner writes `/tmp/result.json` containing:
+  ```json
+  {"worker_ids": ["<id-for-step_a>", "<id-for-step_b>", "<id-for-step_c>"]}
+  ```
+  (the values come from the task outputs / the log file).
+- The runner must terminate both worker processes cleanly before exiting.
+- The entire end-to-end run must complete in **under 5 minutes** when invoked with the command below.
+
+## Implementation Hints
+
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and append it to the workflow name and worker ids to make the run safe under concurrent trials.
+- The SDK exposes a `StickyStrategy` enum and a `sticky` parameter on `hatchet.workflow(...)`. Use the **SOFT** variant.
+- A DAG task with a parent is created with the `parents=[...]` argument on the task decorator.
+- Use Python's `multiprocessing` (or `subprocess`) to spawn the two worker processes. Each child process should create its own `Hatchet` client, define / register the same workflow, and call `worker.start()` (which blocks).
+- Use `os.environ["WORKER_ID"]` inside each task body to read the unique worker id; set it via `env` when spawning each subprocess.
+- To trigger the workflow you can call `workflow.run(...)` (blocking) or `aio_run(...)` from the parent runner process. Make sure both workers are up before triggering.
+- Make sure to flush / fsync writes to `/tmp/run_steps.log` so the log lines are durable even if a worker is terminated immediately afterwards.
+- Do not start a Hatchet server or override `HATCHET_CLIENT_HOST` — the SDK's default points to Hatchet Cloud.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- Entrypoint: `Command: python3 /home/user/myproject/run.py`
+- The command must exit with status `0` within 5 minutes.
+- Log file: `/tmp/run_steps.log`
+  - Must contain exactly **three** lines, one per step.
+  - Every line must match the format: `step=<step_name> worker_id=<worker_id> hostname=<hostname> pid=<pid>`.
+  - The three `step` values must be exactly `step_a`, `step_b`, `step_c` (each appearing at least once).
+  - The `worker_id` value on every line must be **identical** (sticky assignment honored).
+- Result file: `/tmp/result.json`
+  - Must be valid JSON with the shape `{"worker_ids": ["<id_a>", "<id_b>", "<id_c>"]}`.
+  - All three list entries must be equal to each other and equal to the `worker_id` value seen in `/tmp/run_steps.log`.
+  - The shared `worker_id` must be one of the two ids that were spawned (i.e. it must follow the pattern `worker-A-${run-id}` or `worker-B-${run-id}`).
+- The implementation must use `sticky=StickyStrategy.SOFT` (or HARD) on the workflow declaration. The verifier will grep the project source for this.
+- The implementation must spawn **two** worker processes (verifier will grep the source for evidence of spawning two distinct workers with distinct `WORKER_ID` values).
+
+19:T1224,# Hatchet Task Retries with Exponential Backoff (Python SDK)
+
+## Background
+Hatchet is a distributed task queue and durable execution engine. One of its core reliability features is automatic retry of failed tasks with optional exponential backoff. In this task, you will build a small Python program that defines a `flaky_task` configured to retry on failure with exponential backoff, runs the task on Hatchet Cloud, and writes the final successful result to disk.
+
+The task uses the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to define a task named `flaky_task` with the following retry configuration:
+  - `retries=3`
+  - `backoff_factor=2`
+  - `backoff_max_seconds=10`
+- `flaky_task` must persist a cross-invocation attempt counter to the file `/tmp/attempts.txt`:
+  - On every invocation (initial run **and** every retry), the task body reads the current attempt count from `/tmp/attempts.txt` (treat a missing file as `0`), increments the counter by `1`, and writes the new value back to `/tmp/attempts.txt` before deciding success/failure.
+  - If the new attempt value is less than `3`, the task **MUST** raise an exception so Hatchet retries it.
+  - If the new attempt value is `3` or greater, the task **MUST** return a JSON-serializable result containing exactly the fields `status` (string, value `success`) and `attempt` (integer, the current attempt number).
+- Write a runner script that:
+  1. Reads `ZEALT_RUN_ID` from the environment.
+  2. Ensures `/tmp/attempts.txt` does not exist before starting (delete it if present) so the attempt counter begins at `0`.
+  3. Creates a Hatchet worker whose worker name is `task-retries-worker-${ZEALT_RUN_ID}`, registers `flaky_task` on it, and starts it in the background (e.g. a thread or subprocess) so the task can be executed.
+  4. Triggers exactly one run of `flaky_task` with input `{}` against Hatchet Cloud and waits for the run to complete.
+  5. Writes the final task output (the dict returned by the successful attempt) to `/tmp/result.json` as valid JSON.
+  6. Shuts down the worker cleanly and exits with code 0.
+- The retry behavior must come from Hatchet's built-in retry policy, not from in-task `try/except` loops or any user-side retry wrapper.
+- The result must come from an actual Hatchet Cloud task run (no mocking, no local function-call shortcut).
+
+## Implementation Hints
+- Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value.
+- Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone.
+- Refer to the Hatchet retry documentation for the exact decorator keyword arguments (`retries`, `backoff_factor`, `backoff_max_seconds`) on `@hatchet.task(...)`.
+- A typical Python program defines `hatchet = Hatchet()`, decorates a function with `@hatchet.task(...)`, creates a worker via `hatchet.worker(...)` with the task in its workflow list, and starts the worker. To trigger a run from the same process, run the worker in a background thread/subprocess and call the task's `run` / `aio_run` method, which returns the task's output when the run finishes.
+- Make the file read/write on `/tmp/attempts.txt` robust: missing file means attempt `0`, otherwise parse the integer in the file, increment it, and overwrite.
+- Make sure the script terminates after the result is written; do not leave the worker process blocking.
+- Install dependencies with `pip install hatchet-sdk`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader)
+- Attempts counter file: /tmp/attempts.txt
+- Result file: /tmp/result.json
+- The task and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment.
+- The worker name registered on Hatchet Cloud must be `task-retries-worker-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- After the runner completes:
+  - `/tmp/attempts.txt` exists and its integer content equals `3`.
+  - `/tmp/result.json` exists, is valid JSON, and contains a JSON object with top-level fields `status` (string equal to `success`) and `attempt` (integer equal to `3`).
+
+1a:Tb0f,# Hatchet Task Execution Timeout
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports execution timeouts to prevent tasks from running indefinitely. When a task exceeds its `execution_timeout`, Hatchet cancels it and surfaces the failure to the caller. In this task, you must demonstrate this behavior using the Hatchet Python SDK against Hatchet Cloud.
+
+## Requirements
+- Implement a Python project at `/home/user/myproject` that uses the `hatchet-sdk` package to define a single task named `slow_task`.
+- The `slow_task` definition must:
+  - Set an `execution_timeout` of 5 seconds.
+  - Set `retries=0` so the task is not retried after timing out.
+  - Sleep for 20 seconds inside the task body (using `time.sleep` or `asyncio.sleep`), which is longer than the timeout.
+- Provide a runner script that:
+  - Starts a Hatchet worker (in the background or a thread) so the task can actually execute on Hatchet Cloud.
+  - Triggers `slow_task` synchronously using `.run()` or `.aio_run()` and expects the call to fail because of the timeout.
+  - Catches the resulting exception and writes `{"timed_out": true, "error": "<message>"}` to `/tmp/result.json` (where `<message>` is the string form of the exception).
+  - If the task unexpectedly succeeds (no exception), writes `{"timed_out": false}` to `/tmp/result.json` instead.
+  - Exits cleanly (return code 0) after writing the file, regardless of whether the underlying task succeeded or failed.
+
+## Implementation Hints
+- Use the Hatchet Cloud server; the SDK uses the default server address, so do not configure a custom host. Authentication is via the `HATCHET_CLIENT_TOKEN` environment variable.
+- Look at the official Hatchet Python documentation for the `execution_timeout` parameter on `@hatchet.task(...)`. The value can be a string like `"5s"` or a `datetime.timedelta`.
+- A worker must be running (and listening for the registered task) while the trigger call is in flight; otherwise the trigger will hang. Start the worker in a background thread/process before triggering the task, and stop it after writing the result file.
+- Use a task name that includes the `run-id` (read from the `ZEALT_RUN_ID` environment variable) so concurrent runs do not collide on the Hatchet Cloud workflow registry.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /tmp/result.json
+- The project must be runnable via: `Command: python3 /home/user/myproject/main.py`
+- After the command completes, `/tmp/result.json` must exist and contain a valid JSON object with at least the field `timed_out` set to the boolean `true`.
+- The command must exit with return code 0.
+- The Hatchet task registered with Hatchet Cloud must include `${run-id}` in its task name (where `run-id` is read from `ZEALT_RUN_ID`) to keep concurrent runs isolated.
+
+0:{"buildId":"ffq9fQaSMRu-ocQRxCCXZ","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"aggregator_fanout_py","instruction":"$4","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"aggregator_fanout_py__JA9vJqH","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":664.763,"latency_breakdown":{"env_setup":25.158,"agent_setup":26.282,"agent_exec":600.112,"verifier":0.566},"taskName":"aggregator_fanout_py","jobId":"JA9vJqH","exec_duration":600.112}]},{"taskName":"ai_agent_loop_py","instruction":"$5","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"ai_agent_loop_py__deK9Tvw","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":666.203,"latency_breakdown":{"env_setup":24.948,"agent_setup":27.857,"agent_exec":600.119,"verifier":0.534},"taskName":"ai_agent_loop_py","jobId":"deK9Tvw","exec_duration":600.119}]},{"taskName":"basic_task_py","instruction":"$6","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"basic_task_py__NJ75UFW","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":665.763,"latency_breakdown":{"env_setup":24.509,"agent_setup":27.422,"agent_exec":600.115,"verifier":0.576},"taskName":"basic_task_py","jobId":"NJ75UFW","exec_duration":600.115}]},{"taskName":"basic_task_ts","instruction":"","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"basic_task_ts__pjtDuSN","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":70.02,"latency_breakdown":{"env_setup":24.834,"agent_setup":27.264,"agent_exec":1.034,"verifier":null},"taskName":"basic_task_ts","jobId":"pjtDuSN","exec_duration":1.034}]},{"taskName":"bulk_run_py","instruction":"$7","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"bulk_run_py__5NySDgD","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":433.749,"latency_breakdown":{"env_setup":3.706,"agent_setup":52.854,"agent_exec":364.29,"verifier":0.498},"taskName":"bulk_run_py","jobId":"5NySDgD","exec_duration":364.29}]},{"taskName":"cli_quickstart","instruction":"$8","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"cli_quickstart__Cnugzph","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":111.359,"latency_breakdown":{"env_setup":4.292,"agent_setup":41.975,"agent_exec":52.302,"verifier":0.456},"taskName":"cli_quickstart","jobId":"Cnugzph","exec_duration":52.302}]},{"taskName":"concurrency_limit_ts","instruction":"$9","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"concurrency_limit_ts__H9XE9zy","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":173.825,"latency_breakdown":{"env_setup":11.984,"agent_setup":42.175,"agent_exec":89.945,"verifier":15.6},"taskName":"concurrency_limit_ts","jobId":"H9XE9zy","exec_duration":89.945}]},{"taskName":"concurrency_per_key_py","instruction":"$a","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"concurrency_per_key_py__A3WaRzi","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":550.918,"latency_breakdown":{"env_setup":24.78,"agent_setup":27.431,"agent_exec":485.756,"verifier":0.457},"taskName":"concurrency_per_key_py","jobId":"A3WaRzi","exec_duration":485.756}]},{"taskName":"cron_schedule_py","instruction":"$b","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"cron_schedule_py__3hDmBLC","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":473.853,"latency_breakdown":{"env_setup":4.835,"agent_setup":23.543,"agent_exec":422.822,"verifier":0.503},"taskName":"cron_schedule_py","jobId":"3hDmBLC","exec_duration":422.822}]},{"taskName":"cron_schedule_ts","instruction":"$c","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"cron_schedule_ts__yjcYoMZ","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":433.922,"latency_breakdown":{"env_setup":4.511,"agent_setup":38.285,"agent_exec":376.056,"verifier":1.525},"taskName":"cron_schedule_ts","jobId":"yjcYoMZ","exec_duration":376.056}]},{"taskName":"durable_sleep_py","instruction":"$d","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"durable_sleep_py__tBZ5euM","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":821.392,"latency_breakdown":{"env_setup":7.58,"agent_setup":20.558,"agent_exec":600.107,"verifier":180.731},"taskName":"durable_sleep_py","jobId":"tBZ5euM","exec_duration":600.107}]},{"taskName":"dynamic_fanout_py","instruction":"$e","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"dynamic_fanout_py__wUjyg2o","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":635.545,"latency_breakdown":{"env_setup":4.006,"agent_setup":23.243,"agent_exec":594.817,"verifier":0.499},"taskName":"dynamic_fanout_py","jobId":"wUjyg2o","exec_duration":594.817}]},{"taskName":"dynamic_fanout_ts","instruction":"$f","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"dynamic_fanout_ts__xxf7pDE","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":350.159,"latency_breakdown":{"env_setup":7.299,"agent_setup":30.899,"agent_exec":297.606,"verifier":0.494},"taskName":"dynamic_fanout_ts","jobId":"xxf7pDE","exec_duration":297.606}]},{"taskName":"event_trigger_py","instruction":"$10","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"event_trigger_py__35f9jXs","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":260.594,"latency_breakdown":{"env_setup":7.734,"agent_setup":18.15,"agent_exec":221.153,"verifier":0.507},"taskName":"event_trigger_py","jobId":"35f9jXs","exec_duration":221.153}]},{"taskName":"event_wait_py","instruction":"$11","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"event_wait_py__Jke54mA","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":639.941,"latency_breakdown":{"env_setup":6.711,"agent_setup":18.723,"agent_exec":600.1,"verifier":0.476},"taskName":"event_wait_py","jobId":"Jke54mA","exec_duration":600.1}]},{"taskName":"linear_dag_py","instruction":"$12","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"linear_dag_py__Q8bceEL","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":366.782,"latency_breakdown":{"env_setup":4.212,"agent_setup":17.891,"agent_exec":331.846,"verifier":0.463},"taskName":"linear_dag_py","jobId":"Q8bceEL","exec_duration":331.846}]},{"taskName":"linear_dag_ts","instruction":"$13","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"linear_dag_ts__mpdpwGY","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":570.949,"latency_breakdown":{"env_setup":5.068,"agent_setup":118.893,"agent_exec":391.566,"verifier":40.814},"taskName":"linear_dag_ts","jobId":"mpdpwGY","exec_duration":391.566}]},{"taskName":"parallel_dag_py","instruction":"$14","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"parallel_dag_py__u5spawB","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":259.395,"latency_breakdown":{"env_setup":3.986,"agent_setup":17.349,"agent_exec":225.203,"verifier":0.444},"taskName":"parallel_dag_py","jobId":"u5spawB","exec_duration":225.203}]},{"taskName":"priority_run_py","instruction":"$15","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"priority_run_py__XisL5zp","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":636.647,"latency_breakdown":{"env_setup":5.783,"agent_setup":17.984,"agent_exec":600.109,"verifier":0.471},"taskName":"priority_run_py","jobId":"XisL5zp","exec_duration":600.109}]},{"taskName":"rate_limit_py","instruction":"$16","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"rate_limit_py__Tx6HkGG","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":545.745,"latency_breakdown":{"env_setup":3.776,"agent_setup":16.928,"agent_exec":512.304,"verifier":0.46},"taskName":"rate_limit_py","jobId":"Tx6HkGG","exec_duration":512.304}]},{"taskName":"scheduled_run_py","instruction":"$17","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"scheduled_run_py__feoGEwu","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":525.352,"latency_breakdown":{"env_setup":3.488,"agent_setup":16.925,"agent_exec":491.796,"verifier":0.449},"taskName":"scheduled_run_py","jobId":"feoGEwu","exec_duration":491.796}]},{"taskName":"sticky_assignment_py","instruction":"$18","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"sticky_assignment_py__to5QtGi","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":278.077,"latency_breakdown":{"env_setup":7.34,"agent_setup":98.296,"agent_exec":156.05,"verifier":0.533},"taskName":"sticky_assignment_py","jobId":"to5QtGi","exec_duration":156.05}]},{"taskName":"task_retries_py","instruction":"$19","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"task_retries_py__jVC6bJi","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":383.747,"latency_breakdown":{"env_setup":6.608,"agent_setup":11.933,"agent_exec":352.458,"verifier":0.448},"taskName":"task_retries_py","jobId":"jVC6bJi","exec_duration":352.458}]},{"taskName":"task_timeout_py","instruction":"$1a","trials":[{"job_name":"2026-05-26__00-25-55","trial_name":"task_timeout_py__3VEbuUo","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":934.927,"latency_breakdown":{"env_setup":3.936,"agent_setup":16.76,"agent_exec":600.117,"verifier":300.689},"taskName":"task_timeout_py","jobId":"3VEbuUo","exec_duration":600.117}]}]}]}]]}],["$L1b","$L1c"],"$L1d"]}],"loading":null,"isPartial":false}
+1b:["$","script","script-0",{"src":"/hatchet-benchmark/_next/static/chunks/15c4e4f02af9a445.js","async":true}]
+1c:["$","script","script-1",{"src":"/hatchet-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+1d:["$","$L1e",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@1f"}]}]
+1f:null
