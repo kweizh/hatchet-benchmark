@@ -1,0 +1,82 @@
+Skipping image OS validation for hb__task_timeout_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-4wwyu4d > /logs/artifacts/run-id && echo task_timeout_py__4Wwyu4D > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Hatchet Task Execution Timeout
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports execution timeouts to prevent tasks from running indefinitely. When a task exceeds its `execution_timeout`, Hatchet cancels it and surfaces the failure to the caller. In this task, you must demonstrate this behavior using the Hatchet Python SDK against Hatchet Cloud.
+
+## Requirements
+- Implement a Python project at `/home/user/myproject` that uses the `hatchet-sdk` package to define a single task named `slow_task`.
+- The `slow_task` definition must:
+  - Set an `execution_timeout` of 5 seconds.
+  - Set `retries=0` so the task is not retried after timing out.
+  - Sleep for 20 seconds inside the task body (using `time.sleep` or `asyncio.sleep`), which is longer than the timeout.
+- Provide a runner script that:
+  - Starts a Hatchet worker (in the background or a thread) so the task can actually execute on Hatchet Cloud.
+  - Triggers `slow_task` synchronously using `.run()` or `.aio_run()` and expects the call to fail because of the timeout.
+  - Catches the resulting exception and writes `{"timed_out": true, "error": "<message>"}` to `/tmp/result.json` (where `<message>` is the string form of the exception).
+  - If the task unexpectedly succeeds (no exception), writes `{"timed_out": false}` to `/tmp/result.json` instead.
+  - Exits cleanly (return code 0) after writing the file, regardless of whether the underlying task succeeded or failed.
+
+## Implementation Hints
+- Use the Hatchet Cloud server; the SDK uses the default server address, so do not configure a custom host. Authentication is via the `HATCHET_CLIENT_TOKEN` environment variable.
+- Look at the official Hatchet Python documentation for the `execution_timeout` parameter on `@hatchet.task(...)`. The value can be a string like `"5s"` or a `datetime.timedelta`.
+- A worker must be running (and listening for the registered task) while the trigger call is in flight; otherwise the trigger will hang. Start the worker in a background thread/process before triggering the task, and stop it after writing the result file.
+- Use a task name that includes the `run-id` (read from the `ZEALT_RUN_ID` environment variable) so concurrent runs do not collide on the Hatchet Cloud workflow registry.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /tmp/result.json
+- The project must be runnable via: `Command: python3 /home/user/myproject/main.py`
+- After the command completes, `/tmp/result.json` must exist and contain a valid JSON object with at least the field `timed_out` set to the boolean `true`.
+- The command must exit with return code 0.
+- The Hatchet task registered with Hatchet Cloud must include `${run-id}` in its task name (where `run-id` is read from `ZEALT_RUN_ID`) to keep concurrent runs isolated.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

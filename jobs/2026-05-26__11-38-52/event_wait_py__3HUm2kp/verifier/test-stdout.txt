@@ -1,0 +1,77 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py FFFFF                                          [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_result_file_exists ____________________________
+
+    def test_result_file_exists():
+        """The task runner must create /tmp/result.json after the durable task resolves."""
+>       assert os.path.isfile(RESULT_PATH), (
+            f"Expected result file {RESULT_PATH} to exist after the task runs. "
+            "The runner must invoke the Hatchet durable task and write its output to this path."
+        )
+E       AssertionError: Expected result file /tmp/result.json to exist after the task runs. The runner must invoke the Hatchet durable task and write its output to this path.
+E       assert False
+E        +  where False = <function isfile at 0x739d160e0220>('/tmp/result.json')
+E        +    where <function isfile at 0x739d160e0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:12: AssertionError
+____________________ test_result_file_is_valid_json_object _____________________
+
+    def test_result_file_is_valid_json_object():
+>       with open(RESULT_PATH, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:19: FileNotFoundError
+____________________ test_result_status_completed_via_event ____________________
+
+    def test_result_status_completed_via_event():
+>       with open(RESULT_PATH, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:33: FileNotFoundError
+____________________ test_events_log_contains_started_line _____________________
+
+    def test_events_log_contains_started_line():
+        """The durable task body must have appended the started marker to /tmp/events.log."""
+>       assert os.path.isfile(EVENTS_LOG_PATH), (
+            f"Expected events log {EVENTS_LOG_PATH} to exist after the durable task runs. "
+            "The durable task's first action must append a line to this file."
+        )
+E       AssertionError: Expected events log /tmp/events.log to exist after the durable task runs. The durable task's first action must append a line to this file.
+E       assert False
+E        +  where False = <function isfile at 0x739d160e0220>('/tmp/events.log')
+E        +    where <function isfile at 0x739d160e0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:51: AssertionError
+__________________ test_runner_source_present_in_project_dir ___________________
+
+    def test_runner_source_present_in_project_dir():
+        """A Python source file must exist in the project directory, indicating the agent wrote real code."""
+        project_path = pathlib.Path(PROJECT_DIR)
+        assert project_path.is_dir(), (
+            f"Expected project directory {PROJECT_DIR} to exist."
+        )
+        py_files = list(project_path.rglob("*.py"))
+>       assert py_files, (
+            f"Expected at least one .py source file under {PROJECT_DIR} (the Hatchet durable task and runner). "
+            "Found none."
+        )
+E       AssertionError: Expected at least one .py source file under /home/user/myproject (the Hatchet durable task and runner). Found none.
+E       assert []
+
+tests/test_final_state.py:70: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_result_file_exists - AssertionError: E...
+FAILED tests/test_final_state.py::test_result_file_is_valid_json_object - Fil...
+FAILED tests/test_final_state.py::test_result_status_completed_via_event - Fi...
+FAILED tests/test_final_state.py::test_events_log_contains_started_line - Ass...
+FAILED tests/test_final_state.py::test_runner_source_present_in_project_dir
+============================== 5 failed in 0.03s ===============================

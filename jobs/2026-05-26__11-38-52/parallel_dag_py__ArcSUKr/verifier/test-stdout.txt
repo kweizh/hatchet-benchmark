@@ -1,0 +1,59 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py EEE                                            [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_result_file_is_json_object _______________
+
+    @pytest.fixture(scope="module")
+    def result_payload():
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Expected the agent to write the final merge output to {RESULT_FILE}, "
+            "but the file does not exist."
+        )
+E       AssertionError: Expected the agent to write the final merge output to /tmp/result.json, but the file does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7bf9904ec220>('/tmp/result.json')
+E        +    where <function isfile at 0x7bf9904ec220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:12: AssertionError
+_______________ ERROR at setup of test_result_contains_sum_field _______________
+
+    @pytest.fixture(scope="module")
+    def result_payload():
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Expected the agent to write the final merge output to {RESULT_FILE}, "
+            "but the file does not exist."
+        )
+E       AssertionError: Expected the agent to write the final merge output to /tmp/result.json, but the file does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7bf9904ec220>('/tmp/result.json')
+E        +    where <function isfile at 0x7bf9904ec220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:12: AssertionError
+_____________ ERROR at setup of test_result_sum_equals_thirty_five _____________
+
+    @pytest.fixture(scope="module")
+    def result_payload():
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Expected the agent to write the final merge output to {RESULT_FILE}, "
+            "but the file does not exist."
+        )
+E       AssertionError: Expected the agent to write the final merge output to /tmp/result.json, but the file does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7bf9904ec220>('/tmp/result.json')
+E        +    where <function isfile at 0x7bf9904ec220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:12: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_result_file_is_json_object - AssertionE...
+ERROR tests/test_final_state.py::test_result_contains_sum_field - AssertionEr...
+ERROR tests/test_final_state.py::test_result_sum_equals_thirty_five - Asserti...
+============================== 3 errors in 0.02s ===============================

@@ -1,0 +1,52 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779767861029,
+            "stop": 1779767863104
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_heartbeat_log_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779767861045,
+                "stop": 1779767861046,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_heartbeat_log_contains_valid_iso_timestamp",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779767861047,
+                "stop": 1779767861047,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cron_trigger_deleted_in_hatchet_cloud",
+                "status": "passed",
+                "duration": 2057,
+                "start": 1779767861047,
+                "stop": 1779767863104,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,64 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_runner_produces_result_file _______________________
+
+    def test_runner_produces_result_file():
+>       _run_runner()
+
+tests/test_final_state.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _run_runner():
+        """Remove any stale result and execute the runner end-to-end."""
+        if os.path.exists(RESULT_FILE):
+            os.remove(RESULT_FILE)
+        runner = os.path.join(PROJECT_DIR, "run.py")
+>       assert os.path.isfile(runner), (
+            f"Expected runner script at {runner}; the task must provide a runnable entrypoint."
+        )
+E       AssertionError: Expected runner script at /home/user/myproject/run.py; the task must provide a runnable entrypoint.
+E       assert False
+E        +  where False = <function isfile at 0x7faa125f0220>('/home/user/myproject/run.py')
+E        +    where <function isfile at 0x7faa125f0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:15: AssertionError
+_______________ test_result_file_content_matches_expected_shape ________________
+
+    def test_result_file_content_matches_expected_shape():
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Result file {RESULT_FILE} missing; the runner must produce it."
+        )
+E       AssertionError: Result file /tmp/result.json missing; the runner must produce it.
+E       assert False
+E        +  where False = <function isfile at 0x7faa125f0220>('/tmp/result.json')
+E        +    where <function isfile at 0x7faa125f0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:42: AssertionError
+__________________ test_source_uses_hatchet_durable_sleep_api __________________
+
+    def test_source_uses_hatchet_durable_sleep_api():
+        """Inspect the project's Python sources to confirm Hatchet's durable sleep API is used."""
+        py_sources = []
+        for root, _dirs, files in os.walk(PROJECT_DIR):
+            for name in files:
+                if name.endswith(".py"):
+                    py_sources.append(os.path.join(root, name))
+>       assert py_sources, f"No Python source files found under {PROJECT_DIR}."
+E       AssertionError: No Python source files found under /home/user/myproject.
+E       assert []
+
+tests/test_final_state.py:72: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_runner_produces_result_file - Assertio...
+FAILED tests/test_final_state.py::test_result_file_content_matches_expected_shape
+FAILED tests/test_final_state.py::test_source_uses_hatchet_durable_sleep_api
+============================== 3 failed in 0.03s ===============================

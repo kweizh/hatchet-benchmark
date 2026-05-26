@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_results_file_is_list_of_ten
+PASSED tests/test_final_state.py::test_each_entry_has_correct_schema
+PASSED tests/test_final_state.py::test_n_values_cover_one_to_ten
+PASSED tests/test_final_state.py::test_result_equals_double_n
+PASSED tests/test_final_state.py::test_entries_ordered_by_n_ascending
+============================== 5 passed in 0.02s ===============================

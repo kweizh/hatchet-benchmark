@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 1,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779767365377,
+            "stop": 1779767365447
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_final_step_is_five",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 26,
+                "start": 1779767365396,
+                "stop": 1779767365422,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "path = '/tmp/result.json'\n\n    def _load_json(path):\n        assert os.path.isfile(path), f\"Expected file {path} to exist but it does not.\"\n        with open(path, \"r\") as f:\n            text = f.read()\n        try:\n>           return json.loads(text)\n\ntests/test_final_state.py:14: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/lib/python3.12/json/__init__.py:346: in loads\n    return _default_decoder.decode(s)\nusr/lib/python3.12/json/decoder.py:337: in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <json.decoder.JSONDecoder object at 0x718ccb018cb0>, s = '', idx = 0\n\n    def raw_decode(self, s, idx=0):\n        \"\"\"Decode a JSON document from ``s`` (a ``str`` beginning with\n        a JSON document) and return a 2-tuple of the Python\n        representation and the index in ``s`` where the document ended.\n    \n        This can be used to decode a JSON document from a string that may\n        have extraneous data at the end.\n    \n        \"\"\"\n        try:\n            obj, end = self.scan_once(s, idx)\n        except StopIteration as err:\n>           raise JSONDecodeError(\"Expecting value\", s, err.value) from None\nE           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n\nusr/lib/python3.12/json/decoder.py:355: JSONDecodeError\n\nDuring handling of the above exception, another exception occurred:\n\n    def test_result_file_final_step_is_five():\n>       data = _load_json(RESULT_FILE)\n\ntests/test_final_state.py:23: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = '/tmp/result.json'\n\n    def _load_json(path):\n        assert os.path.isfile(path), f\"Expected file {path} to exist but it does not.\"\n        with open(path, \"r\") as f:\n            text = f.read()\n        try:\n            return json.loads(text)\n        except Exception as e:\n>           raise AssertionError(\n                f\"Expected file {path} to contain valid JSON, but parsing failed: {e}. \"\n                f\"File contents (truncated): {text[:500]!r}\"\n            )\nE           AssertionError: Expected file /tmp/result.json to contain valid JSON, but parsing failed: Expecting value: line 1 column 1 (char 0). File contents (truncated): ''\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_history_length_is_five",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 15,
+                "start": 1779767365422,
+                "stop": 1779767365437,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "path = '/tmp/result.json'\n\n    def _load_json(path):\n        assert os.path.isfile(path), f\"Expected file {path} to exist but it does not.\"\n        with open(path, \"r\") as f:\n            text = f.read()\n        try:\n>           return json.loads(text)\n\ntests/test_final_state.py:14: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/lib/python3.12/json/__init__.py:346: in loads\n    return _default_decoder.decode(s)\nusr/lib/python3.12/json/decoder.py:337: in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <json.decoder.JSONDecoder object at 0x718ccb018cb0>, s = '', idx = 0\n\n    def raw_decode(self, s, idx=0):\n        \"\"\"Decode a JSON document from ``s`` (a ``str`` beginning with\n        a JSON document) and return a 2-tuple of the Python\n        representation and the index in ``s`` where the document ended.\n    \n        This can be used to decode a JSON document from a string that may\n        have extraneous data at the end.\n    \n        \"\"\"\n        try:\n            obj, end = self.scan_once(s, idx)\n        except StopIteration as err:\n>           raise JSONDecodeError(\"Expecting value\", s, err.value) from None\nE           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n\nusr/lib/python3.12/json/decoder.py:355: JSONDecodeError\n\nDuring handling of the above exception, another exception occurred:\n\n    def test_result_file_history_length_is_five():\n>       data = _load_json(RESULT_FILE)\n\ntests/test_final_state.py:36: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = '/tmp/result.json'\n\n    def _load_json(path):\n        assert os.path.isfile(path), f\"Expected file {path} to exist but it does not.\"\n        with open(path, \"r\") as f:\n            text = f.read()\n        try:\n            return json.loads(text)\n        except Exception as e:\n>           raise AssertionError(\n                f\"Expected file {path} to contain valid JSON, but parsing failed: {e}. \"\n                f\"File contents (truncated): {text[:500]!r}\"\n            )\nE           AssertionError: Expected file /tmp/result.json to contain valid JSON, but parsing failed: Expecting value: line 1 column 1 (char 0). File contents (truncated): ''\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_state_file_step_is_five",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365438,
+                "stop": 1779767365442,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_state_file_step_is_five():\n>       state = _load_json(STATE_FILE)\n\ntests/test_final_state.py:46: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = '/tmp/agent_state.json'\n\n    def _load_json(path):\n>       assert os.path.isfile(path), f\"Expected file {path} to exist but it does not.\"\nE       AssertionError: Expected file /tmp/agent_state.json to exist but it does not.\nE       assert False\nE        +  where False = <function isfile at 0x718ccb4b0220>('/tmp/agent_state.json')\nE        +    where <function isfile at 0x718ccb4b0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_state_file_history_has_five_entries_in_order",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365442,
+                "stop": 1779767365446,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_state_file_history_has_five_entries_in_order():\n>       state = _load_json(STATE_FILE)\n\ntests/test_final_state.py:59: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = '/tmp/agent_state.json'\n\n    def _load_json(path):\n>       assert os.path.isfile(path), f\"Expected file {path} to exist but it does not.\"\nE       AssertionError: Expected file /tmp/agent_state.json to exist but it does not.\nE       assert False\nE        +  where False = <function isfile at 0x718ccb4b0220>('/tmp/agent_state.json')\nE        +    where <function isfile at 0x718ccb4b0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_runner_log_file_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779767365446,
+                "stop": 1779767365447,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,71 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_runner_succeeded _____________________________
+
+run_workflow = CompletedProcess(args=['npm', 'run', 'run'], returncode=1, stdout='\n> linear-dag-ts@1.0.0 run\n> tsx src/run.ts\n\n',...user/myproject/src/run.ts:6:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n')
+
+    def test_runner_succeeded(run_workflow):
+        result = run_workflow
+>       assert result.returncode == 0, (
+            f"Runner command 'npm run run' failed with code {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: Runner command 'npm run run' failed with code 1.
+E         STDOUT:
+E         
+E         > linear-dag-ts@1.0.0 run
+E         > tsx src/run.ts
+E         
+E         
+E         STDERR:
+E         [31mDeprecation warning: The v0 sdk, including the step module has been deprecated and has been removed in release v1.14.0.[0m
+E         [32mPlease migrate to v1 SDK instead: https://docs.hatchet.run/home/v1-sdk-improvements[0m
+E         --------------------------------
+E         [31mDeprecation warning: The v0 sdk, including the workflow module has been deprecated and has been removed in release v1.14.0.[0m
+E         [31mPlease migrate to v1 SDK instead: https://docs.hatchet.run/home/v1-sdk-improvements[0m
+E         ConcurrencyLimitStrategy, StickyStrategy have been moved to @hatchet-dev/typescript-sdk/v1
+E         --------------------------------
+E         TypeError: run.result is not a function
+E             at main (/home/user/myproject/src/run.ts:6:28)
+E             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'run'], returncode=1, stdout='\n> linear-dag-ts@1.0.0 run\n> tsx src/run.ts\n\n',...user/myproject/src/run.ts:6:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n').returncode
+
+tests/test_final_state.py:92: AssertionError
+___________________________ test_result_file_exists ____________________________
+
+run_workflow = CompletedProcess(args=['npm', 'run', 'run'], returncode=1, stdout='\n> linear-dag-ts@1.0.0 run\n> tsx src/run.ts\n\n',...user/myproject/src/run.ts:6:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n')
+
+    def test_result_file_exists(run_workflow):
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Expected result file {RESULT_FILE} to be created by the runner, but it was not."
+        )
+E       AssertionError: Expected result file /tmp/result.json to be created by the runner, but it was not.
+E       assert False
+E        +  where False = <function isfile at 0x7f2af87ec220>('/tmp/result.json')
+E        +    where <function isfile at 0x7f2af87ec220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:99: AssertionError
+________________ test_result_file_contains_expected_final_value ________________
+
+run_workflow = CompletedProcess(args=['npm', 'run', 'run'], returncode=1, stdout='\n> linear-dag-ts@1.0.0 run\n> tsx src/run.ts\n\n',...user/myproject/src/run.ts:6:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n')
+
+    def test_result_file_contains_expected_final_value(run_workflow):
+>       with open(RESULT_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:105: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_runner_succeeded - AssertionError: Run...
+FAILED tests/test_final_state.py::test_result_file_exists - AssertionError: E...
+FAILED tests/test_final_state.py::test_result_file_contains_expected_final_value
+============================== 3 failed in 11.97s ==============================

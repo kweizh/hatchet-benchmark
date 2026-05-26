@@ -1,0 +1,45 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779769055344,
+            "stop": 1779769055373
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_has_input_name_world",
+                "status": "failed",
+                "duration": 12,
+                "start": 1779769055358,
+                "stop": 1779769055370,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def result_payload():\n>       assert os.path.isfile(RESULT_FILE), (\n            f\"Expected scheduled-run output file at {RESULT_FILE}, but it does not exist.\"\n        )\nE       AssertionError: Expected scheduled-run output file at /tmp/scheduled_result.json, but it does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7c6ed7170220>('/tmp/scheduled_result.json')\nE        +    where <function isfile at 0x7c6ed7170220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:12: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_valid_iso_fired_at",
+                "status": "failed",
+                "duration": 3,
+                "start": 1779769055370,
+                "stop": 1779769055373,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def result_payload():\n>       assert os.path.isfile(RESULT_FILE), (\n            f\"Expected scheduled-run output file at {RESULT_FILE}, but it does not exist.\"\n        )\nE       AssertionError: Expected scheduled-run output file at /tmp/scheduled_result.json, but it does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7c6ed7170220>('/tmp/scheduled_result.json')\nE        +    where <function isfile at 0x7c6ed7170220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:12: AssertionError"
+            }
+        ]
+    }
+}

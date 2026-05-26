@@ -1,0 +1,157 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 0,
+            "failed": 11,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779767365602,
+            "stop": 1779767365691
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 14,
+                "start": 1779767365627,
+                "stop": 1779767365641,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists():\n>       assert os.path.isfile(RESULT_FILE), (\n            f\"Expected the aggregate task's final output to be written to {RESULT_FILE}, \"\n            f\"but the file does not exist.\"\n        )\nE       AssertionError: Expected the aggregate task's final output to be written to /tmp/result.json, but the file does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7bf1c77e4220>('/tmp/result.json')\nE        +    where <function isfile at 0x7bf1c77e4220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_is_valid_json_object",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365641,
+                "stop": 1779767365645,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_is_valid_json_object():\n>       with open(RESULT_FILE, \"r\", encoding=\"utf-8\") as fh:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'\n\ntests/test_final_state.py:37: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_count_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365645,
+                "stop": 1779767365649,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_count_is_three():\n>       with open(RESULT_FILE, \"r\", encoding=\"utf-8\") as fh:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'\n\ntests/test_final_state.py:51: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_total_length_is_175",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1779767365650,
+                "stop": 1779767365653,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_length_is_175():\n>       with open(RESULT_FILE, \"r\", encoding=\"utf-8\") as fh:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'\n\ntests/test_final_state.py:66: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_doc_pipeline_dag_defined",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365654,
+                "stop": 1779767365658,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_doc_pipeline_dag_defined():\n        src = _read_project_source()\n>       assert src.strip(), (\n            f\"No Python source files found under {PROJECT_DIR}. The agent must implement the workflows here.\"\n        )\nE       AssertionError: No Python source files found under /home/user/myproject. The agent must implement the workflows here.\nE       assert ''\nE        +  where '' = <built-in method strip of str object at 0xb3b3f0>()\nE        +    where <built-in method strip of str object at 0xb3b3f0> = ''.strip\n\ntests/test_final_state.py:86: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_prepare_task_defined",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365659,
+                "stop": 1779767365663,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_prepare_task_defined():\n        src = _read_project_source()\n        # Look for `def prepare(` near a `@<workflow>.task(...)` decorator OR a `name=\"prepare\"` task.\n        has_def = re.search(r\"\\bdef\\s+prepare\\s*\\(\", src) is not None\n        has_name = re.search(r\"\"\"name\\s*=\\s*['\"]prepare['\"]\"\"\", src) is not None\n>       assert has_def or has_name, (\n            \"Expected to find a task named `prepare` defined on the doc_pipeline DAG workflow \"\n            f\"in the Python source files under {PROJECT_DIR}.\"\n        )\nE       AssertionError: Expected to find a task named `prepare` defined on the doc_pipeline DAG workflow in the Python source files under /home/user/myproject.\nE       assert (False or False)\n\ntests/test_final_state.py:105: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_scrape_all_task_defined_with_prepare_parent",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1779767365663,
+                "stop": 1779767365668,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_scrape_all_task_defined_with_prepare_parent():\n        src = _read_project_source()\n        pattern = re.compile(\n            r\"@[A-Za-z_][A-Za-z0-9_]*\\.task\\s*\\([^)]*parents\\s*=\\s*\\[\\s*prepare\\s*\\][^)]*\\)\\s*\\n\\s*(?:async\\s+)?def\\s+scrape_all\\s*\\(\",\n            re.DOTALL,\n        )\n>       assert pattern.search(src), (\n            \"Expected to find a task named `scrape_all` declared with `parents=[prepare]` on a Hatchet DAG workflow \"\n            f\"in the Python source files under {PROJECT_DIR}.\"\n        )\nE       AssertionError: Expected to find a task named `scrape_all` declared with `parents=[prepare]` on a Hatchet DAG workflow in the Python source files under /home/user/myproject.\nE       assert None\nE        +  where None = <built-in method search of re.Pattern object at 0x39e351e0>('')\nE        +    where <built-in method search of re.Pattern object at 0x39e351e0> = re.compile('@[A-Za-z_][A-Za-z0-9_]*\\\\.task\\\\s*\\\\([^)]*parents\\\\s*=\\\\s*\\\\[\\\\s*prepare\\\\s*\\\\][^)]*\\\\)\\\\s*\\\\n\\\\s*(?:async\\\\s+)?def\\\\s+scrape_all\\\\s*\\\\(', re.DOTALL).search\n\ntests/test_final_state.py:117: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_aggregate_task_defined_with_scrape_all_parent",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1779767365668,
+                "stop": 1779767365675,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_aggregate_task_defined_with_scrape_all_parent():\n        src = _read_project_source()\n        pattern = re.compile(\n            r\"@[A-Za-z_][A-Za-z0-9_]*\\.task\\s*\\([^)]*parents\\s*=\\s*\\[\\s*scrape_all\\s*\\][^)]*\\)\\s*\\n\\s*(?:async\\s+)?def\\s+aggregate\\s*\\(\",\n            re.DOTALL,\n        )\n>       assert pattern.search(src), (\n            \"Expected to find a task named `aggregate` declared with `parents=[scrape_all]` on a Hatchet DAG workflow \"\n            f\"in the Python source files under {PROJECT_DIR}.\"\n        )\nE       AssertionError: Expected to find a task named `aggregate` declared with `parents=[scrape_all]` on a Hatchet DAG workflow in the Python source files under /home/user/myproject.\nE       assert None\nE        +  where None = <built-in method search of re.Pattern object at 0x39e38fa0>('')\nE        +    where <built-in method search of re.Pattern object at 0x39e38fa0> = re.compile('@[A-Za-z_][A-Za-z0-9_]*\\\\.task\\\\s*\\\\([^)]*parents\\\\s*=\\\\s*\\\\[\\\\s*scrape_all\\\\s*\\\\][^)]*\\\\)\\\\s*\\\\n\\\\s*(?:async\\\\s+)?def\\\\s+aggregate\\\\s*\\\\(', re.DOTALL).search\n\ntests/test_final_state.py:129: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_scrape_one_child_workflow_defined",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1779767365675,
+                "stop": 1779767365681,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_scrape_one_child_workflow_defined():\n        src = _read_project_source()\n        # Accept either a separate hatchet.workflow named scrape_one or a standalone @hatchet.task name=\"scrape_one\".\n        workflow_pattern = re.compile(\n            r\"\"\"hatchet\\.workflow\\s*\\(\\s*[^)]*name\\s*=\\s*['\"]scrape[_-]?one['\"]\"\"\",\n            re.IGNORECASE | re.DOTALL,\n        )\n        task_pattern = re.compile(\n            r\"\"\"@\\s*hatchet\\.task\\s*\\([^)]*name\\s*=\\s*['\"]scrape[_-]?one['\"]\"\"\",\n            re.IGNORECASE | re.DOTALL,\n        )\n>       assert workflow_pattern.search(src) or task_pattern.search(src), (\n            \"Expected to find a separate child workflow named `scrape_one` (declared either via \"\n            \"`hatchet.workflow(name=\\\"scrape_one\\\")` or `@hatchet.task(name=\\\"scrape_one\\\")`) \"\n            f\"in the Python source files under {PROJECT_DIR}.\"\n        )\nE       AssertionError: Expected to find a separate child workflow named `scrape_one` (declared either via `hatchet.workflow(name=\"scrape_one\")` or `@hatchet.task(name=\"scrape_one\")`) in the Python source files under /home/user/myproject.\nE       assert (None or None)\nE        +  where None = <built-in method search of re.Pattern object at 0x39e541b0>('')\nE        +    where <built-in method search of re.Pattern object at 0x39e541b0> = re.compile('hatchet\\\\.workflow\\\\s*\\\\(\\\\s*[^)]*name\\\\s*=\\\\s*[\\'\"]scrape[_-]?one[\\'\"]', re.IGNORECASE|re.DOTALL).search\nE        +  and   None = <built-in method search of re.Pattern object at 0x39e264a0>('')\nE        +    where <built-in method search of re.Pattern object at 0x39e264a0> = re.compile('@\\\\s*hatchet\\\\.task\\\\s*\\\\([^)]*name\\\\s*=\\\\s*[\\'\"]scrape[_-]?one[\\'\"]', re.IGNORECASE|re.DOTALL).search\n\ntests/test_final_state.py:146: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_scrape_all_uses_aio_run_many_for_child_spawning",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779767365681,
+                "stop": 1779767365685,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_scrape_all_uses_aio_run_many_for_child_spawning():\n        src = _read_project_source()\n        # Must use scrape_one.aio_run_many(...) AND scrape_one.create_bulk_run_item(...)\n        aio_run_many = re.search(r\"scrape_one\\.aio_run_many\\s*\\(\", src)\n        bulk_run_item = re.search(r\"scrape_one\\.create_bulk_run_item\\s*\\(\", src)\n>       assert aio_run_many, (\n            \"Expected `scrape_all` to fan out by calling `scrape_one.aio_run_many(...)` \"\n            f\"in the Python source files under {PROJECT_DIR}.\"\n        )\nE       AssertionError: Expected `scrape_all` to fan out by calling `scrape_one.aio_run_many(...)` in the Python source files under /home/user/myproject.\nE       assert None\n\ntests/test_final_state.py:158: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_aggregate_reads_scrape_all_via_task_output",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1779767365685,
+                "stop": 1779767365691,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_aggregate_reads_scrape_all_via_task_output():\n        src = _read_project_source()\n        pattern = re.compile(\n            r\"\"\"ctx\\.task_output\\s*\\(\\s*(?:scrape_all|['\"]scrape_all['\"])\"\"\",\n        )\n>       assert pattern.search(src), (\n            \"Expected the `aggregate` task to read the parent's output via \"\n            \"`ctx.task_output(scrape_all)` (or the string-name form) \"\n            f\"in the Python source files under {PROJECT_DIR}.\"\n        )\nE       AssertionError: Expected the `aggregate` task to read the parent's output via `ctx.task_output(scrape_all)` (or the string-name form) in the Python source files under /home/user/myproject.\nE       assert None\nE        +  where None = <built-in method search of re.Pattern object at 0x39e70de0>('')\nE        +    where <built-in method search of re.Pattern object at 0x39e70de0> = re.compile('ctx\\\\.task_output\\\\s*\\\\(\\\\s*(?:scrape_all|[\\'\"]scrape_all[\\'\"])').search\n\ntests/test_final_state.py:173: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

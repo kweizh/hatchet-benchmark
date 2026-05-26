@@ -1,0 +1,23 @@
+{
+  "name": "linear-dag-ts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "worker": "tsx src/worker.ts",
+    "run": "tsx src/run.ts"
+  },
+  "dependencies": {
+    "@hatchet-dev/typescript-sdk": "^1.22.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
+  },
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

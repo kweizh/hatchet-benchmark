@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779768002116,
+            "stop": 1779768002150
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_runner_produces_result_file",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1779768002132,
+                "stop": 1779768002144,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_runner_produces_result_file():\n>       _run_runner()\n\ntests/test_final_state.py:32: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _run_runner():\n        \"\"\"Remove any stale result and execute the runner end-to-end.\"\"\"\n        if os.path.exists(RESULT_FILE):\n            os.remove(RESULT_FILE)\n        runner = os.path.join(PROJECT_DIR, \"run.py\")\n>       assert os.path.isfile(runner), (\n            f\"Expected runner script at {runner}; the task must provide a runnable entrypoint.\"\n        )\nE       AssertionError: Expected runner script at /home/user/myproject/run.py; the task must provide a runnable entrypoint.\nE       assert False\nE        +  where False = <function isfile at 0x7faa125f0220>('/home/user/myproject/run.py')\nE        +    where <function isfile at 0x7faa125f0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:15: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_content_matches_expected_shape",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1779768002144,
+                "stop": 1779768002147,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_content_matches_expected_shape():\n>       assert os.path.isfile(RESULT_FILE), (\n            f\"Result file {RESULT_FILE} missing; the runner must produce it.\"\n        )\nE       AssertionError: Result file /tmp/result.json missing; the runner must produce it.\nE       assert False\nE        +  where False = <function isfile at 0x7faa125f0220>('/tmp/result.json')\nE        +    where <function isfile at 0x7faa125f0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:42: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_hatchet_durable_sleep_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1779768002147,
+                "stop": 1779768002150,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_source_uses_hatchet_durable_sleep_api():\n        \"\"\"Inspect the project's Python sources to confirm Hatchet's durable sleep API is used.\"\"\"\n        py_sources = []\n        for root, _dirs, files in os.walk(PROJECT_DIR):\n            for name in files:\n                if name.endswith(\".py\"):\n                    py_sources.append(os.path.join(root, name))\n>       assert py_sources, f\"No Python source files found under {PROJECT_DIR}.\"\nE       AssertionError: No Python source files found under /home/user/myproject.\nE       assert []\n\ntests/test_final_state.py:72: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

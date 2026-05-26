@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779768202424,
+            "stop": 1779768202444
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779768202439,
+                "stop": 1779768202440,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_is_valid_json",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779768202440,
+                "stop": 1779768202441,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_object_has_squares_key",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779768202441,
+                "stop": 1779768202442,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_squares_values_match_expected_order",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779768202442,
+                "stop": 1779768202443,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_declares_real_hatchet_sdk",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779768202443,
+                "stop": 1779768202443,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hatchet_sdk_installed_in_node_modules",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779768202444,
+                "stop": 1779768202444,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

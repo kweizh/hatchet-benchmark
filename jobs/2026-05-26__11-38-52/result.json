@@ -1,0 +1,80 @@
+{
+    "id": "23edb217-f2a6-44c8-a90d-fded92324318",
+    "started_at": "2026-05-26T11:38:54.624575",
+    "updated_at": "2026-05-26T12:24:44.583715",
+    "finished_at": "2026-05-26T12:24:44.583715",
+    "n_total_trials": 23,
+    "stats": {
+        "n_completed_trials": 23,
+        "n_errored_trials": 14,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 23,
+                "n_errors": 14,
+                "metrics": [
+                    {
+                        "mean": 0.391304347826087
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "aggregator_fanout_py__qCvcXh9",
+                            "ai_agent_loop_py__hHP7h4N",
+                            "concurrency_limit_ts__rKQLHu9",
+                            "concurrency_per_key_py__tBpNUPU",
+                            "durable_sleep_py__FR526m2",
+                            "event_wait_py__3HUm2kp",
+                            "event_trigger_py__cXUJRQP",
+                            "parallel_dag_py__ArcSUKr",
+                            "linear_dag_py__f62FpWh",
+                            "linear_dag_ts__MaRWvRb",
+                            "scheduled_run_py__cpXjxt8",
+                            "task_timeout_py__4Wwyu4D",
+                            "rate_limit_py__cH3froW",
+                            "priority_run_py__NMxqPg3"
+                        ],
+                        "1.0": [
+                            "basic_task_py__skZgCEY",
+                            "bulk_run_py__2vgfTvr",
+                            "cli_quickstart__EvN9APn",
+                            "cron_schedule_ts__yChVrYF",
+                            "cron_schedule_py__BAxNV8H",
+                            "dynamic_fanout_py__hQGkBCN",
+                            "dynamic_fanout_ts__MnJbvyJ",
+                            "sticky_assignment_py__7WbFQnf",
+                            "task_retries_py__v5xJqGQ"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "aggregator_fanout_py__qCvcXh9",
+                        "ai_agent_loop_py__hHP7h4N",
+                        "basic_task_py__skZgCEY",
+                        "bulk_run_py__2vgfTvr",
+                        "concurrency_per_key_py__tBpNUPU",
+                        "durable_sleep_py__FR526m2",
+                        "cron_schedule_py__BAxNV8H",
+                        "event_wait_py__3HUm2kp",
+                        "parallel_dag_py__ArcSUKr",
+                        "linear_dag_ts__MaRWvRb",
+                        "scheduled_run_py__cpXjxt8",
+                        "task_retries_py__v5xJqGQ",
+                        "rate_limit_py__cH3froW",
+                        "priority_run_py__NMxqPg3"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 260610,
+        "cost_usd": null
+    }
+}

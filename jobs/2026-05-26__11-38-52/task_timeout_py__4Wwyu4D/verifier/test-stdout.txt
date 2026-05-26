@@ -1,0 +1,149 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py EEE                                            [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_runner_exits_cleanly __________________
+
+    @pytest.fixture(scope="module")
+    def run_project():
+        # Clean any prior result file so we verify a fresh run.
+        if os.path.exists(RESULT_FILE):
+            os.remove(RESULT_FILE)
+    
+>       completed = subprocess.run(
+            ["python3", ENTRY],
+            cwd=PROJECT_DIR,
+            env=os.environ.copy(),
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+
+tests/test_final_state.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 0 args: ['python3', '/home/user/myproject/main.py']>
+endtime = 46625.670597209, orig_timeout = 300
+stdout_seq = [b'[INFO]\t\xf0\x9f\xaa\x93 -- 2026-05-26 04:19:24,757 - ------------------------------------------\n', b'[INFO]\t\xf0...6 04:19:24,758 - STARTING HATCHET...\n', b'[INFO]\t\xf0\x9f\xaa\x93 -- 2026-05-26 04:19:25,769 - starting runner...\n']
+stderr_seq = [], skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['python3', '/home/user/myproject/main.py']' timed out after 300 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+__________________ ERROR at setup of test_result_file_exists ___________________
+
+    @pytest.fixture(scope="module")
+    def run_project():
+        # Clean any prior result file so we verify a fresh run.
+        if os.path.exists(RESULT_FILE):
+            os.remove(RESULT_FILE)
+    
+>       completed = subprocess.run(
+            ["python3", ENTRY],
+            cwd=PROJECT_DIR,
+            env=os.environ.copy(),
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+
+tests/test_final_state.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 0 args: ['python3', '/home/user/myproject/main.py']>
+endtime = 46625.670597209, orig_timeout = 300
+stdout_seq = [b'[INFO]\t\xf0\x9f\xaa\x93 -- 2026-05-26 04:19:24,757 - ------------------------------------------\n', b'[INFO]\t\xf0...6 04:19:24,758 - STARTING HATCHET...\n', b'[INFO]\t\xf0\x9f\xaa\x93 -- 2026-05-26 04:19:25,769 - starting runner...\n']
+stderr_seq = [], skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['python3', '/home/user/myproject/main.py']' timed out after 300 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+_______________ ERROR at setup of test_result_indicates_timeout ________________
+
+    @pytest.fixture(scope="module")
+    def run_project():
+        # Clean any prior result file so we verify a fresh run.
+        if os.path.exists(RESULT_FILE):
+            os.remove(RESULT_FILE)
+    
+>       completed = subprocess.run(
+            ["python3", ENTRY],
+            cwd=PROJECT_DIR,
+            env=os.environ.copy(),
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+
+tests/test_final_state.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 0 args: ['python3', '/home/user/myproject/main.py']>
+endtime = 46625.670597209, orig_timeout = 300
+stdout_seq = [b'[INFO]\t\xf0\x9f\xaa\x93 -- 2026-05-26 04:19:24,757 - ------------------------------------------\n', b'[INFO]\t\xf0...6 04:19:24,758 - STARTING HATCHET...\n', b'[INFO]\t\xf0\x9f\xaa\x93 -- 2026-05-26 04:19:25,769 - starting runner...\n']
+stderr_seq = [], skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['python3', '/home/user/myproject/main.py']' timed out after 300 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_runner_exits_cleanly - subprocess.Timeo...
+ERROR tests/test_final_state.py::test_result_file_exists - subprocess.Timeout...
+ERROR tests/test_final_state.py::test_result_indicates_timeout - subprocess.T...
+======================== 3 errors in 300.27s (0:05:00) =========================

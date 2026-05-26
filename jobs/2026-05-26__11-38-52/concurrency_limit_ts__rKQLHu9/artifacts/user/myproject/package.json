@@ -1,0 +1,22 @@
+{
+  "name": "concurrency-limit-ts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "worker": "tsx src/worker.ts",
+    "runner": "tsx src/runner.ts"
+  },
+  "dependencies": {
+    "@hatchet-dev/typescript-sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  },
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
