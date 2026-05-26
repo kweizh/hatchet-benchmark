@@ -1,0 +1,85 @@
+{
+    "id": "6ea4d804-0ac6-46c5-862e-8d9c954cfdd6",
+    "started_at": "2026-05-26T00:25:58.053655",
+    "updated_at": "2026-05-26T01:10:58.917010",
+    "finished_at": "2026-05-26T01:10:58.917010",
+    "n_total_trials": 24,
+    "stats": {
+        "n_completed_trials": 24,
+        "n_errored_trials": 16,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 20,
+                "n_errors": 16,
+                "metrics": [
+                    {
+                        "mean": 0.2916666666666667
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "aggregator_fanout_py__6C7F7Es",
+                            "ai_agent_loop_py__ycTyfiU",
+                            "basic_task_py__nYDBMZz",
+                            "concurrency_limit_ts__H9XE9zy",
+                            "concurrency_per_key_py__tcw5yo4",
+                            "durable_sleep_py__XeMCj9M",
+                            "dynamic_fanout_py__5zBuBmx",
+                            "event_wait_py__5nw2rKw",
+                            "event_trigger_py__wUvK73p",
+                            "dynamic_fanout_ts__86Nf9xC",
+                            "task_timeout_py__t6kazVg",
+                            "rate_limit_py__hP7r3bs",
+                            "priority_run_py__4WQU6gQ"
+                        ],
+                        "1.0": [
+                            "bulk_run_py__5NySDgD",
+                            "cli_quickstart__Cnugzph",
+                            "cron_schedule_ts__yjcYoMZ",
+                            "cron_schedule_py__3hDmBLC",
+                            "linear_dag_ts__mpdpwGY",
+                            "sticky_assignment_py__to5QtGi",
+                            "scheduled_run_py__feoGEwu"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "aggregator_fanout_py__6C7F7Es",
+                        "ai_agent_loop_py__ycTyfiU",
+                        "basic_task_py__nYDBMZz",
+                        "concurrency_per_key_py__tcw5yo4",
+                        "durable_sleep_py__XeMCj9M",
+                        "dynamic_fanout_py__5zBuBmx",
+                        "event_wait_py__5nw2rKw",
+                        "event_trigger_py__wUvK73p",
+                        "dynamic_fanout_ts__86Nf9xC",
+                        "task_timeout_py__t6kazVg",
+                        "rate_limit_py__hP7r3bs",
+                        "priority_run_py__4WQU6gQ"
+                    ],
+                    "InitialStateError": [
+                        "basic_task_ts__eTSLxPM"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "parallel_dag_py__q3GVJsv",
+                        "linear_dag_py__6qyTNQp"
+                    ],
+                    "AgentSetupTimeoutError": [
+                        "task_retries_py__EzCADSY"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 323334,
+        "cost_usd": null
+    }
+}

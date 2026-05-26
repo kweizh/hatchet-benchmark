@@ -1,0 +1,2 @@
+/home/user/myproject/workflow.py:14: DeprecationWarning: Passing priority as an int is deprecated and will be removed in v2.0.0. Use Priority enum values (Priority.LOW, Priority.MEDIUM, Priority.HIGH) instead.
+  workflow = hatchet.workflow(name=TASK_NAME, default_priority=1)

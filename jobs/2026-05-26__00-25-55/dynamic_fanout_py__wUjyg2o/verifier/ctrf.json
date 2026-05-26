@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779730759743,
+            "stop": 1779730759765
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779730759759,
+                "stop": 1779730759759,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_is_valid_json_object",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779730759760,
+                "stop": 1779730759760,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_squares_key",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779730759760,
+                "stop": 1779730759761,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_squares_values_are_correct",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779730759761,
+                "stop": 1779730759762,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_child_workflow_square_item_defined",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779730759762,
+                "stop": 1779730759763,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_workflow_process_batch_defined",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779730759763,
+                "stop": 1779730759764,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_invokes_child_via_hatchet_spawning",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779730759764,
+                "stop": 1779730759765,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

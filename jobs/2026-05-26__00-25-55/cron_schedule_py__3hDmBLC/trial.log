@@ -1,0 +1,88 @@
+Skipping image OS validation for hb__cron_schedule_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-3hdmblc > /logs/artifacts/run-id && echo cron_schedule_py__3hDmBLC > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Hatchet Cron Schedule with Python SDK
+
+## Background
+Hatchet supports recurring task runs via cron schedules. In addition to declaring `on_crons` on a workflow definition, the Python SDK exposes a programmatic API to create and delete cron triggers at runtime. This task asks you to build a small end-to-end heartbeat using a dynamically-registered cron trigger that fires at least once during a short observation window, then clean up the trigger so it does not keep running.
+
+You will use the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override.
+
+## Requirements
+- Use the `hatchet-sdk` Python package to define a task named `heartbeat`.
+  - When the task runs, it must append a single line containing the current timestamp in ISO 8601 format (e.g. `2024-05-25T12:34:56.789012+00:00`) followed by a newline to `/tmp/heartbeats.log`. Use UTC and `datetime.now(timezone.utc).isoformat()` (or an equivalent that produces a value parseable by `datetime.fromisoformat`).
+  - The task must be safe to run repeatedly; each invocation appends one timestamp line.
+- Write a runner script that:
+  1. Reads `ZEALT_RUN_ID` from the environment.
+  2. Programmatically registers a cron trigger for the `heartbeat` task using the SDK's runtime cron API (for example `heartbeat.cron(...)` / `create_cron(...)`). The cron name must be `hb-cron-${ZEALT_RUN_ID}` and the expression must be `* * * * *` (every minute). The cron input is an empty object.
+  3. Starts a Hatchet worker (in the background, e.g. in a thread or subprocess) that registers the `heartbeat` task so cron-fired runs can execute.
+  4. Keeps the worker running for approximately 75 seconds so the every-minute cron fires at least once.
+  5. Shuts down the worker cleanly.
+  6. Deletes the cron trigger that was created in step 2 (using the SDK's cron delete API, e.g. by passing the cron id returned at creation time).
+  7. Exits with code 0.
+- The heartbeats must come from real Hatchet Cloud cron-fired task runs (no mocking, no local function call shortcut, no direct file writes from the runner).
+
+## Implementation Hints
+- Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value.
+- Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone.
+- Define `hatchet = Hatchet()`, decorate a function with `@hatchet.task(name="heartbeat-${ZEALT_RUN_ID}", ...)` (or similar unique name) and register it on a worker created with `hatchet.worker(...)`. Run the worker in a background thread or subprocess so the main process can manage the cron lifecycle.
+- Use the SDK's programmatic cron API to create the trigger after the worker has started, and to delete it before exiting. Consult the Hatchet docs for the exact method names (`cron(...)`, `create_cron(...)`, `hatchet.cron.delete(...)`, etc.).
+- The cron expression `* * * * *` enqueues a run every minute on the wall clock minute boundary, so a ~75 second window guarantees at least one firing. Make sure the worker is up before the boundary so it can pick up the run.
+- Install dependencies with `pip install hatchet-sdk`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader)
+- Heartbeat file: /tmp/heartbeats.log
+- The heartbeat file must exist after the runner finishes and must contain at least one non-empty line.
+- Each non-empty line in `/tmp/heartbeats.log` must be parseable as an ISO 8601 timestamp by `datetime.fromisoformat`.
+- The cron trigger and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment.
+- The cron trigger name registered on Hatchet Cloud must be `hb-cron-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable, and it must be deleted before the runner exits (cleanup).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

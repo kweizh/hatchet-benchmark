@@ -1,0 +1,12 @@
+dev:
+  preCmds: ["uv venv --allow-existing", "uv pip install -e ."]
+  runCmd: "uv run python src/worker.py"
+  files:
+    - "**/*.py"
+    - "!**/__pycache__/**"
+    - "!.venv/**"
+  reload: true
+triggers:
+  - name: "simple"
+    command: "uv run python src/run.py"
+    description: "Trigger a simple workflow"

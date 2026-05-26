@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "/home/user/myproject/main.py", line 93, in <module>
+    asyncio.run(main())
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/user/myproject/main.py", line 64, in main
+    worker.register_durable_task(agent_loop)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Worker' object has no attribute 'register_durable_task'
+[INFO]	🪓 -- 2026-05-25 17:21:53,882 - ------------------------------------------
+[INFO]	🪓 -- 2026-05-25 17:21:53,882 - STARTING HATCHET...
+[INFO]	🪓 -- 2026-05-25 17:21:54,950 - starting runner...
+/usr/lib/python3.12/asyncio/events.py:88: RuntimeWarning: The executor did not finishing joining its threads within 300 seconds.
+  self._context.run(self._callback, *self._args)
+Triggering agent_loop run for worker ai-agent-loop-worker-zr-dek9tvw...
+Stopping worker...
+Traceback (most recent call last):
+  File "/home/user/myproject/main.py", line 75, in main
+    workflow_run = hatchet.client.admin.run_workflow("agent_loop", {})
+                   ^^^^^^^^^^^^^^
+AttributeError: 'Hatchet' object has no attribute 'client'. Did you mean: '_client'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user/myproject/main.py", line 93, in <module>
+    asyncio.run(main())
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/user/myproject/main.py", line 89, in main
+    worker.stop()
+    ^^^^^^^^^^^
+AttributeError: 'Worker' object has no attribute 'stop'
+[INFO]	🪓 -- 2026-05-25 17:27:43,501 - ------------------------------------------
+[INFO]	🪓 -- 2026-05-25 17:27:43,501 - STARTING HATCHET...
+[INFO]	🪓 -- 2026-05-25 17:27:44,519 - starting runner...

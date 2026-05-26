@@ -1,0 +1,63 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py .F..                                           [100%]
+
+=================================== FAILURES ===================================
+____________________ test_hatchet_dag_workflow_file_present ____________________
+
+    def test_hatchet_dag_workflow_file_present():
+        sources = _read_all_python_sources()
+        assert sources, (
+            f"Expected at least one Python source file under {PROJECT_DIR} that defines the Hatchet DAG."
+        )
+    
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, (
+            "Expected the ZEALT_RUN_ID environment variable to be available during verification."
+        )
+    
+        expected_workflow_name = f"linear-dag-{run_id}"
+    
+        matching = []
+        for fpath, content in sources:
+            imports_sdk = ("from hatchet_sdk" in content) or ("import hatchet_sdk" in content)
+            has_step1 = "step1_load" in content
+            has_step2 = "step2_transform" in content
+            has_step3 = "step3_finalize" in content
+            ctx_output_uses = len(re.findall(r"ctx\.task_output\s*\(", content))
+            if (
+                imports_sdk
+                and has_step1
+                and has_step2
+                and has_step3
+                and ctx_output_uses >= 2
+            ):
+                matching.append((fpath, content))
+    
+        assert matching, (
+            "Expected at least one Python file under "
+            f"{PROJECT_DIR} that imports from hatchet_sdk, defines tasks named "
+            "step1_load, step2_transform and step3_finalize, and uses ctx.task_output(...) "
+            "at least twice."
+        )
+    
+        workflow_name_found = any(expected_workflow_name in content for _f, content in matching)
+>       assert workflow_name_found, (
+            "Expected the Hatchet workflow to be named "
+            f"'{expected_workflow_name}' (containing the ZEALT_RUN_ID suffix) in one of the project's Python sources."
+        )
+E       AssertionError: Expected the Hatchet workflow to be named 'linear-dag-zr-q8bceel' (containing the ZEALT_RUN_ID suffix) in one of the project's Python sources.
+E       assert False
+
+tests/test_final_state.py:78: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_result_file_exists_and_valid_json
+PASSED tests/test_final_state.py::test_result_final_value
+FAILED tests/test_final_state.py::test_hatchet_dag_workflow_file_present - As...
+========================= 1 failed, 3 passed in 0.03s ==========================

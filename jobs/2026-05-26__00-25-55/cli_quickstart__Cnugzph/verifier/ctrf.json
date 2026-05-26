@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779726635359,
+            "stop": 1779726635387
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_hatchet_cli_still_available_on_path",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779726635373,
+                "stop": 1779726635374,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hatchet_cli_reports_version",
+                "status": "passed",
+                "duration": 9,
+                "start": 1779726635374,
+                "stop": 1779726635383,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779726635383,
+                "stop": 1779726635383,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_contains_python_source_file",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779726635384,
+                "stop": 1779726635385,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_contains_readme",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779726635385,
+                "stop": 1779726635386,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_contains_hatchet_yaml",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779726635386,
+                "stop": 1779726635387,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,216 @@
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 18, in <module>
+    class HeartbeatWorkflow:
+  File "/home/user/myproject/runner.py", line 19, in HeartbeatWorkflow
+    @hatchet.step()
+     ^^^^^^^^^^^^
+AttributeError: 'Hatchet' object has no attribute 'step'
+Creating cron trigger: hb-cron-test-1779727151 for workflow: heartbeat-test-1779727151
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 71, in <module>
+    main()
+  File "/home/user/myproject/runner.py", line 42, in main
+    cron_trigger = hatchet.cron.create(
+                   ^^^^^^^^^^^^^^^^^^^^
+TypeError: CronClient.create() missing 1 required positional argument: 'additional_metadata'
+Creating cron trigger: hb-cron-test-1779727168 for workflow: heartbeat-test-1779727168
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 73, in <module>
+    main()
+  File "/home/user/myproject/runner.py", line 43, in main
+    cron_trigger = hatchet.cron.create(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/features/cron.py", line 118, in create
+    return self._wra(client).cron_workflow_trigger_create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api/workflow_run_api.py", line 143, in cron_workflow_trigger_create
+    return self.api_client.response_deserialize(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api_client.py", line 317, in response_deserialize
+    raise ApiException.from_response(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/exceptions.py", line 145, in from_response
+    raise BadRequestException(http_resp=http_resp, body=body, data=data)
+hatchet_sdk.clients.rest.exceptions.BadRequestException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Mon, 25 May 2026 16:39:30 GMT', 'Content-Type': 'application/json', 'Content-Length': '50', 'Connection': 'keep-alive', 'Content-Security-Policy': "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://*.posthog.com https://widget.usepylon.com https://*.onhatchet.run; worker-src blob:; frame-ancestors 'self' docs.hatchet.run hatchet.run; object-src 'none'; base-uri 'self'", 'Cross-Origin-Embedder-Policy': 'credentialless', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Permissions-Policy': 'geolocation=(), midi=(), notifications=(), push=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), speaker=(), vibrate=(), fullscreen=(self), payment=()', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Strict-Transport-Security': 'max-age=776000; includeSubDomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY'})
+HTTP response body: errors=[APIError(code=None, var_field=None, description='workflow not found', docs_link=None)]
+
+Exception in thread Thread-1 (run_worker):
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/user/myproject/runner.py", line 27, in run_worker
+    worker = hatchet.worker(f"hb-worker-{zealt_run_id}")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/hatchet.py", line 253, in worker
+    return Worker(
+           ^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py", line 124, in __init__
+    self._setup_signal_handlers()
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py", line 648, in _setup_signal_handlers
+    signal.signal(
+  File "/usr/lib/python3.12/signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: signal only works in main thread of the main interpreter
+Worker started in background
+Waiting for workflow registration...
+Creating cron trigger: hb-cron-test-1779727186 for workflow: heartbeat-test-1779727186
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 76, in <module>
+    main()
+  File "/home/user/myproject/runner.py", line 51, in main
+    cron_trigger = hatchet.cron.create(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/features/cron.py", line 118, in create
+    return self._wra(client).cron_workflow_trigger_create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api/workflow_run_api.py", line 143, in cron_workflow_trigger_create
+    return self.api_client.response_deserialize(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api_client.py", line 317, in response_deserialize
+    raise ApiException.from_response(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/exceptions.py", line 145, in from_response
+    raise BadRequestException(http_resp=http_resp, body=body, data=data)
+hatchet_sdk.clients.rest.exceptions.BadRequestException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Mon, 25 May 2026 16:39:59 GMT', 'Content-Type': 'application/json', 'Content-Length': '50', 'Connection': 'keep-alive', 'Content-Security-Policy': "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://*.posthog.com https://widget.usepylon.com https://*.onhatchet.run; worker-src blob:; frame-ancestors 'self' docs.hatchet.run hatchet.run; object-src 'none'; base-uri 'self'", 'Cross-Origin-Embedder-Policy': 'credentialless', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Permissions-Policy': 'geolocation=(), midi=(), notifications=(), push=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), speaker=(), vibrate=(), fullscreen=(self), payment=()', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Strict-Transport-Security': 'max-age=776000; includeSubDomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY'})
+HTTP response body: errors=[APIError(code=None, var_field=None, description='workflow not found', docs_link=None)]
+
+Process Process-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/user/myproject/runner.py", line 30, in run_worker
+    worker.register_task(heartbeat)
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Worker' object has no attribute 'register_task'
+Worker started in subprocess
+Waiting for workflow registration (30s)...
+Creating cron trigger: hb-cron-run-1779727215 for workflow: heartbeat-run-1779727215
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 81, in <module>
+    main()
+  File "/home/user/myproject/runner.py", line 52, in main
+    cron_trigger = hatchet.cron.create(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/features/cron.py", line 118, in create
+    return self._wra(client).cron_workflow_trigger_create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api/workflow_run_api.py", line 143, in cron_workflow_trigger_create
+    return self.api_client.response_deserialize(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api_client.py", line 317, in response_deserialize
+    raise ApiException.from_response(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/exceptions.py", line 145, in from_response
+    raise BadRequestException(http_resp=http_resp, body=body, data=data)
+hatchet_sdk.clients.rest.exceptions.BadRequestException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Mon, 25 May 2026 16:40:47 GMT', 'Content-Type': 'application/json', 'Content-Length': '50', 'Connection': 'keep-alive', 'Content-Security-Policy': "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://*.posthog.com https://widget.usepylon.com https://*.onhatchet.run; worker-src blob:; frame-ancestors 'self' docs.hatchet.run hatchet.run; object-src 'none'; base-uri 'self'", 'Cross-Origin-Embedder-Policy': 'credentialless', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Permissions-Policy': 'geolocation=(), midi=(), notifications=(), push=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), speaker=(), vibrate=(), fullscreen=(self), payment=()', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Strict-Transport-Security': 'max-age=776000; includeSubDomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY'})
+HTTP response body: errors=[APIError(code=None, var_field=None, description='workflow not found', docs_link=None)]
+
+Process Process-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/user/myproject/runner.py", line 35, in run_worker
+    worker.register_workflow(heartbeat_task)
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py", line 334, in register_workflow
+    if not workflow.tasks:
+           ^^^^^^^^^^^^^^
+AttributeError: 'function' object has no attribute 'tasks'
+Worker started in subprocess
+Waiting for workflow registration (30s)...
+Creating cron trigger: hb-cron-run-1779727263 for workflow: heartbeat-run-1779727263
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 86, in <module>
+    main()
+  File "/home/user/myproject/runner.py", line 57, in main
+    cron_trigger = hatchet.cron.create(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/features/cron.py", line 118, in create
+    return self._wra(client).cron_workflow_trigger_create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_validate_call.py", line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api/workflow_run_api.py", line 143, in cron_workflow_trigger_create
+    return self.api_client.response_deserialize(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/api_client.py", line 317, in response_deserialize
+    raise ApiException.from_response(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/clients/rest/exceptions.py", line 145, in from_response
+    raise BadRequestException(http_resp=http_resp, body=body, data=data)
+hatchet_sdk.clients.rest.exceptions.BadRequestException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Mon, 25 May 2026 16:41:35 GMT', 'Content-Type': 'application/json', 'Content-Length': '50', 'Connection': 'keep-alive', 'Content-Security-Policy': "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://*.posthog.com https://widget.usepylon.com https://*.onhatchet.run; worker-src blob:; frame-ancestors 'self' docs.hatchet.run hatchet.run; object-src 'none'; base-uri 'self'", 'Cross-Origin-Embedder-Policy': 'credentialless', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Permissions-Policy': 'geolocation=(), midi=(), notifications=(), push=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), speaker=(), vibrate=(), fullscreen=(self), payment=()', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Strict-Transport-Security': 'max-age=776000; includeSubDomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY'})
+HTTP response body: errors=[APIError(code=None, var_field=None, description='workflow not found', docs_link=None)]
+
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 18, in <module>
+    class HeartbeatWorkflow:
+  File "/home/user/myproject/runner.py", line 19, in HeartbeatWorkflow
+    @hatchet.step()
+     ^^^^^^^^^^^^
+AttributeError: 'Hatchet' object has no attribute 'step'
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 19, in <module>
+    @heartbeat_task_wrapper.task()
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'function' object has no attribute 'task'
+[INFO]	🪓 -- 2026-05-25 16:42:33,637 - ------------------------------------------
+[INFO]	🪓 -- 2026-05-25 16:42:33,638 - STARTING HATCHET...
+[INFO]	🪓 -- 2026-05-25 16:42:34,895 - starting runner...
+[ERROR]	🪓 -- 2026-05-25 16:42:50,503 - action listener error - reconnecting
+[INFO]	🪓 -- 2026-05-25 16:42:52,310 - action listener established
+[INFO]	🪓 -- 2026-05-25 16:44:00,118 - rx: start step run: 03f85a60-4a0e-461c-b63e-aed309b4e598/heartbeat-run-1779727350:heartbeat-run-1779727350
+[INFO]	🪓 -- 2026-05-25 16:44:00,121 - run: start step: heartbeat-run-1779727350:heartbeat-run-1779727350/03f85a60-4a0e-461c-b63e-aed309b4e598
+/usr/local/lib/python3.12/dist-packages/pydantic/type_adapter.py:677: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `EmptyModel` - serialized value may not be as expected [input_value={'status': 'success', 'ti...T16:44:00.129103+00:00'}, input_type=dict])
+  return self.serializer.to_json(
+Heartbeat at 2026-05-25T16:44:00.129103+00:00
+[INFO]	🪓 -- 2026-05-25 16:44:00,130 - finished step run: heartbeat-run-1779727350:heartbeat-run-1779727350/03f85a60-4a0e-461c-b63e-aed309b4e598
+[INFO]	🪓 -- 2026-05-25 16:44:17,741 - received signal SIGTERM...
+[INFO]	🪓 -- 2026-05-25 16:44:18,011 - gracefully exiting runner...
+[INFO]	🪓 -- 2026-05-25 16:44:19,012 - closing worker 'hb-worker-run-1779727350'...
+[INFO]	🪓 -- 2026-05-25 16:44:19,013 - 👋
+Worker started in subprocess
+Waiting for workflow registration (30s)...
+Creating cron trigger: hb-cron-run-1779727350 for workflow: heartbeat-run-1779727350
+Cron trigger created with ID: 558a7f6c-c883-4fa5-a5bf-0edf06e0fff0
+Waiting 75 seconds for cron to fire...
+Terminating worker subprocess...
+Deleting cron trigger: 558a7f6c-c883-4fa5-a5bf-0edf06e0fff0
+Cron trigger deleted
+Done

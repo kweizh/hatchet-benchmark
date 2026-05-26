@@ -1,0 +1,230 @@
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 64, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 14, in run
+    @hatchet.workflow(on_events=["simple:greeting"])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Hatchet.workflow() missing 1 required keyword-only argument: 'name'
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 64, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 15, in run
+    class SimpleGreetingWorkflow:
+  File "/home/user/myproject/runner.py", line 16, in SimpleGreetingWorkflow
+    @hatchet.step()
+     ^^^^^^^^^^^^
+AttributeError: 'Hatchet' object has no attribute 'step'
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 59, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 14, in run
+    @hatchet.workflow(on_events=["simple:greeting"])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Hatchet.workflow() missing 1 required keyword-only argument: 'name'
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 59, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 15, in run
+    class SimpleGreetingWorkflow:
+  File "/home/user/myproject/runner.py", line 16, in SimpleGreetingWorkflow
+    @hatchet.step()
+     ^^^^^^^^^^^^
+AttributeError: 'Hatchet' object has no attribute 'step'
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 51, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 21, in run
+    worker.register_task(simple_greeting)
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Worker' object has no attribute 'register_task'
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 69, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 15, in run
+    class SimpleGreetingWorkflow:
+  File "/home/user/myproject/runner.py", line 16, in SimpleGreetingWorkflow
+    @hatchet.step()
+     ^^^^^^^^^^^^
+AttributeError: 'Hatchet' object has no attribute 'step'
+[INFO]	🪓 -- 2026-05-25 17:25:37,456 - ------------------------------------------
+[INFO]	🪓 -- 2026-05-25 17:25:37,456 - STARTING HATCHET...
+[INFO]	🪓 -- 2026-05-25 17:25:38,470 - starting runner...
+/usr/local/lib/python3.12/dist-packages/pydantic/type_adapter.py:677: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `EmptyModel` - serialized value may not be as expected [input_value={'name': 'World'}, input_type=dict])
+  return self.serializer.to_json(
+[INFO]	🪓 -- 2026-05-25 17:25:47,803 - rx: start step run: 5a104196-eb07-4c57-8dc7-5cb5f65e415d/simple_greeting:simple_greeting
+Triggering workflow...
+[INFO]	🪓 -- 2026-05-25 17:25:47,805 - run: start step: simple_greeting:simple_greeting/5a104196-eb07-4c57-8dc7-5cb5f65e415d
+[ERROR]	🪓 -- 2026-05-25 17:25:47,813 - failed step run: simple_greeting:simple_greeting/5a104196-eb07-4c57-8dc7-5cb5f65e415d
+AttributeError: 'EmptyModel' object has no attribute 'get'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 269, in inner_callback
+    output = task.result()
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 431, in async_wrapped_action_func
+    return await loop.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/utils/capture_logs.py", line 116, in copy_context_vars
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 339, in thread_action_func
+    return task.call(ctx, dependencies)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/runnables/task.py", line 446, in call
+    return self._fn(workflow_input, cast(Context, ctx), **dependencies)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/myproject/runner.py", line 18, in simple_greeting
+    name = input.get("name")
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'EmptyModel' object has no attribute 'get'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 269, in inner_callback
+    output = task.result()
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 431, in async_wrapped_action_func
+    return await loop.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/utils/capture_logs.py", line 116, in copy_context_vars
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 339, in thread_action_func
+    return task.call(ctx, dependencies)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/runnables/task.py", line 446, in call
+    return self._fn(workflow_input, cast(Context, ctx), **dependencies)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/myproject/runner.py", line 18, in simple_greeting
+    name = input.get("name")
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'EmptyModel' object has no attribute 'get'
+Shutting down worker...
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 52, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 36, in run
+    result = workflow.run(input={"name": "World"})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/runnables/workflow.py", line 981, in run
+    return ref.result()
+           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/workflow_run.py", line 113, in result
+    raise FailedTaskRunExceptionGroup(
+hatchet_sdk.exceptions.FailedTaskRunExceptionGroup: Workflow run 5a104196-eb07-4c57-8dc7-5cb5f65e415d failed.
+
+--- Exception 1 ---
+AttributeError: 'EmptyModel' object has no attribute 'get'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 269, in inner_callback
+    output = task.result()
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 431, in async_wrapped_action_func
+    return await loop.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/utils/capture_logs.py", line 116, in copy_context_vars
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 339, in thread_action_func
+    return task.call(ctx, dependencies)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/runnables/task.py", line 446, in call
+    return self._fn(workflow_input, cast(Context, ctx), **dependencies)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/myproject/runner.py", line 18, in simple_greeting
+    name = input.get("name")
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'EmptyModel' object has no attribute 'get'
+[INFO]	🪓 -- 2026-05-25 17:27:52,026 - ------------------------------------------
+[INFO]	🪓 -- 2026-05-25 17:27:52,027 - STARTING HATCHET...
+[INFO]	🪓 -- 2026-05-25 17:27:53,000 - starting runner...
+/usr/local/lib/python3.12/dist-packages/pydantic/type_adapter.py:677: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `EmptyModel` - serialized value may not be as expected [input_value={'name': 'World'}, input_type=dict])
+  return self.serializer.to_json(
+[INFO]	🪓 -- 2026-05-25 17:28:02,347 - rx: start step run: 28b521d9-32f1-4dc3-8d97-9c8930d18aa2/simple_greeting:simple_greeting
+[INFO]	🪓 -- 2026-05-25 17:28:02,349 - run: start step: simple_greeting:simple_greeting/28b521d9-32f1-4dc3-8d97-9c8930d18aa2
+[ERROR]	🪓 -- 2026-05-25 17:28:02,355 - failed step run: simple_greeting:simple_greeting/28b521d9-32f1-4dc3-8d97-9c8930d18aa2
+RuntimeError: cannot schedule new futures after shutdown
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 269, in inner_callback
+    output = task.result()
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 431, in async_wrapped_action_func
+    return await loop.run_in_executor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 863, in run_in_executor
+    executor.submit(func, *args), loop=self)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 170, in submit
+    raise RuntimeError('cannot schedule new futures after shutdown')
+RuntimeError: cannot schedule new futures after shutdown
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 269, in inner_callback
+    output = task.result()
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/runner/runner.py", line 431, in async_wrapped_action_func
+    return await loop.run_in_executor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 863, in run_in_executor
+    executor.submit(func, *args), loop=self)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 170, in submit
+    raise RuntimeError('cannot schedule new futures after shutdown')
+RuntimeError: cannot schedule new futures after shutdown
+[INFO]	🪓 -- 2026-05-25 17:29:03,201 - rx: cancel step run: 28b521d9-32f1-4dc3-8d97-9c8930d18aa2
+Triggering workflow...
+Shutting down worker...
+Traceback (most recent call last):
+  File "/home/user/myproject/runner.py", line 55, in <module>
+    run()
+  File "/home/user/myproject/runner.py", line 39, in run
+    result = workflow.run(input={"name": "World"})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/runnables/workflow.py", line 981, in run
+    return ref.result()
+           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/workflow_run.py", line 113, in result
+    raise FailedTaskRunExceptionGroup(
+hatchet_sdk.exceptions.FailedTaskRunExceptionGroup: Workflow run 28b521d9-32f1-4dc3-8d97-9c8930d18aa2 failed.
+
+--- Exception 1 ---
+HatchetError: Task exceeded timeout of 1m
+[INFO]	🪓 -- 2026-05-25 17:30:08,195 - ------------------------------------------
+[INFO]	🪓 -- 2026-05-25 17:30:08,195 - STARTING HATCHET...
+[INFO]	🪓 -- 2026-05-25 17:30:09,199 - starting runner...
+/usr/local/lib/python3.12/dist-packages/pydantic/type_adapter.py:677: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `EmptyModel` - serialized value may not be as expected [input_value={'name': 'World'}, input_type=dict])
+  return self.serializer.to_json(
+[INFO]	🪓 -- 2026-05-25 17:30:18,508 - rx: start step run: c4cd1f24-4672-4315-978e-fd65da066212/simple_greeting:simple_greeting
+[WARNING]	🪓 -- 2026-05-25 17:30:20,417 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=0.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:21,418 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=1.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:22,419 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=2.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:23,420 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=3.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:24,423 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=4.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:25,423 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=5.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:26,424 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=6.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:27,425 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=7.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:28,426 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=8.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:29,427 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=9.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:30,429 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=10.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:31,431 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=11.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:32,432 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=12.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:33,434 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=13.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:34,435 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=14.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:35,435 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=15.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:36,436 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=16.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:37,437 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=17.0s
+[WARNING]	🪓 -- 2026-05-25 17:30:38,438 - THE TIME TO START THE TASK RUN IS TOO LONG, THE EVENT LOOP MAY BE BLOCKED. See https://docs.hatchet.run/blog/warning-event-loop-blocked for details and debugging help. Waiting Steps 1 blocked_for=18.0s

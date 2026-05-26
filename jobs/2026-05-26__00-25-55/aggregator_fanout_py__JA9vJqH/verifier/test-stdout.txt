@@ -1,0 +1,73 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 11 items
+
+tests/test_final_state.py FFFF.....F.                                    [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_result_file_exists ____________________________
+
+    def test_result_file_exists():
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Expected the aggregate task's final output to be written to {RESULT_FILE}, "
+            f"but the file does not exist."
+        )
+E       AssertionError: Expected the aggregate task's final output to be written to /tmp/result.json, but the file does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x76dfd0784220>('/tmp/result.json')
+E        +    where <function isfile at 0x76dfd0784220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:30: AssertionError
+____________________ test_result_file_is_valid_json_object _____________________
+
+    def test_result_file_is_valid_json_object():
+>       with open(RESULT_FILE, "r", encoding="utf-8") as fh:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:37: FileNotFoundError
+_____________________________ test_count_is_three ______________________________
+
+    def test_count_is_three():
+>       with open(RESULT_FILE, "r", encoding="utf-8") as fh:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:51: FileNotFoundError
+___________________________ test_total_length_is_175 ___________________________
+
+    def test_total_length_is_175():
+>       with open(RESULT_FILE, "r", encoding="utf-8") as fh:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:66: FileNotFoundError
+_____________ test_scrape_all_uses_aio_run_many_for_child_spawning _____________
+
+    def test_scrape_all_uses_aio_run_many_for_child_spawning():
+        src = _read_project_source()
+        # Must use scrape_one.aio_run_many(...) AND scrape_one.create_bulk_run_item(...)
+        aio_run_many = re.search(r"scrape_one\.aio_run_many\s*\(", src)
+        bulk_run_item = re.search(r"scrape_one\.create_bulk_run_item\s*\(", src)
+>       assert aio_run_many, (
+            "Expected `scrape_all` to fan out by calling `scrape_one.aio_run_many(...)` "
+            f"in the Python source files under {PROJECT_DIR}."
+        )
+E       AssertionError: Expected `scrape_all` to fan out by calling `scrape_one.aio_run_many(...)` in the Python source files under /home/user/myproject.
+E       assert None
+
+tests/test_final_state.py:158: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_doc_pipeline_dag_defined
+PASSED tests/test_final_state.py::test_prepare_task_defined
+PASSED tests/test_final_state.py::test_scrape_all_task_defined_with_prepare_parent
+PASSED tests/test_final_state.py::test_aggregate_task_defined_with_scrape_all_parent
+PASSED tests/test_final_state.py::test_scrape_one_child_workflow_defined
+PASSED tests/test_final_state.py::test_aggregate_reads_scrape_all_via_task_output
+FAILED tests/test_final_state.py::test_result_file_exists - AssertionError: E...
+FAILED tests/test_final_state.py::test_result_file_is_valid_json_object - Fil...
+FAILED tests/test_final_state.py::test_count_is_three - FileNotFoundError: [E...
+FAILED tests/test_final_state.py::test_total_length_is_175 - FileNotFoundErro...
+FAILED tests/test_final_state.py::test_scrape_all_uses_aio_run_many_for_child_spawning
+========================= 5 failed, 6 passed in 0.06s ==========================
