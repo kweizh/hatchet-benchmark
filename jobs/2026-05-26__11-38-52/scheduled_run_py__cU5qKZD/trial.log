@@ -1,0 +1,82 @@
+Skipping image OS validation for hb__scheduled_run_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-cu5qkzd > /logs/artifacts/run-id && echo scheduled_run_py__cU5qKZD > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Hatchet Scheduled Run (Python SDK)
+
+## Background
+Hatchet is a distributed task queue and workflow engine that supports durable execution. One of its core features is the ability to programmatically schedule a one-time future run of a registered task. In this task you will use the Hatchet Python SDK (`hatchet-sdk`) to define a task, schedule it to run once in the near future, run a worker to pick up that scheduled execution, and finally clean up the schedule.
+
+## Requirements
+- Implement a Hatchet task named `scheduled-hello` in Python that, when fired, writes a JSON object of the form `{"fired_at": "<iso8601 utc timestamp>", "input": <input dict>}` to `/tmp/scheduled_result.json`.
+- Programmatically schedule the task to run ONE TIME at approximately `now + 15 seconds` (UTC) with input `{"name": "world"}` using the Hatchet Python SDK's scheduled-run API.
+- Start a Hatchet worker that has the task registered so the scheduled run can be picked up and executed.
+- Wait long enough (at least ~30 seconds total) for the scheduled time to pass and for the task to actually execute on the worker.
+- After execution, delete (clean up) the scheduled run via the SDK so no stale schedule is left behind.
+- The task must connect to Hatchet Cloud using the credentials provided through the `HATCHET_CLIENT_TOKEN` environment variable. Do not hard-code tokens or mock the Hatchet service.
+
+## Implementation Hints
+- Install and use the `hatchet-sdk` Python package.
+- A Hatchet client is created with `Hatchet()` (it reads `HATCHET_CLIENT_TOKEN` from the environment; no server URL configuration is needed for Hatchet Cloud).
+- Tasks are defined with the `@hatchet.task(...)` decorator. Inside the task body you receive the input and can write to a file on disk.
+- Use the task object's `schedule(...)` method to programmatically create a one-off future run, passing a UTC `datetime` (e.g. `datetime.now(tz=timezone.utc) + timedelta(seconds=15)`) and an `input=` dict.
+- A worker must be running on the same client to actually execute the scheduled task. Run the worker in the background (e.g. a thread or subprocess) so your main script can also wait and then delete the schedule.
+- Use `hatchet.scheduled.delete(scheduled_id=<schedule.metadata.id>)` (or the equivalent attribute exposed by the SDK) to remove the scheduled run during cleanup.
+- The whole orchestration (define task + schedule + run worker + wait + cleanup) should live in one or a few Python files under the project directory.
+- Use `ZEALT_RUN_ID` from the environment only if you also write additional log artifacts; the primary output file path `/tmp/scheduled_result.json` is fixed by the requirements.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The task uses the real Hatchet Cloud service authenticated via the `HATCHET_CLIENT_TOKEN` environment variable.
+- After the orchestration finishes, the file `/tmp/scheduled_result.json` must exist and contain a JSON object with:
+  - A field `input` whose value is an object containing `"name": "world"`.
+  - A field `fired_at` whose value is a valid ISO 8601 timestamp string (parseable by `datetime.fromisoformat`, accepting a trailing `Z` as UTC).
+- The scheduled run must have been created via the Hatchet Python SDK's scheduled-run API (not via CLI or dashboard).
+- The scheduled run is deleted via the SDK after it fires (cleanup step is executed).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
