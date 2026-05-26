@@ -1,7 +1,0 @@
-{
-  "library_name": "Hatchet",
-  "task_name": "concurrency_limit_ts",
-  "complexity_level": "multi-step sequential command set",
-  "research_plan_path": "plan.md",
-  "output_dir": "scratchpad/pending-tasks/"
-}

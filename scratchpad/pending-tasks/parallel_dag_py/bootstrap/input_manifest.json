@@ -1,7 +1,0 @@
-{
-  "library_name": "Hatchet",
-  "task_name": "parallel_dag_py",
-  "complexity_level": "multi-step parallel command set",
-  "research_plan_path": "plan.md",
-  "output_dir": "scratchpad/pending-tasks/"
-}
