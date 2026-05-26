@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py FFF.                                           [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_heartbeats_file_exists __________________________
+
+    def test_heartbeats_file_exists():
+        """The cron-triggered heartbeat task must produce /tmp/heartbeats.log."""
+>       assert os.path.isfile(HEARTBEAT_PATH), (
+            f"Expected heartbeat log {HEARTBEAT_PATH} to exist after the runner finishes. "
+            "The cron-triggered task must append at least one ISO timestamp line to this file."
+        )
+E       AssertionError: Expected heartbeat log /tmp/heartbeats.log to exist after the runner finishes. The cron-triggered task must append at least one ISO timestamp line to this file.
+E       assert False
+E        +  where False = <function isfile at 0x76b154dbc220>('/tmp/heartbeats.log')
+E        +    where <function isfile at 0x76b154dbc220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:17: AssertionError
+__________________ test_heartbeats_file_has_at_least_one_line __________________
+
+    def test_heartbeats_file_has_at_least_one_line():
+>       lines = _read_non_empty_lines(HEARTBEAT_PATH)
+
+tests/test_final_state.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/heartbeats.log'
+
+    def _read_non_empty_lines(path):
+>       with open(path, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/heartbeats.log'
+
+tests/test_final_state.py:10: FileNotFoundError
+________________ test_at_least_one_line_is_valid_iso_timestamp _________________
+
+    def test_at_least_one_line_is_valid_iso_timestamp():
+>       lines = _read_non_empty_lines(HEARTBEAT_PATH)
+
+tests/test_final_state.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/heartbeats.log'
+
+    def _read_non_empty_lines(path):
+>       with open(path, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/heartbeats.log'
+
+tests/test_final_state.py:10: FileNotFoundError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_runner_source_present_in_project_dir
+FAILED tests/test_final_state.py::test_heartbeats_file_exists - AssertionErro...
+FAILED tests/test_final_state.py::test_heartbeats_file_has_at_least_one_line
+FAILED tests/test_final_state.py::test_at_least_one_line_is_valid_iso_timestamp
+========================= 3 failed, 1 passed in 0.03s ==========================

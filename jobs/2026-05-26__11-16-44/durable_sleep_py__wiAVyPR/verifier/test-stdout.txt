@@ -1,0 +1,63 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FF.                                            [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_runner_produces_result_file _______________________
+
+    def test_runner_produces_result_file():
+>       _run_runner()
+
+tests/test_final_state.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:18: in _run_runner
+    result = subprocess.run(
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['python3', '/home/user/myproject/run.py']>
+endtime = 43043.316238316, orig_timeout = 180, stdout_seq = []
+stderr_seq = [b'Exception in thread Thread-1 (start):\n', b'Traceback (most recent call last):\n  File "/usr/lib/python3.12/threadi...wargs)\n', b'  File "/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py", line 401, in start\n', ...]
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['python3', '/home/user/myproject/run.py']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+_______________ test_result_file_content_matches_expected_shape ________________
+
+    def test_result_file_content_matches_expected_shape():
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Result file {RESULT_FILE} missing; the runner must produce it."
+        )
+E       AssertionError: Result file /tmp/result.json missing; the runner must produce it.
+E       assert False
+E        +  where False = <function isfile at 0x74c0c59ac220>('/tmp/result.json')
+E        +    where <function isfile at 0x74c0c59ac220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:42: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_source_uses_hatchet_durable_sleep_api
+FAILED tests/test_final_state.py::test_runner_produces_result_file - subproce...
+FAILED tests/test_final_state.py::test_result_file_content_matches_expected_shape
+=================== 2 failed, 1 passed in 180.19s (0:03:00) ====================

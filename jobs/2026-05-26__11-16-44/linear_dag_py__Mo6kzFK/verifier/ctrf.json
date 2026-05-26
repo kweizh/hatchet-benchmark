@@ -1,0 +1,70 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 1,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779766667542,
+            "stop": 1779766667589
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779766667555,
+                "stop": 1779766667556,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hatchet_dag_workflow_file_present",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 27,
+                "start": 1779766667556,
+                "stop": 1779766667583,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_hatchet_dag_workflow_file_present():\n        sources = _read_all_python_sources()\n        assert sources, (\n            f\"Expected at least one Python source file under {PROJECT_DIR} that defines the Hatchet DAG.\"\n        )\n    \n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        assert run_id, (\n            \"Expected the ZEALT_RUN_ID environment variable to be available during verification.\"\n        )\n    \n        expected_workflow_name = f\"linear-dag-{run_id}\"\n    \n        matching = []\n        for fpath, content in sources:\n            imports_sdk = (\"from hatchet_sdk\" in content) or (\"import hatchet_sdk\" in content)\n            has_step1 = \"step1_load\" in content\n            has_step2 = \"step2_transform\" in content\n            has_step3 = \"step3_finalize\" in content\n            ctx_output_uses = len(re.findall(r\"ctx\\.task_output\\s*\\(\", content))\n            if (\n                imports_sdk\n                and has_step1\n                and has_step2\n                and has_step3\n                and ctx_output_uses >= 2\n            ):\n                matching.append((fpath, content))\n    \n        assert matching, (\n            \"Expected at least one Python file under \"\n            f\"{PROJECT_DIR} that imports from hatchet_sdk, defines tasks named \"\n            \"step1_load, step2_transform and step3_finalize, and uses ctx.task_output(...) \"\n            \"at least twice.\"\n        )\n    \n        workflow_name_found = any(expected_workflow_name in content for _f, content in matching)\n>       assert workflow_name_found, (\n            \"Expected the Hatchet workflow to be named \"\n            f\"'{expected_workflow_name}' (containing the ZEALT_RUN_ID suffix) in one of the project's Python sources.\"\n        )\nE       AssertionError: Expected the Hatchet workflow to be named 'linear-dag-zr-mo6kzfk' (containing the ZEALT_RUN_ID suffix) in one of the project's Python sources.\nE       assert False\n\ntests/test_final_state.py:78: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists_and_valid_json",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1779766667584,
+                "stop": 1779766667586,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists_and_valid_json():\n>       assert os.path.isfile(RESULT_PATH), (\n            f\"Expected the result file {RESULT_PATH} to exist after the workflow runs.\"\n        )\nE       AssertionError: Expected the result file /tmp/result.json to exist after the workflow runs.\nE       assert False\nE        +  where False = <function isfile at 0x70bd4905c220>('/tmp/result.json')\nE        +    where <function isfile at 0x70bd4905c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:85: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_final_value",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1779766667586,
+                "stop": 1779766667589,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_final_value():\n>       with open(RESULT_PATH, \"r\", encoding=\"utf-8\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'\n\ntests/test_final_state.py:101: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

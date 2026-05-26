@@ -1,0 +1,142 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py FFFFFF                                         [100%]
+
+=================================== FAILURES ===================================
+__________________ test_log_file_exists_and_has_eight_entries __________________
+
+    def test_log_file_exists_and_has_eight_entries():
+>       entries = _parse_log()
+
+tests/test_final_state.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _parse_log():
+>       assert os.path.isfile(LOG_PATH), (
+            f"{LOG_PATH} does not exist; the runner did not produce the expected "
+            f"log file."
+        )
+E       AssertionError: /tmp/runs.log does not exist; the runner did not produce the expected log file.
+E       assert False
+E        +  where False = <function isfile at 0x7bb7d5020220>('/tmp/runs.log')
+E        +    where <function isfile at 0x7bb7d5020220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+_____________________ test_entry_counts_per_user_and_event _____________________
+
+    def test_entry_counts_per_user_and_event():
+>       entries = _parse_log()
+
+tests/test_final_state.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _parse_log():
+>       assert os.path.isfile(LOG_PATH), (
+            f"{LOG_PATH} does not exist; the runner did not produce the expected "
+            f"log file."
+        )
+E       AssertionError: /tmp/runs.log does not exist; the runner did not produce the expected log file.
+E       assert False
+E        +  where False = <function isfile at 0x7bb7d5020220>('/tmp/runs.log')
+E        +    where <function isfile at 0x7bb7d5020220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+_____________________ test_user_a_intervals_do_not_overlap _____________________
+
+    def test_user_a_intervals_do_not_overlap():
+>       entries = _parse_log()
+
+tests/test_final_state.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _parse_log():
+>       assert os.path.isfile(LOG_PATH), (
+            f"{LOG_PATH} does not exist; the runner did not produce the expected "
+            f"log file."
+        )
+E       AssertionError: /tmp/runs.log does not exist; the runner did not produce the expected log file.
+E       assert False
+E        +  where False = <function isfile at 0x7bb7d5020220>('/tmp/runs.log')
+E        +    where <function isfile at 0x7bb7d5020220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+_____________________ test_user_b_intervals_do_not_overlap _____________________
+
+    def test_user_b_intervals_do_not_overlap():
+>       entries = _parse_log()
+
+tests/test_final_state.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _parse_log():
+>       assert os.path.isfile(LOG_PATH), (
+            f"{LOG_PATH} does not exist; the runner did not produce the expected "
+            f"log file."
+        )
+E       AssertionError: /tmp/runs.log does not exist; the runner did not produce the expected log file.
+E       assert False
+E        +  where False = <function isfile at 0x7bb7d5020220>('/tmp/runs.log')
+E        +    where <function isfile at 0x7bb7d5020220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+___________________ test_per_user_total_sleep_time_observed ____________________
+
+    def test_per_user_total_sleep_time_observed():
+        """The sleeps must really happen — total duration per user must be near
+        2 * sleep_duration_seconds."""
+>       entries = _parse_log()
+
+tests/test_final_state.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _parse_log():
+>       assert os.path.isfile(LOG_PATH), (
+            f"{LOG_PATH} does not exist; the runner did not produce the expected "
+            f"log file."
+        )
+E       AssertionError: /tmp/runs.log does not exist; the runner did not produce the expected log file.
+E       assert False
+E        +  where False = <function isfile at 0x7bb7d5020220>('/tmp/runs.log')
+E        +    where <function isfile at 0x7bb7d5020220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+_____________________ test_cross_user_runs_overlap_in_time _____________________
+
+    def test_cross_user_runs_overlap_in_time():
+        """A-runs and B-runs must have executed concurrently, otherwise the
+        per-key concurrency strategy was not actually applied (i.e., everything
+        serialized globally)."""
+>       entries = _parse_log()
+
+tests/test_final_state.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _parse_log():
+>       assert os.path.isfile(LOG_PATH), (
+            f"{LOG_PATH} does not exist; the runner did not produce the expected "
+            f"log file."
+        )
+E       AssertionError: /tmp/runs.log does not exist; the runner did not produce the expected log file.
+E       assert False
+E        +  where False = <function isfile at 0x7bb7d5020220>('/tmp/runs.log')
+E        +    where <function isfile at 0x7bb7d5020220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_log_file_exists_and_has_eight_entries
+FAILED tests/test_final_state.py::test_entry_counts_per_user_and_event - Asse...
+FAILED tests/test_final_state.py::test_user_a_intervals_do_not_overlap - Asse...
+FAILED tests/test_final_state.py::test_user_b_intervals_do_not_overlap - Asse...
+FAILED tests/test_final_state.py::test_per_user_total_sleep_time_observed - A...
+FAILED tests/test_final_state.py::test_cross_user_runs_overlap_in_time - Asse...
+============================== 6 failed in 0.06s ===============================

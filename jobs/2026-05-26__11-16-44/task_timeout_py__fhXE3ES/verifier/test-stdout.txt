@@ -1,0 +1,65 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_runner_exits_cleanly ___________________________
+
+run_project = CompletedProcess(args=['python3', '/home/user/myproject/main.py'], returncode=1, stdout='', stderr='Traceback (most re...rker()\n             ^^^^^^^^^^^^^^^^\nTypeError: Hatchet.worker() missing 1 required positional argument: \'name\'\n')
+
+    def test_runner_exits_cleanly(run_project):
+>       assert run_project.returncode == 0, (
+            f"Runner exited with non-zero return code {run_project.returncode}. "
+            f"stdout=\n{run_project.stdout}\nstderr=\n{run_project.stderr}"
+        )
+E       AssertionError: Runner exited with non-zero return code 1. stdout=
+E         
+E         stderr=
+E         Traceback (most recent call last):
+E           File "/home/user/myproject/main.py", line 58, in <module>
+E             main()
+E           File "/home/user/myproject/main.py", line 44, in main
+E             worker, _thread = start_worker()
+E                               ^^^^^^^^^^^^^^
+E           File "/home/user/myproject/main.py", line 21, in start_worker
+E             worker = hatchet.worker()
+E                      ^^^^^^^^^^^^^^^^
+E         TypeError: Hatchet.worker() missing 1 required positional argument: 'name'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', '/home/user/myproject/main.py'], returncode=1, stdout='', stderr='Traceback (most re...rker()\n             ^^^^^^^^^^^^^^^^\nTypeError: Hatchet.worker() missing 1 required positional argument: \'name\'\n').returncode
+
+tests/test_final_state.py:31: AssertionError
+___________________________ test_result_file_exists ____________________________
+
+run_project = CompletedProcess(args=['python3', '/home/user/myproject/main.py'], returncode=1, stdout='', stderr='Traceback (most re...rker()\n             ^^^^^^^^^^^^^^^^\nTypeError: Hatchet.worker() missing 1 required positional argument: \'name\'\n')
+
+    def test_result_file_exists(run_project):
+>       assert os.path.isfile(RESULT_FILE), (
+            f"Expected result file {RESULT_FILE} to exist after running the project, but it does not."
+        )
+E       AssertionError: Expected result file /tmp/result.json to exist after running the project, but it does not.
+E       assert False
+E        +  where False = <function isfile at 0x7f54be1fc220>('/tmp/result.json')
+E        +    where <function isfile at 0x7f54be1fc220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:38: AssertionError
+________________________ test_result_indicates_timeout _________________________
+
+run_project = CompletedProcess(args=['python3', '/home/user/myproject/main.py'], returncode=1, stdout='', stderr='Traceback (most re...rker()\n             ^^^^^^^^^^^^^^^^\nTypeError: Hatchet.worker() missing 1 required positional argument: \'name\'\n')
+
+    def test_result_indicates_timeout(run_project):
+>       with open(RESULT_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:44: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_runner_exits_cleanly - AssertionError:...
+FAILED tests/test_final_state.py::test_result_file_exists - AssertionError: E...
+FAILED tests/test_final_state.py::test_result_indicates_timeout - FileNotFoun...
+============================== 3 failed in 1.98s ===============================

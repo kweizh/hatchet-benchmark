@@ -1,0 +1,70 @@
+{
+    "id": "6dc03e9e-22c3-4f05-9432-0ddb32a93394",
+    "started_at": "2026-05-26T11:16:46.683661",
+    "updated_at": "2026-05-26T11:38:51.639048",
+    "finished_at": "2026-05-26T11:38:51.639048",
+    "n_total_trials": 23,
+    "stats": {
+        "n_completed_trials": 23,
+        "n_errored_trials": 4,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 23,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.30434782608695654
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "aggregator_fanout_py__BAMqjTY",
+                            "ai_agent_loop_py__WweF5L4",
+                            "basic_task_py__2QYyGQJ",
+                            "concurrency_limit_ts__PMMAN5b",
+                            "concurrency_per_key_py__7fVwfFB",
+                            "durable_sleep_py__wiAVyPR",
+                            "cron_schedule_py__Djxr59j",
+                            "event_wait_py__4DE9P7z",
+                            "event_trigger_py__uFiJ6Se",
+                            "linear_dag_py__Mo6kzFK",
+                            "linear_dag_ts__Y2YNYg8",
+                            "sticky_assignment_py__2avnV7T",
+                            "task_retries_py__EnwRAxj",
+                            "task_timeout_py__fhXE3ES",
+                            "rate_limit_py__PJpmkMP",
+                            "priority_run_py__ZzEiwF2"
+                        ],
+                        "1.0": [
+                            "bulk_run_py__PJF8g3m",
+                            "cli_quickstart__CUBUFNY",
+                            "cron_schedule_ts__2F4vxug",
+                            "dynamic_fanout_py__KSPiKvZ",
+                            "dynamic_fanout_ts__QkLJndX",
+                            "parallel_dag_py__QDfLkt5",
+                            "scheduled_run_py__gyqXicM"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "aggregator_fanout_py__BAMqjTY",
+                        "parallel_dag_py__QDfLkt5",
+                        "linear_dag_py__Mo6kzFK",
+                        "scheduled_run_py__gyqXicM"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 499287,
+        "cost_usd": null
+    }
+}

@@ -1,0 +1,92 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py ...FFFF                                        [100%]
+
+=================================== FAILURES ===================================
+__________________ test_log_file_has_three_well_formed_lines ___________________
+
+    def test_log_file_has_three_well_formed_lines():
+>       lines = _read_log_lines()
+
+tests/test_final_state.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist after the workflow run."
+E       AssertionError: Expected log file /tmp/run_steps.log to exist after the workflow run.
+E       assert False
+E        +  where False = <function isfile at 0x7123f9410220>('/tmp/run_steps.log')
+E        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+___________________ test_log_file_sticky_assignment_honored ____________________
+
+    def test_log_file_sticky_assignment_honored():
+        """All three steps must report the same worker_id (sticky)."""
+>       lines = _read_log_lines()
+
+tests/test_final_state.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist after the workflow run."
+E       AssertionError: Expected log file /tmp/run_steps.log to exist after the workflow run.
+E       assert False
+E        +  where False = <function isfile at 0x7123f9410220>('/tmp/run_steps.log')
+E        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+__________________ test_log_worker_id_matches_spawned_pattern __________________
+
+    def test_log_worker_id_matches_spawned_pattern():
+        """Worker id must follow the worker-A-<run-id> / worker-B-<run-id> pattern."""
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID is not set; verifier cannot validate run-scoped worker id."
+    
+>       lines = _read_log_lines()
+
+tests/test_final_state.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist after the workflow run."
+E       AssertionError: Expected log file /tmp/run_steps.log to exist after the workflow run.
+E       assert False
+E        +  where False = <function isfile at 0x7123f9410220>('/tmp/run_steps.log')
+E        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+____________________ test_result_json_shape_and_consistency ____________________
+
+    def test_result_json_shape_and_consistency():
+>       data = _read_result_json()
+
+tests/test_final_state.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_result_json():
+>       assert os.path.isfile(RESULT_FILE), f"Expected result file {RESULT_FILE} to exist after the workflow run."
+E       AssertionError: Expected result file /tmp/result.json to exist after the workflow run.
+E       assert False
+E        +  where False = <function isfile at 0x7123f9410220>('/tmp/result.json')
+E        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_source_uses_sticky_strategy
+PASSED tests/test_final_state.py::test_source_defines_dag_parents
+PASSED tests/test_final_state.py::test_source_spawns_two_workers
+FAILED tests/test_final_state.py::test_log_file_has_three_well_formed_lines
+FAILED tests/test_final_state.py::test_log_file_sticky_assignment_honored - A...
+FAILED tests/test_final_state.py::test_log_worker_id_matches_spawned_pattern
+FAILED tests/test_final_state.py::test_result_json_shape_and_consistency - As...
+========================= 4 failed, 3 passed in 0.06s ==========================

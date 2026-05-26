@@ -1,0 +1,58 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 1,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779765699704,
+            "stop": 1779765879897
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_runner_produces_result_file",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 180172,
+                "start": 1779765699720,
+                "stop": 1779765879892,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_runner_produces_result_file():\n>       _run_runner()\n\ntests/test_final_state.py:32: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:18: in _run_runner\n    result = subprocess.run(\nusr/lib/python3.12/subprocess.py:550: in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\nusr/lib/python3.12/subprocess.py:1209: in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\nusr/lib/python3.12/subprocess.py:2116: in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <Popen: returncode: -9 args: ['python3', '/home/user/myproject/run.py']>\nendtime = 43043.316238316, orig_timeout = 180, stdout_seq = []\nstderr_seq = [b'Exception in thread Thread-1 (start):\\n', b'Traceback (most recent call last):\\n  File \"/usr/lib/python3.12/threadi...wargs)\\n', b'  File \"/usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py\", line 401, in start\\n', ...]\nskip_check_and_raise = False\n\n    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,\n                       skip_check_and_raise=False):\n        \"\"\"Convenience for checking if a timeout has expired.\"\"\"\n        if endtime is None:\n            return\n        if skip_check_and_raise or _time() > endtime:\n>           raise TimeoutExpired(\n                    self.args, orig_timeout,\n                    output=b''.join(stdout_seq) if stdout_seq else None,\n                    stderr=b''.join(stderr_seq) if stderr_seq else None)\nE           subprocess.TimeoutExpired: Command '['python3', '/home/user/myproject/run.py']' timed out after 180 seconds\n\nusr/lib/python3.12/subprocess.py:1253: TimeoutExpired",
+                "message": "The test failed in the call phase due to an exception"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_content_matches_expected_shape",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1779765879892,
+                "stop": 1779765879895,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_content_matches_expected_shape():\n>       assert os.path.isfile(RESULT_FILE), (\n            f\"Result file {RESULT_FILE} missing; the runner must produce it.\"\n        )\nE       AssertionError: Result file /tmp/result.json missing; the runner must produce it.\nE       assert False\nE        +  where False = <function isfile at 0x74c0c59ac220>('/tmp/result.json')\nE        +    where <function isfile at 0x74c0c59ac220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:42: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_hatchet_durable_sleep_api",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779765879895,
+                "stop": 1779765879896,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

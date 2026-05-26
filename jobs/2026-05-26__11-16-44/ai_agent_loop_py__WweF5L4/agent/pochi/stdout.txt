@@ -1,0 +1,36 @@
+- Initializing MCP connections...
+You
+# Hatchet Durable Agent Loop with Python SDK ## Background Hatchet supports **durable execution** through `@hatchet.durable_task`. A durable task receives a `DurableContext` and may pause itself via durable primitives such as `ctx.aio_sleep_for(...)`. These primitives create checkpoints in the durable event log so the task can resume across worker evictions, restarts, and crashes - unlike a plain `time.sleep`/`asyncio.sleep`, which is tied to the local process. In this task you will simulate a tiny "AI agent loop" as a Hatchet durable task. To keep tests deterministic, the agent does **not** call an actual LLM - each iteration just bumps a step counter, appends a stub thought to a history list, persists state to a JSON file, and then yields back to Hatchet via a durable sleep. You will run this task end-to-end against Hatchet Cloud (the default control plane baked into the Python SDK) using a real `HATCHET_CLIENT_TOKEN`. You will use the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override. ## Requirements * Use the `hatchet-sdk` Python package to define a durable task named `agent_loop` decorated with `@hatchet.durable_task`. * The task's input is an empty JSON object `{}` (no fields required). * Behavior of the durable task: * State file path: `/tmp/agent_state.json`. * On the very first iteration, initialize the state file to `{"step": 0, "history": []}` if it does not already exist. * Loop for **up to 5 iterations**. In each iteration: 1. Read the current state from `/tmp/agent_state.json`. 2. Increment `step` by 1. 3. Append `{"thought": "iter <step>"}` (where `<step>` is the new step value) to the `history` array. 4. Write the updated state back to `/tmp/agent_state.json`. 5. Yield back to Hatchet via durable sleep using `await ctx.aio_sleep_for(timedelta(seconds=1))`. You **MUST** use a durable-context sleep primitive (e.g. `ctx.aio_sleep_for`). You **MUST NOT** use bare `time.sleep` or `asyncio.sleep` to pause between iterations. * Exit the loop as soon as `step == 5`. * Return a JSON-serializable result of the form `{"final_step": 5, "history_length": 5}`. * Write a runner script that: 1. Reads `ZEALT_RUN_ID` from the environment. 2. Removes any pre-existing `/tmp/agent_state.json` and `/tmp/result.json` before starting (so the run begins from a clean slate). 3. Creates a Hatchet worker whose worker name is `ai-agent-loop-worker-${ZEALT_RUN_ID}`, registers the `agent_loop` durable task on it, and starts it (in the background or in a separate thread/process) so the task can be executed. 4. Triggers exactly one run of `agent_loop` with input `{}` against Hatchet Cloud and waits for the run to complete. 5. Writes the task's output (the JSON object containing `final_step` and `history_length`) to `/tmp/result.json` as valid JSON. 6. Shuts down the worker cleanly and exits with code 0. * The result must come from an actual Hatchet Cloud durable task run (no mocking, no local function call shortcut, no bypassing the worker). ## Implementation Hints * Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value. * Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone. * Durable tasks must be declared with `@hatchet.durable_task(...)` and accept a `DurableContext` parameter. To pause inside the task, call `await ctx.aio_sleep_for(timedelta(seconds=1))` (see Hatchet's "Durable Sleep" docs). The state-update logic between sleeps should be straightforward Python that reads/writes the JSON file. * A typical Python program defines `hatchet = Hatchet()`, decorates the function with `@hatchet.durable_task(...)`, creates a worker via `hatchet.worker(...)` with the durable task in its workflow list, and starts the worker. To trigger a run from the same process, you can run the worker in a background thread/subprocess and call the task's `run` / `aio_run` method, which returns the task's output when the run finishes. * Make sure the script terminates after the result is written; do not leave the worker process blocking. * Install dependencies with `pip install hatchet-sdk`. ## Acceptance Criteria * Project path: /home/user/myproject * Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader) * Result file: /tmp/result.json * State file: /tmp/agent\_state.json * The task must be defined using `@hatchet.durable_task` from the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment. * The worker name registered on Hatchet Cloud must be `ai-agent-loop-worker-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable. * The result file at `/tmp/result.json` must be valid JSON containing top-level integer fields `final_step` equal to `5` and `history_length` equal to `5`. * The state file at `/tmp/agent_state.json` must be valid JSON containing a top-level integer field `step` equal to `5` and a top-level array field `history` of length `5` where each element is a JSON object with a `thought` field equal to the string `iter <n>` for `n` in `1..5` (in order).   
+
+Pochi
+💭 Thinking for 149 characters   
+📋 Updating todo list (3 items) ✔ 
+📂 Listing files in /home/user/myproject ✔ 
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user/myproject recursively ✔ 
+💭 Thinking for 335 characters   
+💭 Thinking for 229 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 303 characters   
+💭 Thinking for 142 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 0 characters   
+📖 Reading /root/.pochi/tasks/442ca54f-4ab4-49e6-8880-b2520393410d/tool-results/call_r6XPUMkNwOlaMRpELLzOEVsO.json ✔ 
+💭 Thinking for 411 characters   
+💭 Thinking for 205 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 170 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 347 characters   
+💭 Thinking for 526 characters   
+✏️  Writing /home/user/myproject/agent_loop.py ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 290 characters   
+🎉 Task Completed
+Created /home/user/myproject/agent_loop.py defining the durable agent_loop task and a runner that cleans state, starts a Hatchet worker named with ZEALT_RUN_ID, runs the durable task against Hatchet Cloud, writes /tmp/result.json, and appends stdout/stderr to /home/user/myproject/output.log.
+
+Sources:
+- [Runnables - Hatchet Documentation](https://docs.hatchet.run/sdks/python/runnables)
+- [Python SDK — Workflows and tasks - Hatchet - Mintlify](https://mintlify.wiki/hatchet-dev/hatchet/sdk/python/workflows-tasks)   
+  

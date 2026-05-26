@@ -1,0 +1,105 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py FFFFF                                          [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_result_file_final_step_is_five ______________________
+
+    def test_result_file_final_step_is_five():
+>       data = _load_json(RESULT_FILE)
+
+tests/test_final_state.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/result.json'
+
+    def _load_json(path):
+>       assert os.path.isfile(path), f"Expected file {path} to exist but it does not."
+E       AssertionError: Expected file /tmp/result.json to exist but it does not.
+E       assert False
+E        +  where False = <function isfile at 0x764c6b544220>('/tmp/result.json')
+E        +    where <function isfile at 0x764c6b544220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+___________________ test_result_file_history_length_is_five ____________________
+
+    def test_result_file_history_length_is_five():
+>       data = _load_json(RESULT_FILE)
+
+tests/test_final_state.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/result.json'
+
+    def _load_json(path):
+>       assert os.path.isfile(path), f"Expected file {path} to exist but it does not."
+E       AssertionError: Expected file /tmp/result.json to exist but it does not.
+E       assert False
+E        +  where False = <function isfile at 0x764c6b544220>('/tmp/result.json')
+E        +    where <function isfile at 0x764c6b544220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+_________________________ test_state_file_step_is_five _________________________
+
+    def test_state_file_step_is_five():
+>       state = _load_json(STATE_FILE)
+
+tests/test_final_state.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/agent_state.json'
+
+    def _load_json(path):
+>       assert os.path.isfile(path), f"Expected file {path} to exist but it does not."
+E       AssertionError: Expected file /tmp/agent_state.json to exist but it does not.
+E       assert False
+E        +  where False = <function isfile at 0x764c6b544220>('/tmp/agent_state.json')
+E        +    where <function isfile at 0x764c6b544220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+______________ test_state_file_history_has_five_entries_in_order _______________
+
+    def test_state_file_history_has_five_entries_in_order():
+>       state = _load_json(STATE_FILE)
+
+tests/test_final_state.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/agent_state.json'
+
+    def _load_json(path):
+>       assert os.path.isfile(path), f"Expected file {path} to exist but it does not."
+E       AssertionError: Expected file /tmp/agent_state.json to exist but it does not.
+E       assert False
+E        +  where False = <function isfile at 0x764c6b544220>('/tmp/agent_state.json')
+E        +    where <function isfile at 0x764c6b544220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+__________________ test_runner_log_file_exists_and_non_empty ___________________
+
+    def test_runner_log_file_exists_and_non_empty():
+>       assert os.path.isfile(LOG_FILE), (
+            f"Expected runner log file at {LOG_FILE} to exist."
+        )
+E       AssertionError: Expected runner log file at /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764c6b544220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764c6b544220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:84: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_result_file_final_step_is_five - Asser...
+FAILED tests/test_final_state.py::test_result_file_history_length_is_five - A...
+FAILED tests/test_final_state.py::test_state_file_step_is_five - AssertionErr...
+FAILED tests/test_final_state.py::test_state_file_history_has_five_entries_in_order
+FAILED tests/test_final_state.py::test_runner_log_file_exists_and_non_empty
+============================== 5 failed in 0.05s ===============================

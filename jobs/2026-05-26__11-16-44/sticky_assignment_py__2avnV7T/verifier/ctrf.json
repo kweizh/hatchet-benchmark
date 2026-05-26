@@ -1,0 +1,100 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 3,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779766244927,
+            "stop": 1779766244987
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_source_uses_sticky_strategy",
+                "status": "passed",
+                "duration": 2,
+                "start": 1779766244949,
+                "stop": 1779766244951,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_defines_dag_parents",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779766244952,
+                "stop": 1779766244953,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_spawns_two_workers",
+                "status": "passed",
+                "duration": 6,
+                "start": 1779766244954,
+                "stop": 1779766244960,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_has_three_well_formed_lines",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1779766244960,
+                "stop": 1779766244973,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_has_three_well_formed_lines():\n>       lines = _read_log_lines()\n\ntests/test_final_state.py:83: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist after the workflow run.\"\nE       AssertionError: Expected log file /tmp/run_steps.log to exist after the workflow run.\nE       assert False\nE        +  where False = <function isfile at 0x7123f9410220>('/tmp/run_steps.log')\nE        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_sticky_assignment_honored",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779766244974,
+                "stop": 1779766244978,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_sticky_assignment_honored():\n        \"\"\"All three steps must report the same worker_id (sticky).\"\"\"\n>       lines = _read_log_lines()\n\ntests/test_final_state.py:105: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist after the workflow run.\"\nE       AssertionError: Expected log file /tmp/run_steps.log to exist after the workflow run.\nE       assert False\nE        +  where False = <function isfile at 0x7123f9410220>('/tmp/run_steps.log')\nE        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_worker_id_matches_spawned_pattern",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779766244978,
+                "stop": 1779766244982,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_worker_id_matches_spawned_pattern():\n        \"\"\"Worker id must follow the worker-A-<run-id> / worker-B-<run-id> pattern.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID is not set; verifier cannot validate run-scoped worker id.\"\n    \n>       lines = _read_log_lines()\n\ntests/test_final_state.py:122: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist after the workflow run.\"\nE       AssertionError: Expected log file /tmp/run_steps.log to exist after the workflow run.\nE       assert False\nE        +  where False = <function isfile at 0x7123f9410220>('/tmp/run_steps.log')\nE        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_shape_and_consistency",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1779766244982,
+                "stop": 1779766244986,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_json_shape_and_consistency():\n>       data = _read_result_json()\n\ntests/test_final_state.py:136: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_result_json():\n>       assert os.path.isfile(RESULT_FILE), f\"Expected result file {RESULT_FILE} to exist after the workflow run.\"\nE       AssertionError: Expected result file /tmp/result.json to exist after the workflow run.\nE       assert False\nE        +  where False = <function isfile at 0x7123f9410220>('/tmp/result.json')\nE        +    where <function isfile at 0x7123f9410220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:24: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
