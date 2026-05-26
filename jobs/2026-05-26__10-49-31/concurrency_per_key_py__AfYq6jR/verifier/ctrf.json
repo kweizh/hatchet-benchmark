@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779764452698,
+            "stop": 1779764452738
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists_and_has_eight_entries",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779764452720,
+                "stop": 1779764452721,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_entry_counts_per_user_and_event",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779764452721,
+                "stop": 1779764452722,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_a_intervals_do_not_overlap",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779764452722,
+                "stop": 1779764452723,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_b_intervals_do_not_overlap",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779764452723,
+                "stop": 1779764452723,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_per_user_total_sleep_time_observed",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779764452724,
+                "stop": 1779764452724,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cross_user_runs_overlap_in_time",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1779764452725,
+                "stop": 1779764452738,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cross_user_runs_overlap_in_time():\n        \"\"\"A-runs and B-runs must have executed concurrently, otherwise the\n        per-key concurrency strategy was not actually applied (i.e., everything\n        serialized globally).\"\"\"\n        entries = _parse_log()\n        all_ts = [e[\"ts\"] for e in entries]\n        total_span = max(all_ts) - min(all_ts)\n        upper_bound = 4 * SLEEP_DURATION_SECONDS * 0.9\n>       assert total_span < upper_bound, (\n            f\"Total wall-clock span across all 8 log entries is {total_span:.3f}s, \"\n            f\"which is >= {upper_bound:.3f}s. That suggests all four runs ran \"\n            f\"sequentially instead of A-runs and B-runs running in parallel. The \"\n            f\"concurrency strategy is likely too restrictive (e.g., a global \"\n            f\"concurrency limit instead of a per-user_id key).\"\n        )\nE       AssertionError: Total wall-clock span across all 8 log entries is 7.956s, which is >= 7.200s. That suggests all four runs ran sequentially instead of A-runs and B-runs running in parallel. The concurrency strategy is likely too restrictive (e.g., a global concurrency limit instead of a per-user_id key).\nE       assert 7.956432104110718 < 7.2\n\ntests/test_final_state.py:148: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

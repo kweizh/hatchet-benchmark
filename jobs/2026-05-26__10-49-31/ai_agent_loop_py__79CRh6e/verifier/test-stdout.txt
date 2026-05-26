@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_result_file_final_step_is_five
+PASSED tests/test_final_state.py::test_result_file_history_length_is_five
+PASSED tests/test_final_state.py::test_state_file_step_is_five
+PASSED tests/test_final_state.py::test_state_file_history_has_five_entries_in_order
+PASSED tests/test_final_state.py::test_runner_log_file_exists_and_non_empty
+============================== 5 passed in 0.02s ===============================

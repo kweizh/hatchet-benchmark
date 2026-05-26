@@ -1,0 +1,106 @@
+- Initializing MCP connections...
+You
+# Hatchet Linear DAG (TypeScript) ## Background Build a small Hatchet workflow using the `@hatchet-dev/typescript-sdk` (TypeScript SDK) that demonstrates a linear, 3-step Directed Acyclic Graph (DAG). Each step receives the output of its parent task via `ctx.parentOutput(...)` and transforms a piece of text. The workflow is registered on a worker, triggered by a runner script, and the final result is written to a JSON file on disk so it can be verified. The Hatchet client must connect to Hatchet Cloud using the default server address (do not override the server URL). Authentication is performed exclusively via the real `HATCHET_CLIENT_TOKEN` environment variable. ## Requirements * Implement a single Hatchet workflow named `linear-dag-${ZEALT_RUN_ID}` with exactly three tasks executed sequentially: `step1` -> `step2` -> `step3`. * `step1` returns an object `{ text: "hello" }`. * `step2` declares `step1` as its parent, reads the parent output via `ctx.parentOutput(step1)`, and returns `{ text: <parent.text> + " world" }`. * `step3` declares `step2` as its parent, reads the parent output via `ctx.parentOutput(step2)`, and returns `{ final: <parent.text> + "!" }`. * A worker script must register the workflow and run continuously. * A runner script must trigger the workflow (fire-and-wait), capture the final `step3` output, and write it to `/tmp/result.json` as JSON. * All side-effect-prone identifiers (workflow name, worker name) must be suffixed with the current `run-id` taken from the `ZEALT_RUN_ID` environment variable so concurrent trials do not collide. ## Implementation Hints * Install the `@hatchet-dev/typescript-sdk` package and use `tsx` to run the worker and runner scripts. * Create a Hatchet client with `new Hatchet()` (or the SDK's standard factory) so it picks up the `HATCHET_CLIENT_TOKEN` env var automatically. Do not set a custom server address; the SDK's default points at Hatchet Cloud. * Declare the workflow with `hatchet.workflow({ name: ... })` and add tasks with `workflow.task({ name, parents, fn })`. * Inside child tasks, get parent output via `await ctx.parentOutput(parentTaskRef)`. * Start the worker with `hatchet.worker(<workerName>, { workflows: [workflow] })` followed by `await worker.start()`. * In a separate runner script, call `await workflow.run({})` (or `.run({}, {})`) and write the returned `step3` task output to `/tmp/result.json` using `fs.writeFileSync`. The DAG run result is keyed by task name, so the final value can be retrieved as `result.step3` (or by reading the equivalent task-output field returned by the SDK). * Read `ZEALT_RUN_ID` from `process.env.ZEALT_RUN_ID` and embed it in the workflow name and the worker name (e.g. `linear-dag-${runId}`, `linear-dag-worker-${runId}`). * Add `npm` scripts (`worker`, `run`) that invoke `tsx` against the respective TypeScript entry files, so they can be triggered with `npm run ...`. ## Acceptance Criteria * Project path: /home/user/myproject * Workflow name: `linear-dag-${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable). * Worker start command: `npm run worker` (must run a long-lived Hatchet worker registered with the workflow above). * Runner command: `npm run run` (must trigger the workflow and wait for it to complete). * The runner MUST write the final step's output to the file `/tmp/result.json` as a JSON object with the following shape: ```json { "final": string } ``` * After a successful end-to-end execution, `/tmp/result.json` MUST contain exactly `{"final": "hello world!"}` (whitespace insensitive). * The Hatchet client/worker MUST authenticate using the real `HATCHET_CLIENT_TOKEN`; no mocking of the Hatchet service is allowed.   
+
+Pochi
+💭 Thinking for 158 characters   
+📋 Updating todo list (5 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject && cd /home/user/myproject && npm init -y ✔ 
+📋 Updating todo list (5 items) ✔ 
+✏️  Writing /home/user/myproject/package.json ✖ "File has not been read yet. Please read the file before writing it."
+📖 Reading /home/user/myproject/package.json ✔ 
+🔧 Applying diff to /home/user/myproject/package.json ✔ 
+🔧 Applying diff to /home/user/myproject/package.json ✔ 
+Now install the dependencies:   
+💫 Executing cd /home/user/myproject && npm install ✔ 
+💫 Executing cd /home/user/myproject && ls node_modules/@hatchet-dev/typescript-sdk/ ✔ 
+💫 Executing cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/index.d.ts | head -50 ✔ 
+💫 Executing cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/index.d.ts 2>/dev/null | head -60 ✔ 
+💫 Executing cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/client.d.ts | head -80 ✔ 
+💫 Executing cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/declaration.d.ts | head -100 ✔ 
+💫 Executing grep -n "task\|workflow\|parentOutput\|WorkflowDeclaration" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/declaration.d.ts | head -80 ✔ 
+💫 Executing grep -n "task\b\|\.task(" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/declaration.d.ts | head -40 ✔ 
+💫 Executing cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/worker/context.d.ts | head -100 ✔ 
+💫 Executing grep -n "parentOutput" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/worker/context.d.ts ✔ 
+💫 Executing grep -n "workflow\b" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/client.d.ts | head -30 ✔ 
+💫 Executing grep -n "worker\b\|CreateWorkerOpts" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/client.d.ts | head -30 ✔ 
+💫 Executing grep -n "CreateWorkerOpts\|workflows\|maxRuns" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/worker/worker.d.ts | head -40 ✔ 
+💫 Executing cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/worker/worker.d.ts ✔ 
+Now I have enough information to understand the API. Let me look at how `hatchet.worker` takes workflows:   
+💫 Executing grep -n "workflows\|CreateWorkerOpts\|WorkerSlotOptions" /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/client/worker/slot-utils.d.ts 2>/dev/null | head -30 ✔ 
+Now I have all the information I need. Let me look at an example from the SDK:   
+💫 Executing find /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk -name "*.js" | xargs grep -l "parentOutput\|workflow\.task\|linear" 2>/dev/null | head -5 ✔ 
+💫 Executing ls /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/examples/ ✔ 
+💫 Executing ls /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/examples/dag/ && cat /home/user/myproject/node_modules/@hatchet-dev/typescript-sdk/v1/examples/dag/*.js 2>/dev/null | head -100 ✔ 
+Now I have a clear picture of the API. Let me create the project files:   
+📋 Updating todo list (5 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject/src ✔ 
+✏️  Writing /home/user/myproject/src/workflow.ts ✔ 
+📋 Updating todo list (5 items) ✔ 
+✏️  Writing /home/user/myproject/src/worker.ts ✔ 
+📋 Updating todo list (5 items) ✔ 
+✏️  Writing /home/user/myproject/src/run.ts ✔ 
+Now let me verify the package.json has the correct scripts and check the overall project structure:   
+📖 Reading /home/user/myproject/package.json ✔ 
+💫 Executing ls /home/user/myproject/src/ ✔ 
+Let me do a quick type-check to ensure the TypeScript is valid:   
+💫 Executing cd /home/user/myproject && npx tsc --noEmit --allowImportingTsExtensions --moduleResolution bundler --target es2022 --module esnext --strict src/workflow.ts src/worker.ts src/run.ts 2>&1 ✖ "Command exited with code 1"
+✏️  Writing /home/user/myproject/tsconfig.json ✖ "File has not been read yet. Please read the file before writing it."
+💫 Executing ls /home/user/myproject/ ✔ 
+📖 Reading /home/user/myproject/tsconfig.json ✔ 
+🔧 Applying diff to /home/user/myproject/tsconfig.json ✔ 
+💫 Executing cd /home/user/myproject && npx tsc --noEmit 2>&1 ✔ 
+TypeScript compiles cleanly with no errors. Now let me also update the `src/worker.ts` and `src/run.ts` imports to use `.js` extension (required for ESM with tsx):   
+📖 Reading /home/user/myproject/src/worker.ts ✔ 
+📖 Reading /home/user/myproject/src/run.ts ✔ 
+The `.js` extensions are already there. However, since `tsx` handles TypeScript files directly, it's also fine to use `.ts`. Let me check that tsx doesn't have issues with `.js` imports pointing to `.ts` files:   
+💫 Executing cd /home/user/myproject && npx tsx --version 2>&1 ✔ 
+`tsx` v4+ handles `.js` imports pointing to `.ts` files automatically. Let me do a final review of all files:   
+📖 Reading /home/user/myproject/src/workflow.ts ✔ 
+📋 Updating todo list (5 items) ✔ 
+🎉 Task Completed
+The project is set up at `/home/user/myproject` with the following structure:
+
+```
+/home/user/myproject/
+├── package.json
+├── tsconfig.json
+├── src/
+│   ├── workflow.ts   ← workflow definition (3-step linear DAG)
+│   ├── worker.ts     ← long-lived worker that registers the workflow
+│   └── run.ts        ← runner that triggers the workflow and writes /tmp/result.json
+└── node_modules/
+    └── @hatchet-dev/typescript-sdk/
+```
+
+### What was built
+
+**`src/workflow.ts`** — Creates a `Hatchet` client (picks up `HATCHET_CLIENT_TOKEN` automatically) and declares the `linear-dag-${ZEALT_RUN_ID}` workflow with three tasks chained in sequence:
+
+| Task | Parents | Output |
+|------|---------|--------|
+| `step1` | — | `{ text: "hello" }` |
+| `step2` | `step1` | `{ text: parent.text + " world" }` → `{ text: "hello world" }` |
+| `step3` | `step2` | `{ final: parent.text + "!" }` → `{ final: "hello world!" }` |
+
+**`src/worker.ts`** — Instantiates a worker named `linear-dag-worker-${ZEALT_RUN_ID}`, registers the workflow, and calls `worker.start()` to run indefinitely.
+
+**`src/run.ts`** — Calls `workflow.run({})` (fire-and-wait), extracts `result.step3`, and writes it to `/tmp/result.json` via `fs.writeFileSync`.
+
+### Usage
+
+```bash
+# Terminal 1 — start the worker (long-lived)
+cd /home/user/myproject
+HATCHET_CLIENT_TOKEN=<token> ZEALT_RUN_ID=<run-id> npm run worker
+
+# Terminal 2 — trigger the workflow and write the result
+cd /home/user/myproject
+HATCHET_CLIENT_TOKEN=<token> ZEALT_RUN_ID=<run-id> npm run run
+```
+
+After a successful run, `/tmp/result.json` will contain:
+```json
+{"final":"hello world!"}
+```   
+  

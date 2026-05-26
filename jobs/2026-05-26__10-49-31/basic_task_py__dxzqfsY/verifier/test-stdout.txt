@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py FFF.                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_result_file_exists ____________________________
+
+    def test_result_file_exists():
+        """The task runner must create /tmp/result.json after executing the task on Hatchet Cloud."""
+>       assert os.path.isfile(RESULT_PATH), (
+            f"Expected result file {RESULT_PATH} to exist after the task runs. "
+            "The runner must invoke the Hatchet task and write its output to this path."
+        )
+E       AssertionError: Expected result file /tmp/result.json to exist after the task runs. The runner must invoke the Hatchet task and write its output to this path.
+E       assert False
+E        +  where False = <function isfile at 0x7144c14e0220>('/tmp/result.json')
+E        +    where <function isfile at 0x7144c14e0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:11: AssertionError
+____________________ test_result_file_is_valid_json_object _____________________
+
+    def test_result_file_is_valid_json_object():
+>       with open(RESULT_PATH, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:18: FileNotFoundError
+____________________ test_result_greeting_matches_expected _____________________
+
+    def test_result_greeting_matches_expected():
+>       with open(RESULT_PATH, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/result.json'
+
+tests/test_final_state.py:32: FileNotFoundError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_runner_source_present_in_project_dir
+FAILED tests/test_final_state.py::test_result_file_exists - AssertionError: E...
+FAILED tests/test_final_state.py::test_result_file_is_valid_json_object - Fil...
+FAILED tests/test_final_state.py::test_result_greeting_matches_expected - Fil...
+========================= 3 failed, 1 passed in 0.03s ==========================

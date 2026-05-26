@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py .....F                                         [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_cross_user_runs_overlap_in_time _____________________
+
+    def test_cross_user_runs_overlap_in_time():
+        """A-runs and B-runs must have executed concurrently, otherwise the
+        per-key concurrency strategy was not actually applied (i.e., everything
+        serialized globally)."""
+        entries = _parse_log()
+        all_ts = [e["ts"] for e in entries]
+        total_span = max(all_ts) - min(all_ts)
+        upper_bound = 4 * SLEEP_DURATION_SECONDS * 0.9
+>       assert total_span < upper_bound, (
+            f"Total wall-clock span across all 8 log entries is {total_span:.3f}s, "
+            f"which is >= {upper_bound:.3f}s. That suggests all four runs ran "
+            f"sequentially instead of A-runs and B-runs running in parallel. The "
+            f"concurrency strategy is likely too restrictive (e.g., a global "
+            f"concurrency limit instead of a per-user_id key)."
+        )
+E       AssertionError: Total wall-clock span across all 8 log entries is 7.956s, which is >= 7.200s. That suggests all four runs ran sequentially instead of A-runs and B-runs running in parallel. The concurrency strategy is likely too restrictive (e.g., a global concurrency limit instead of a per-user_id key).
+E       assert 7.956432104110718 < 7.2
+
+tests/test_final_state.py:148: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists_and_has_eight_entries
+PASSED tests/test_final_state.py::test_entry_counts_per_user_and_event
+PASSED tests/test_final_state.py::test_user_a_intervals_do_not_overlap
+PASSED tests/test_final_state.py::test_user_b_intervals_do_not_overlap
+PASSED tests/test_final_state.py::test_per_user_total_sleep_time_observed
+FAILED tests/test_final_state.py::test_cross_user_runs_overlap_in_time - Asse...
+========================= 1 failed, 5 passed in 0.04s ==========================

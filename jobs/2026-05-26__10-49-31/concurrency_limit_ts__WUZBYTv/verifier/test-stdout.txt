@@ -1,0 +1,277 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py EEEEEEE                                        [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_log_has_eight_entries _________________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+___________________ ERROR at setup of test_log_phase_counts ____________________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+_________________ ERROR at setup of test_log_per_region_counts _________________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+______________ ERROR at setup of test_us_intervals_do_not_overlap ______________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+______________ ERROR at setup of test_eu_intervals_do_not_overlap ______________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+_________ ERROR at setup of test_each_interval_sleeps_at_least_1400ms __________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+_______________ ERROR at setup of test_cross_region_parallelism ________________
+
+run_id = 'zr-wuzbytv'
+
+    @pytest.fixture(scope="session")
+    def run_pipeline(run_id):
+        """Start the worker, run the runner, then collect timing and log lines."""
+        # Clean stale log file.
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        env = os.environ.copy()
+    
+        # Start the worker as a background process group so we can terminate cleanly.
+        worker_log_path = "/tmp/worker.stdout.log"
+        worker_log = open(worker_log_path, "w")
+        worker_proc = subprocess.Popen(
+            ["pnpm", "run", "worker"],
+            cwd=PROJECT_DIR,
+            env=env,
+            stdout=worker_log,
+            stderr=subprocess.STDOUT,
+            preexec_fn=os.setsid,
+        )
+    
+        try:
+            # Give the worker time to register with Hatchet Cloud.
+            time.sleep(WORKER_READY_WAIT_SECONDS)
+>           assert worker_proc.poll() is None, (
+                f"Worker process exited prematurely. See {worker_log_path}."
+            )
+E           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.
+E           assert 1 is None
+E            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()
+E            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll
+
+tests/test_final_state.py:49: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_log_has_eight_entries - AssertionError:...
+ERROR tests/test_final_state.py::test_log_phase_counts - AssertionError: Work...
+ERROR tests/test_final_state.py::test_log_per_region_counts - AssertionError:...
+ERROR tests/test_final_state.py::test_us_intervals_do_not_overlap - Assertion...
+ERROR tests/test_final_state.py::test_eu_intervals_do_not_overlap - Assertion...
+ERROR tests/test_final_state.py::test_each_interval_sleeps_at_least_1400ms - ...
+ERROR tests/test_final_state.py::test_cross_region_parallelism - AssertionErr...
+============================== 7 errors in 15.07s ==============================

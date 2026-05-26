@@ -1,0 +1,70 @@
+{
+    "id": "ae7d616b-69a0-46d1-ae0c-e310ad517f2d",
+    "started_at": "2026-05-26T10:49:33.653463",
+    "updated_at": "2026-05-26T11:16:43.736978",
+    "finished_at": "2026-05-26T11:16:43.736978",
+    "n_total_trials": 23,
+    "stats": {
+        "n_completed_trials": 23,
+        "n_errored_trials": 3,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 22,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.4782608695652174
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "aggregator_fanout_py__m7Br2CT",
+                            "basic_task_py__dxzqfsY",
+                            "concurrency_limit_ts__WUZBYTv",
+                            "concurrency_per_key_py__AfYq6jR",
+                            "cron_schedule_py__cxS9ybX",
+                            "linear_dag_py__9L2xBCr",
+                            "linear_dag_ts__Zoi6fm2",
+                            "sticky_assignment_py__XeRaxxQ",
+                            "task_retries_py__tZ66raD",
+                            "rate_limit_py__BcJq5RS",
+                            "priority_run_py__8yo6Dm9"
+                        ],
+                        "1.0": [
+                            "ai_agent_loop_py__79CRh6e",
+                            "bulk_run_py__62Qr5Jq",
+                            "cli_quickstart__HQy3hDC",
+                            "durable_sleep_py__mX9iUjQ",
+                            "cron_schedule_ts__VejPzmX",
+                            "dynamic_fanout_py__azoCMw4",
+                            "event_wait_py__r76rLqq",
+                            "dynamic_fanout_ts__iXhjLxd",
+                            "parallel_dag_py__hzjCVjb",
+                            "scheduled_run_py__dc5eyny",
+                            "task_timeout_py__bkvThud"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "aggregator_fanout_py__m7Br2CT",
+                        "event_wait_py__r76rLqq"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "event_trigger_py__QTjNyoH"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 759217,
+        "cost_usd": null
+    }
+}

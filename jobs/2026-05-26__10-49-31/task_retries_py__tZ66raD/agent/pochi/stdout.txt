@@ -1,0 +1,146 @@
+- Initializing MCP connections...
+You
+# Hatchet Task Retries with Exponential Backoff (Python SDK) ## Background Hatchet is a distributed task queue and durable execution engine. One of its core reliability features is automatic retry of failed tasks with optional exponential backoff. In this task, you will build a small Python program that defines a `flaky_task` configured to retry on failure with exponential backoff, runs the task on Hatchet Cloud, and writes the final successful result to disk. The task uses the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override. ## Requirements * Use the `hatchet-sdk` Python package to define a task named `flaky_task` with the following retry configuration: * `retries=3` * `backoff_factor=2` * `backoff_max_seconds=10` * `flaky_task` must persist a cross-invocation attempt counter to the file `/tmp/attempts.txt`: * On every invocation (initial run **and** every retry), the task body reads the current attempt count from `/tmp/attempts.txt` (treat a missing file as `0`), increments the counter by `1`, and writes the new value back to `/tmp/attempts.txt` before deciding success/failure. * If the new attempt value is less than `3`, the task **MUST** raise an exception so Hatchet retries it. * If the new attempt value is `3` or greater, the task **MUST** return a JSON-serializable result containing exactly the fields `status` (string, value `success`) and `attempt` (integer, the current attempt number). * Write a runner script that: 1. Reads `ZEALT_RUN_ID` from the environment. 2. Ensures `/tmp/attempts.txt` does not exist before starting (delete it if present) so the attempt counter begins at `0`. 3. Creates a Hatchet worker whose worker name is `task-retries-worker-${ZEALT_RUN_ID}`, registers `flaky_task` on it, and starts it in the background (e.g. a thread or subprocess) so the task can be executed. 4. Triggers exactly one run of `flaky_task` with input `{}` against Hatchet Cloud and waits for the run to complete. 5. Writes the final task output (the dict returned by the successful attempt) to `/tmp/result.json` as valid JSON. 6. Shuts down the worker cleanly and exits with code 0. * The retry behavior must come from Hatchet's built-in retry policy, not from in-task `try/except` loops or any user-side retry wrapper. * The result must come from an actual Hatchet Cloud task run (no mocking, no local function-call shortcut). ## Implementation Hints * Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value. * Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone. * Refer to the Hatchet retry documentation for the exact decorator keyword arguments (`retries`, `backoff_factor`, `backoff_max_seconds`) on `@hatchet.task(...)`. * A typical Python program defines `hatchet = Hatchet()`, decorates a function with `@hatchet.task(...)`, creates a worker via `hatchet.worker(...)` with the task in its workflow list, and starts the worker. To trigger a run from the same process, run the worker in a background thread/subprocess and call the task's `run` / `aio_run` method, which returns the task's output when the run finishes. * Make the file read/write on `/tmp/attempts.txt` robust: missing file means attempt `0`, otherwise parse the integer in the file, increment it, and overwrite. * Make sure the script terminates after the result is written; do not leave the worker process blocking. * Install dependencies with `pip install hatchet-sdk`. ## Acceptance Criteria * Project path: /home/user/myproject * Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader) * Attempts counter file: /tmp/attempts.txt * Result file: /tmp/result.json * The task and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment. * The worker name registered on Hatchet Cloud must be `task-retries-worker-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable. * After the runner completes: * `/tmp/attempts.txt` exists and its integer content equals `3`. * `/tmp/result.json` exists, is valid JSON, and contains a JSON object with top-level fields `status` (string equal to `success`) and `attempt` (integer equal to `3`).   
+
+Pochi
+💭 Thinking for 273 characters   
+📂 Listing files in /home/user ✔ 
+📂 Listing files in /home/user/myproject ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing pip install hatchet-sdk 2>&1 | tail -5 ✔ 
+💫 Executing pip install hatchet-sdk --break-system-packages 2>&1 | tail -10 ✔ 
+📋 Updating todo list (4 items) ✔ 
+Now let me check the hatchet-sdk API to understand the correct usage:   
+💫 Executing python3 -c "import hatchet_sdk; help(hatchet_sdk.Hatchet)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "import hatchet_sdk; print(dir(hatchet_sdk))" ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.runnables.workflow import Standalone
+import inspect
+print(inspect.signature(Standalone.run))
+print(dir(Standalone))
+" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk import Hatchet
+import inspect
+# Check worker method
+h = Hatchet.__new__(Hatchet)
+print(inspect.signature(Hatchet.worker))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk import Hatchet
+import inspect
+print(inspect.signature(Hatchet.task))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+print(inspect.signature(Worker.start))
+print([m for m in dir(Worker) if not m.startswith('_')])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+print(inspect.getsource(Worker.start))
+" 2>&1 | head -40 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.runnables.workflow import Standalone
+import inspect
+print(inspect.getsource(Standalone.run))
+" 2>&1 ✔ 
+Now I have a clear picture of the API. Let me create the runner script:   
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/myproject/runner.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+Let me verify the script syntax is valid and check the worker `exit_gracefully` signature:   
+💫 Executing python3 -m py_compile /home/user/myproject/runner.py && echo "Syntax OK" ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+print(inspect.getsource(Worker.exit_gracefully))
+" 2>&1 ✔ 
+`exit_gracefully` is async and must be called from within the worker's event loop. Let me look at how to properly signal the worker to stop from outside its loop:   
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+print(inspect.getsource(Worker.handle_kill))
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+# Look at _setup_loop and how loop is managed
+src = inspect.getsource(Worker)
+# find exit_gracefully usage
+lines = src.split('\n')
+for i, l in enumerate(lines):
+    if 'loop' in l.lower() and ('stop' in l.lower() or 'run_forever' in l.lower() or 'schedule' in l.lower()):
+        print(i, l)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+src = inspect.getsource(Worker)
+lines = src.split('\n')
+# Print lines around 700-710
+for i in range(695, 715):
+    print(i, lines[i])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.worker.worker import Worker
+import inspect
+src = inspect.getsource(Worker)
+lines = src.split('\n')
+# Print lines around 340-360 (run_forever area)
+for i in range(338, 360):
+    print(i, lines[i])
+" 2>&1 ✔ 
+The worker's `start()` calls `loop.run_forever()` which blocks the thread. To shut it down from outside, I need to schedule `exit_gracefully` on the worker's event loop. Let me update the runner to properly handle this:   
+✏️  Writing /home/user/myproject/runner.py ✔ 
+💫 Executing python3 -m py_compile /home/user/myproject/runner.py && echo "Syntax OK" ✔ 
+Now let me verify the project directory looks correct and check that all the requirements are met:   
+📂 Listing files in /home/user/myproject ✔ 
+📖 Reading /home/user/myproject/runner.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The implementation is complete at `/home/user/myproject/runner.py`. Here's a summary of what was built:
+
+## What was implemented
+
+**Single file**: `/home/user/myproject/runner.py`
+
+### Key design decisions
+
+1. **`flaky_task` decorator** — registered with Hatchet's built-in retry policy:
+   ```python
+   @hatchet.task(
+       name="flaky_task",
+       retries=3,
+       backoff_factor=2,
+       backoff_max_seconds=10,
+   )
+   ```
+
+2. **Attempt counter** — persisted to `/tmp/attempts.txt` across retries:
+   - Reads current value (treats missing file as `0`)
+   - Increments and writes back before any success/failure decision
+   - Raises `RuntimeError` (triggering Hatchet's retry) when `attempt < 3`
+   - Returns `{"status": "success", "attempt": attempt}` when `attempt >= 3`
+
+3. **Worker lifecycle**:
+   - Worker name is `task-retries-worker-${ZEALT_RUN_ID}` (read from env)
+   - `worker.start()` (blocking) runs in a **background daemon thread**
+   - 5-second sleep gives the worker time to connect/register with Hatchet Cloud
+   - `flaky_task.run()` blocks the main thread until the task (including all retries) completes
+
+4. **Result writing** — final dict from the successful attempt is written to `/tmp/result.json` via `json.dump`
+
+5. **Clean shutdown** — `worker.exit_gracefully()` is scheduled on the worker's asyncio event loop via `asyncio.run_coroutine_threadsafe`, then the script exits with code 0
+
+### How to run (grader usage)
+```bash
+python3 /home/user/myproject/runner.py >> /home/user/myproject/output.log 2>&1
+```
+
+### Expected results after completion
+- `/tmp/attempts.txt` → contains `3`
+- `/tmp/result.json` → `{"status": "success", "attempt": 3}`   
+  

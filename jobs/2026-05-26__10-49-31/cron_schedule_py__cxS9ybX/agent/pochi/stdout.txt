@@ -1,0 +1,101 @@
+- Initializing MCP connections...
+You
+# Hatchet Cron Schedule with Python SDK ## Background Hatchet supports recurring task runs via cron schedules. In addition to declaring `on_crons` on a workflow definition, the Python SDK exposes a programmatic API to create and delete cron triggers at runtime. This task asks you to build a small end-to-end heartbeat using a dynamically-registered cron trigger that fires at least once during a short observation window, then clean up the trigger so it does not keep running. You will use the managed Hatchet Cloud control plane (the default server endpoint baked into the SDK). Do **NOT** configure a custom `HATCHET_CLIENT_HOST_PORT`, `server_url`, or any other server-address override. ## Requirements * Use the `hatchet-sdk` Python package to define a task named `heartbeat`. * When the task runs, it must append a single line containing the current timestamp in ISO 8601 format (e.g. `2024-05-25T12:34:56.789012+00:00`) followed by a newline to `/tmp/heartbeats.log`. Use UTC and `datetime.now(timezone.utc).isoformat()` (or an equivalent that produces a value parseable by `datetime.fromisoformat`). * The task must be safe to run repeatedly; each invocation appends one timestamp line. * Write a runner script that: 1. Reads `ZEALT_RUN_ID` from the environment. 2. Programmatically registers a cron trigger for the `heartbeat` task using the SDK's runtime cron API (for example `heartbeat.cron(...)` / `create_cron(...)`). The cron name must be `hb-cron-${ZEALT_RUN_ID}` and the expression must be `* * * * *` (every minute). The cron input is an empty object. 3. Starts a Hatchet worker (in the background, e.g. in a thread or subprocess) that registers the `heartbeat` task so cron-fired runs can execute. 4. Keeps the worker running for approximately 75 seconds so the every-minute cron fires at least once. 5. Shuts down the worker cleanly. 6. Deletes the cron trigger that was created in step 2 (using the SDK's cron delete API, e.g. by passing the cron id returned at creation time). 7. Exits with code 0. * The heartbeats must come from real Hatchet Cloud cron-fired task runs (no mocking, no local function call shortcut, no direct file writes from the runner). ## Implementation Hints * Authentication uses the `HATCHET_CLIENT_TOKEN` environment variable, which is already set in the environment. Do **NOT** hardcode any token value. * Do **NOT** set a server address. The default endpoint configured in the SDK points at Hatchet Cloud; leave it alone. * Define `hatchet = Hatchet()`, decorate a function with `@hatchet.task(name="heartbeat-${ZEALT_RUN_ID}", ...)` (or similar unique name) and register it on a worker created with `hatchet.worker(...)`. Run the worker in a background thread or subprocess so the main process can manage the cron lifecycle. * Use the SDK's programmatic cron API to create the trigger after the worker has started, and to delete it before exiting. Consult the Hatchet docs for the exact method names (`cron(...)`, `create_cron(...)`, `hatchet.cron.delete(...)`, etc.). * The cron expression `* * * * *` enqueues a run every minute on the wall clock minute boundary, so a \~75 second window guarantees at least one firing. Make sure the worker is up before the boundary so it can pick up the run. * Install dependencies with `pip install hatchet-sdk`. ## Acceptance Criteria * Project path: /home/user/myproject * Log file: /home/user/myproject/output.log (the runner script's stdout/stderr must be appended here when executed by the grader) * Heartbeat file: /tmp/heartbeats.log * The heartbeat file must exist after the runner finishes and must contain at least one non-empty line. * Each non-empty line in `/tmp/heartbeats.log` must be parseable as an ISO 8601 timestamp by `datetime.fromisoformat`. * The cron trigger and worker must be created using the `hatchet-sdk` Python package, registered against Hatchet Cloud (default server), and authenticated using the `HATCHET_CLIENT_TOKEN` environment variable read from the real environment. * The cron trigger name registered on Hatchet Cloud must be `hb-cron-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable, and it must be deleted before the runner exits (cleanup).   
+
+Pochi
+💭 Thinking for 387 characters   
+📋 Updating todo list (3 items) ✔ 
+🛠️ Tool webFetch ✔ 
+💫 Executing pip install hatchet-sdk 2>&1 | tail -5 ✔ 
+🛠️ Tool webFetch ✔ 
+💫 Executing pip install hatchet-sdk --break-system-packages 2>&1 | tail -10 ✔ 
+Good, `hatchet-sdk` is already installed. Now let me fetch the cron feature client docs to understand the exact API:   
+🛠️ Tool webFetch ✔ 
+💫 Executing python3 -c "import hatchet_sdk; print(hatchet_sdk.__version__)" 2>&1; python3 -c "from hatchet_sdk import Hatchet; h = Hatchet.__dict__; print([k for k in h.keys() if not k.startswith('__')])" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "from hatchet_sdk.clients.rest.models import CronWorkflows; print(dir(CronWorkflows))" 2>&1 | head -20 ✔ 
+💫 Executing python3 -c "from hatchet_sdk.clients.rest.models import CronWorkflows; print(CronWorkflows.model_fields.keys())" 2>&1 ✔ 
+📋 Updating todo list (3 items) ✔ 
+Now I have a clear picture of the API. Let me create the project and the runner script:   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/runner.py ✔ 
+Now let me verify the script looks correct and check for any API issues before marking the task as complete:   
+💫 Executing python3 -c "
+from hatchet_sdk import Hatchet, Context
+# Check cron client has create/delete
+import hatchet_sdk.clients.rest.api as api
+print([x for x in dir(api) if 'cron' in x.lower()])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+# Validate script imports and basic structure compile without errors
+import ast, sys
+with open('/home/user/myproject/runner.py') as f:
+    src = f.read()
+ast.parse(src)
+print('Syntax OK')
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from hatchet_sdk.clients.cron import CronClient
+import inspect
+print(inspect.signature(CronClient.create))
+print(inspect.signature(CronClient.delete))
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import hatchet_sdk
+import inspect
+# Find the cron attribute class
+from hatchet_sdk import Hatchet
+# can't instantiate without token, so inspect the type annotation
+hints = {}
+try:
+    import typing, hatchet_sdk.hatchet as hm
+    print(dir(hm))
+except Exception as e:
+    print(e)
+" 2>&1 ✔ 
+💫 Executing find /usr/local/lib/python3.12/dist-packages/hatchet_sdk -name "*.py" | xargs grep -l "def create" | grep -i cron 2>&1; find /usr/local/lib/python3.12/dist-packages/hatchet_sdk -name "*cron*" 2>&1 ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/hatchet_sdk/features/cron.py ✔ 
+The API is confirmed. Now let me also check how `worker.start()` works to ensure I'm handling the threading correctly:   
+💫 Executing grep -n "def start\|def stop\|def run" /usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py 2>&1 | head -30 ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py ✔ 
+💫 Executing grep -n "def stop\|_loop\|run_forever\|_handle_kill" /usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py 2>&1 | head -40 ✔ 
+💫 Executing grep -n "async def exit_gracefully\|def exit_gracefully\|def _exit_force" /usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py 2>&1 ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/hatchet_sdk/worker/worker.py ✔ 
+Now I understand the full picture. The worker's `start()` runs `self._loop.run_forever()` in the calling thread, so it must run in a background thread. To stop it cleanly from outside, I need to schedule `exit_gracefully()` on its loop. Let me update the runner script with the correct stop mechanism:   
+✏️  Writing /home/user/myproject/runner.py ✔ 
+💫 Executing python3 -c "
+import ast
+with open('/home/user/myproject/runner.py') as f:
+    src = f.read()
+ast.parse(src)
+print('Syntax OK')
+" 2>&1 ✔ 
+💫 Executing ls -la /home/user/myproject/ ✔ 
+📋 Updating todo list (3 items) ✔ 
+📖 Reading /home/user/myproject/runner.py ✔ 
+🎉 Task Completed
+The project has been created at `/home/user/myproject/runner.py`. Here's what it does:
+
+**File:** `/home/user/myproject/runner.py`
+
+### What the script does
+
+1. **Reads `ZEALT_RUN_ID`** from the environment (exits 1 if missing).
+2. **Defines a `heartbeat` task** (registered as `heartbeat-{ZEALT_RUN_ID}`) that appends a UTC ISO-8601 timestamp (`datetime.now(timezone.utc).isoformat()`) followed by a newline to `/tmp/heartbeats.log`. Safe for repeated invocations.
+3. **Starts a Hatchet worker** in a background daemon thread (`heartbeat-worker-{run_id}`) with the heartbeat task registered on it.
+4. **Waits 5 seconds** for the worker to register with Hatchet Cloud.
+5. **Creates a cron trigger** via `hatchet.cron.create(...)` with:
+   - `workflow_name = f"heartbeat-{run_id}"`
+   - `cron_name = f"hb-cron-{run_id}"` (i.e. `hb-cron-${ZEALT_RUN_ID}`)
+   - `expression = "* * * * *"` (every minute)
+   - empty `input` and `additional_metadata`
+6. **Waits 75 seconds** to guarantee at least one wall-clock minute boundary is crossed and a cron-fired run executes.
+7. **Stops the worker cleanly** by scheduling `exit_gracefully()` on its asyncio event loop via `asyncio.run_coroutine_threadsafe`, then joins the thread (15 s timeout).
+8. **Deletes the cron trigger** via `hatchet.cron.delete(cron_id=cron_id)`.
+9. **Exits with code 0**.
+
+### Key design decisions
+- `Hatchet()` is instantiated with no `server_url` / `HATCHET_CLIENT_HOST_PORT` — authentication is entirely from `HATCHET_CLIENT_TOKEN`.
+- The heartbeat log writes happen only inside the Hatchet-executed task (no shortcut local calls).
+- The grader runs the script with stdout/stderr appended to `/home/user/myproject/output.log`.   
+  

@@ -1,0 +1,95 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779763978811,
+            "stop": 1779763993882
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_has_eight_entries",
+                "status": "failed",
+                "duration": 15023,
+                "start": 1779763978832,
+                "stop": 1779763993855,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_log_phase_counts",
+                "status": "failed",
+                "duration": 4,
+                "start": 1779763993855,
+                "stop": 1779763993859,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_log_per_region_counts",
+                "status": "failed",
+                "duration": 5,
+                "start": 1779763993859,
+                "stop": 1779763993864,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_us_intervals_do_not_overlap",
+                "status": "failed",
+                "duration": 4,
+                "start": 1779763993864,
+                "stop": 1779763993868,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_eu_intervals_do_not_overlap",
+                "status": "failed",
+                "duration": 5,
+                "start": 1779763993868,
+                "stop": 1779763993873,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_each_interval_sleeps_at_least_1400ms",
+                "status": "failed",
+                "duration": 4,
+                "start": 1779763993873,
+                "stop": 1779763993877,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_cross_region_parallelism",
+                "status": "failed",
+                "duration": 4,
+                "start": 1779763993877,
+                "stop": 1779763993881,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-wuzbytv'\n\n    @pytest.fixture(scope=\"session\")\n    def run_pipeline(run_id):\n        \"\"\"Start the worker, run the runner, then collect timing and log lines.\"\"\"\n        # Clean stale log file.\n        if os.path.exists(LOG_FILE):\n            os.remove(LOG_FILE)\n    \n        env = os.environ.copy()\n    \n        # Start the worker as a background process group so we can terminate cleanly.\n        worker_log_path = \"/tmp/worker.stdout.log\"\n        worker_log = open(worker_log_path, \"w\")\n        worker_proc = subprocess.Popen(\n            [\"pnpm\", \"run\", \"worker\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            stdout=worker_log,\n            stderr=subprocess.STDOUT,\n            preexec_fn=os.setsid,\n        )\n    \n        try:\n            # Give the worker time to register with Hatchet Cloud.\n            time.sleep(WORKER_READY_WAIT_SECONDS)\n>           assert worker_proc.poll() is None, (\n                f\"Worker process exited prematurely. See {worker_log_path}.\"\n            )\nE           AssertionError: Worker process exited prematurely. See /tmp/worker.stdout.log.\nE           assert 1 is None\nE            +  where 1 = <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>>()\nE            +    where <bound method Popen.poll of <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>> = <Popen: returncode: 1 args: ['pnpm', 'run', 'worker']>.poll\n\ntests/test_final_state.py:49: AssertionError"
+            }
+        ]
+    }
+}

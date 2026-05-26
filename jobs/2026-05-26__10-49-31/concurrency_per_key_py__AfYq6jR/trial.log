@@ -1,0 +1,96 @@
+Skipping image OS validation for hb__concurrency_per_key_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-afyq6jr > /logs/artifacts/run-id && echo concurrency_per_key_py__AfYq6jR > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Per-Key Concurrency Control with Hatchet (Python)
+
+## Background
+You are building a payment-processing background task with [Hatchet](https://docs.hatchet.run). Payments for the *same* customer must be processed strictly one at a time to avoid double-charging, but payments for *different* customers may be processed in parallel. Hatchet's [concurrency control](https://docs.hatchet.run/home/concurrency) makes this possible with a per-key strategy: a CEL expression over the task input identifies the key (here, the user id), and `max_runs=1` ensures at most one in-flight run per key.
+
+In this task you will define a Hatchet Python task named `process_payment`, register it with a worker, trigger four concurrent runs (two for user A, two for user B), and produce a single log file that proves the per-key serialization invariant holds.
+
+The Hatchet Cloud account is already authenticated via the `HATCHET_CLIENT_TOKEN` environment variable. You do **NOT** need to configure a server address - the default Hatchet Cloud endpoint is used by the SDK automatically.
+
+## Requirements
+- Use the `hatchet-sdk` Python package (no mocking - the worker must connect to real Hatchet Cloud).
+- Define a Hatchet task `process_payment` (the registered task name should be suffixed with the current `run-id` so concurrent grader trials do not collide on Hatchet Cloud).
+- Configure the task with a concurrency strategy whose key is the `user_id` field of the input and whose `max_runs` (limit) is `1`. Use the `GROUP_ROUND_ROBIN` limit strategy so queued runs are processed fairly rather than cancelled.
+- The task body must:
+    1. Append one line `start <user_id> <unix_epoch_seconds_float>` to `/tmp/runs.log`.
+    2. Sleep for approximately 2 seconds to simulate real work.
+    3. Append one line `end <user_id> <unix_epoch_seconds_float>` to `/tmp/runs.log`.
+- Provide a runner that:
+    - Starts a Hatchet worker process registered with the `process_payment` task (worker slots must be `>= 4` so the worker itself is never the bottleneck - the only constraint must come from Hatchet's per-key concurrency strategy).
+    - Triggers exactly **4** runs concurrently: two with `user_id="A"` and two with `user_id="B"`.
+    - Waits for all four runs to finish before exiting.
+- After the runner exits, `/tmp/runs.log` must contain exactly 8 lines (4 `start`, 4 `end`).
+
+## Implementation Hints
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and incorporate it into the registered Hatchet task name (e.g., `process-payment-${run-id}`) and the worker name so multiple grader trials can run in parallel against the same Hatchet Cloud tenant.
+- The Python SDK exposes concurrency configuration via `ConcurrencyExpression(expression=..., max_runs=..., limit_strategy=ConcurrencyLimitStrategy.GROUP_ROUND_ROBIN)` passed to the `@hatchet.task(...)` decorator (or `hatchet.workflow(...)` / `hatchet.task(...)` factory). The `expression` is a CEL string that references the validated input (e.g., `"input.user_id"`).
+- Use a `pydantic.BaseModel` as `input_validator` so the SDK can serialize/deserialize inputs reliably.
+- A simple pattern for the runner is to launch the worker as a background subprocess (e.g., `python worker.py` or `hatchet.worker(...).start()` in a child process), then in the parent process trigger four concurrent task runs using the SDK's async batch helpers (e.g., `aio_run_many`, or `asyncio.gather` over `aio_run`). Make sure to terminate the worker subprocess once the runs complete so the runner exits cleanly.
+- Use `time.time()` (a float Unix timestamp) for the timestamps - the verifier compares them numerically.
+- Open `/tmp/runs.log` in append mode and flush after every write so the timestamps are durably recorded even if the worker is killed.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Log file: `/tmp/runs.log`
+- The runner is invoked exactly once with: `cd /home/user/myproject && python run.py` (you may add helper modules under `/home/user/myproject` as needed, but `run.py` must be the single entrypoint that produces `/tmp/runs.log`).
+- Before `run.py` exits with status 0, `/tmp/runs.log` must contain exactly 8 lines.
+- Each line must match the format `<event> <user_id> <timestamp>` where:
+    - `<event>` is either the literal string `start` or `end`.
+    - `<user_id>` is either the literal string `A` or `B`.
+    - `<timestamp>` is a Unix epoch seconds value parsable as a Python `float`.
+- For each `user_id`, there must be exactly 2 `start` lines and 2 `end` lines.
+- For `user_id=A`, the two `[start, end]` intervals must **NOT** overlap (one interval must end at or before the other begins).
+- For `user_id=B`, the two `[start, end]` intervals must **NOT** overlap.
+- Runs across different `user_id` values are permitted to overlap (the verifier will additionally check that the elapsed wall-clock duration is consistent with parallel execution across users - i.e., the total time spanned by all 8 entries is meaningfully less than 4 * sleep_duration).
+- The registered Hatchet task name must include the `run-id` from `ZEALT_RUN_ID` so the task is uniquely scoped to this grader trial.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

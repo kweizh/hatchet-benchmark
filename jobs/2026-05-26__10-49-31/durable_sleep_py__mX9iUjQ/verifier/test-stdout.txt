@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ...                                            [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_runner_produces_result_file
+PASSED tests/test_final_state.py::test_result_file_content_matches_expected_shape
+PASSED tests/test_final_state.py::test_source_uses_hatchet_durable_sleep_api
+============================== 3 passed in 17.91s ==============================
