@@ -1,3 +1,0 @@
-hatchet-sdk
-pydantic
-python-dotenv
